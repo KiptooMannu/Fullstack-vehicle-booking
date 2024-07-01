@@ -1,0 +1,43 @@
+
+GET http://localhost:8000/api/books?limit=2
+
+###
+
+GET https://hono-bookstore-api.onrender.com/api/books
+
+###
+GET https://hono-bookstore-api.onrender.com/api/books
+###
+
+GET http://localhost:8000/api/books
+
+###
+
+POST http://localhost:8000/api/books
+Content-Type: application/json
+
+{
+  "id": 40,
+  "title": "Sample Book 4",
+  "author": "John Doe",
+  "year": 2023
+}
+
+###
+
+PUT http://localhost:8000/api/books/1
+Content-Type: application/json
+
+{
+    "author": "KAVATHA"
+}
+###
+DELETE http://localhost:8000/api/books/1
+
+###
+
+GET http://localhost:8000/api/books
+
+
+
+
