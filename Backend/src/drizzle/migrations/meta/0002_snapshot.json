@@ -1,9 +1,65 @@
 {
-  "id": "788469ad-cd4f-4cef-93ca-f6f2deff0de5",
-  "prevId": "90f4261b-f9bf-46ff-92fd-b7b8e098f572",
+  "id": "d51e1d34-7510-4fad-9d1e-258fbd019d94",
+  "prevId": "788469ad-cd4f-4cef-93ca-f6f2deff0de5",
   "version": "7",
   "dialect": "postgresql",
   "tables": {
+    "public.authentication": {
+      "name": "authentication",
+      "schema": "",
+      "columns": {
+        "auth_id": {
+          "name": "auth_id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "user_id": {
+          "name": "user_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "password": {
+          "name": "password",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "authentication_user_id_users_user_id_fk": {
+          "name": "authentication_user_id_users_user_id_fk",
+          "tableFrom": "authentication",
+          "tableTo": "users",
+          "columnsFrom": [
+            "user_id"
+          ],
+          "columnsTo": [
+            "user_id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
     "public.bookings": {
       "name": "bookings",
       "schema": "",
