@@ -16,6 +16,37 @@ export const UsersTable = pgTable("users", {
     updatedAt: timestamp("updated_at").defaultNow(),
 });
 
+// Authentication Table
+export const AuthenticationTable = pgTable("authentication", {
+    authId: serial("auth_id").primaryKey(),
+    userId: integer("user_id").notNull().references(() => UsersTable.userId),
+    password: varchar("password", { length: 100 }),
+    createdAt: timestamp("created_at").defaultNow(),
+    updatedAt: timestamp("updated_at").defaultNow(),
+});
+
+// Customer Support Tickets Table
+export const SupportTicketsTable = pgTable("support_tickets", {
+    ticketId: serial("ticket_id").primaryKey(),
+    userId: integer("user_id").notNull().references(() => UsersTable.userId),
+    subject: varchar("subject", { length: 100 }),
+    description: text("description"),
+    status: varchar("status"),
+    createdAt: timestamp("created_at").defaultNow(),
+    updatedAt: timestamp("updated_at").defaultNow(),
+});
+
+// Define relationships for Users
+export const usersRelations = relations(UsersTable, ({ one, many }) => ({
+    bookings: many(BookingsTable),
+    payments: many(PaymentsTable),
+    supportTickets: many(SupportTicketsTable),
+    authentication: one(AuthenticationTable, {
+        fields: [UsersTable.userId],
+        references: [AuthenticationTable.userId]
+    }),
+}));
+
 // Vehicle Specifications Table
 export const VehicleSpecificationsTable = pgTable("vehicle_specifications", {
     vehicleId: serial("vehicle_id").primaryKey(),
@@ -31,14 +62,43 @@ export const VehicleSpecificationsTable = pgTable("vehicle_specifications", {
 });
 
 // Vehicles Table
+// Vehicles Table
 export const VehiclesTable = pgTable("vehicles", {
-    vehicleSpecId: integer("vehicle_spec_id").notNull().references(() => VehicleSpecificationsTable.vehicleId),
     vehicleId: serial("vehicle_id").primaryKey(),
+    vehicleSpecId: integer("vehicle_spec_id").notNull().references(() => VehicleSpecificationsTable.vehicleId).unique(),
     rentalRate: decimal("rental_rate"),
     availability: boolean("availability"),
     createdAt: timestamp("created_at").defaultNow(),
     updatedAt: timestamp("updated_at").defaultNow(),
 });
+
+// Fleet Management Table
+export const FleetManagementTable = pgTable("fleet_management", {
+    fleetId: serial("fleet_id").primaryKey(),
+    vehicleId: integer("vehicle_id").notNull().references(() => VehiclesTable.vehicleId),
+    acquisitionDate: timestamp("acquisition_date"),
+    depreciationRate: decimal("depreciation_rate"),
+    currentValue: decimal("current_value"),
+    maintenanceCost: decimal("maintenance_cost"),
+    status: varchar("status"),
+    createdAt: timestamp("created_at").defaultNow(),
+    updatedAt: timestamp("updated_at").defaultNow(),
+});
+
+// Define relationships for Vehicle Specifications
+export const vehicleSpecificationsRelations = relations(VehicleSpecificationsTable, ({ many }) => ({
+    vehicles: many(VehiclesTable),
+}));
+
+// Define relationships for Vehicles
+export const vehiclesRelations = relations(VehiclesTable, ({ one, many }) => ({
+    specifications: one(VehicleSpecificationsTable, {
+        fields: [VehiclesTable.vehicleSpecId],
+        references: [VehicleSpecificationsTable.vehicleId]
+    }),
+    bookings: many(BookingsTable),
+    fleetManagement: many(FleetManagementTable)
+}));
 
 // Location and Branches Table
 export const LocationTable = pgTable("locations", {
@@ -53,7 +113,7 @@ export const LocationTable = pgTable("locations", {
 // Bookings Table
 export const BookingsTable = pgTable("bookings", {
     bookingId: serial("booking_id").primaryKey(),
-    use: integer("user_id").notNull().references(() => UsersTable.userId),
+    userId: integer("user_id").notNull().references(() => UsersTable.userId),
     vehicleId: integer("vehicle_id").notNull().references(() => VehiclesTable.vehicleId),
     locationId: integer("location_id").notNull().references(() => LocationTable.locationId),
     bookingDate: timestamp("booking_date"),
@@ -77,71 +137,10 @@ export const PaymentsTable = pgTable("payments", {
     updatedAt: timestamp("updated_at").defaultNow(),
 });
 
-// Authentication Table
-export const AuthenticationTable = pgTable("authentication", {
-    authId: serial("auth_id").primaryKey(),
-    userId: integer("user_id").notNull().references(() => UsersTable.userId),
-    password: varchar("password", { length: 100 }),
-    createdAt: timestamp("created_at").defaultNow(),
-    updatedAt: timestamp("updated_at").defaultNow(),
-});
-
-// Customer Support Tickets Table
-export const SupportTicketsTable = pgTable("support_tickets", {
-    ticketId: serial("ticket_id").primaryKey(),
-    userId: integer("user_id").notNull().references(() => UsersTable.userId),
-    subject: varchar("subject", { length: 100 }),
-    description: text("description"),
-    status: varchar("status"),
-    createdAt: timestamp("created_at").defaultNow(),
-    updatedAt: timestamp("updated_at").defaultNow(),
-});
-
-// Fleet Management Table
-export const FleetManagementTable = pgTable("fleet_management", {
-    fleetId: serial("fleet_id").primaryKey(),
-    vehicleId: integer("vehicle_id").notNull().references(() => VehiclesTable.vehicleId),
-    acquisitionDate: timestamp("acquisition_date"),
-    depreciationRate: decimal("depreciation_rate"),
-    currentValue: decimal("current_value"),
-    maintenanceCost: decimal("maintenance_cost"),
-    status: varchar("status"),
-    createdAt: timestamp("created_at").defaultNow(),
-    updatedAt: timestamp("updated_at").defaultNow(),
-});
-
-// Define relationships
-
-// Users Relations
-export const usersRelations = relations(UsersTable, ({ one, many }) => ({
-    bookings: many(BookingsTable),
-    payments: many(PaymentsTable),
-    supportTickets: many(SupportTicketsTable),
-    authentication: one(AuthenticationTable, {
-        fields: [UsersTable.userId],
-        references: [AuthenticationTable.userId]
-    }),
-}));
-
-// Vehicle Specifications Relations
-export const vehicleSpecificationsRelations = relations(VehicleSpecificationsTable, ({ many }) => ({
-    vehicles: many(VehiclesTable),
-}));
-
-// Vehicles Relations
-export const vehiclesRelations = relations(VehiclesTable, ({ one, many }) => ({
-    specifications: one(VehicleSpecificationsTable, {
-        fields: [VehiclesTable.vehicleSpecId],
-        references: [VehicleSpecificationsTable.vehicleId]
-    }),
-    bookings: many(BookingsTable),
-    fleetManagement: many(FleetManagementTable)
-}));
-
-// Bookings Relations
+// Define relationships for Bookings
 export const bookingsRelations = relations(BookingsTable, ({ one }) => ({
     user: one(UsersTable, {
-        fields: [BookingsTable.use],
+        fields: [BookingsTable.userId],
         references: [UsersTable.userId]
     }),
     vehicle: one(VehiclesTable, {
@@ -158,7 +157,7 @@ export const bookingsRelations = relations(BookingsTable, ({ one }) => ({
     }),
 }));
 
-// Payments Relations
+// Define relationships for Payments
 export const paymentsRelations = relations(PaymentsTable, ({ one }) => ({
     booking: one(BookingsTable, {
         fields: [PaymentsTable.bookingId],
@@ -166,7 +165,7 @@ export const paymentsRelations = relations(PaymentsTable, ({ one }) => ({
     }),
 }));
 
-// Support Tickets Relations
+// Define relationships for Support Tickets
 export const supportTicketsRelations = relations(SupportTicketsTable, ({ one }) => ({
     user: one(UsersTable, {
         fields: [SupportTicketsTable.userId],
@@ -174,7 +173,7 @@ export const supportTicketsRelations = relations(SupportTicketsTable, ({ one }) 
     }),
 }));
 
-// Fleet Management Relations
+// Define relationships for Fleet Management
 export const fleetManagementRelations = relations(FleetManagementTable, ({ one }) => ({
     vehicle: one(VehiclesTable, {
         fields: [FleetManagementTable.vehicleId],

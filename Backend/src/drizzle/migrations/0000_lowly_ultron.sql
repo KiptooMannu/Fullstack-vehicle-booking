@@ -94,12 +94,13 @@ CREATE TABLE IF NOT EXISTS "vehicle_specifications" (
 );
 --> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "vehicles" (
-	"vehicle_spec_id" integer NOT NULL,
 	"vehicle_id" serial PRIMARY KEY NOT NULL,
+	"vehicle_spec_id" integer NOT NULL,
 	"rental_rate" numeric,
 	"availability" boolean,
 	"created_at" timestamp DEFAULT now(),
-	"updated_at" timestamp DEFAULT now()
+	"updated_at" timestamp DEFAULT now(),
+	CONSTRAINT "vehicles_vehicle_spec_id_unique" UNIQUE("vehicle_spec_id")
 );
 --> statement-breakpoint
 DO $$ BEGIN

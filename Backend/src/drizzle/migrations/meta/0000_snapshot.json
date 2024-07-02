@@ -1,5 +1,5 @@
 {
-  "id": "ede7948d-2b5e-4417-83fc-8d253965b215",
+  "id": "cc1bf924-e8b6-4dc5-bd2b-6a5d4f8f8bf6",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
@@ -594,16 +594,16 @@
       "name": "vehicles",
       "schema": "",
       "columns": {
-        "vehicle_spec_id": {
-          "name": "vehicle_spec_id",
-          "type": "integer",
-          "primaryKey": false,
-          "notNull": true
-        },
         "vehicle_id": {
           "name": "vehicle_id",
           "type": "serial",
           "primaryKey": true,
+          "notNull": true
+        },
+        "vehicle_spec_id": {
+          "name": "vehicle_spec_id",
+          "type": "integer",
+          "primaryKey": false,
           "notNull": true
         },
         "rental_rate": {
@@ -650,7 +650,15 @@
         }
       },
       "compositePrimaryKeys": {},
-      "uniqueConstraints": {}
+      "uniqueConstraints": {
+        "vehicles_vehicle_spec_id_unique": {
+          "name": "vehicles_vehicle_spec_id_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "vehicle_spec_id"
+          ]
+        }
+      }
     }
   },
   "enums": {
