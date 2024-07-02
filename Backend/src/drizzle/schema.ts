@@ -13,11 +13,12 @@
 // export type TSBook = typeof BooksTable.$inferSelect;
 
 
-import { pgTable, serial, text, varchar, integer, enumType, timestamp } from "drizzle-orm/pg-core";
+import { pgTable, serial, text, varchar, integer, timestamp, pgEnum } from "drizzle-orm/pg-core";
 import { relations } from "drizzle-orm";
 
 // Users Table
-const userRoleEnum = enumType("role", ["user", "admin"]);
+// Define enum
+export const userRoleEnum = pgEnum("role", ["admin", "user"]);
 
 export const UsersTable = pgTable("users", {
     userId: serial("user_id").primaryKey(),

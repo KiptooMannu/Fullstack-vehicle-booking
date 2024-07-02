@@ -8,6 +8,13 @@
       "when": 1719319794394,
       "tag": "0000_slim_lizard",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1719935736234,
+      "tag": "0001_grey_sunspot",
+      "breakpoints": true
     }
   ]
 }
