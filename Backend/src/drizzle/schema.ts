@@ -53,7 +53,7 @@ export const LocationTable = pgTable("locations", {
 // Bookings Table
 export const BookingsTable = pgTable("bookings", {
     bookingId: serial("booking_id").primaryKey(),
-    userId: integer("user_id").notNull().references(() => UsersTable.userId),
+    use: integer("user_id").notNull().references(() => UsersTable.userId),
     vehicleId: integer("vehicle_id").notNull().references(() => VehiclesTable.vehicleId),
     locationId: integer("location_id").notNull().references(() => LocationTable.locationId),
     bookingDate: timestamp("booking_date"),
@@ -141,7 +141,7 @@ export const vehiclesRelations = relations(VehiclesTable, ({ one, many }) => ({
 // Bookings Relations
 export const bookingsRelations = relations(BookingsTable, ({ one }) => ({
     user: one(UsersTable, {
-        fields: [BookingsTable.userId],
+        fields: [BookingsTable.use],
         references: [UsersTable.userId]
     }),
     vehicle: one(VehiclesTable, {

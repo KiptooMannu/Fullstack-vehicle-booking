@@ -1,3 +1,17 @@
+DO $$ BEGIN
+ CREATE TYPE "public"."role" AS ENUM('admin', 'user');
+EXCEPTION
+ WHEN duplicate_object THEN null;
+END $$;
+--> statement-breakpoint
+CREATE TABLE IF NOT EXISTS "authentication" (
+	"auth_id" serial PRIMARY KEY NOT NULL,
+	"user_id" integer NOT NULL,
+	"password" varchar(100),
+	"created_at" timestamp DEFAULT now(),
+	"updated_at" timestamp DEFAULT now()
+);
+--> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "bookings" (
 	"booking_id" serial PRIMARY KEY NOT NULL,
 	"user_id" integer NOT NULL,
@@ -54,6 +68,18 @@ CREATE TABLE IF NOT EXISTS "support_tickets" (
 	"updated_at" timestamp DEFAULT now()
 );
 --> statement-breakpoint
+CREATE TABLE IF NOT EXISTS "users" (
+	"user_id" serial PRIMARY KEY NOT NULL,
+	"full_name" text,
+	"email" varchar(100),
+	"contact_phone" varchar(100),
+	"address" varchar(100),
+	"role" "role" DEFAULT 'user',
+	"created_at" timestamp DEFAULT now(),
+	"updated_at" timestamp DEFAULT now(),
+	CONSTRAINT "users_email_unique" UNIQUE("email")
+);
+--> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "vehicle_specifications" (
 	"vehicle_id" serial PRIMARY KEY NOT NULL,
 	"manufacturer" varchar(100),
@@ -75,6 +101,12 @@ CREATE TABLE IF NOT EXISTS "vehicles" (
 	"created_at" timestamp DEFAULT now(),
 	"updated_at" timestamp DEFAULT now()
 );
+--> statement-breakpoint
+DO $$ BEGIN
+ ALTER TABLE "authentication" ADD CONSTRAINT "authentication_user_id_users_user_id_fk" FOREIGN KEY ("user_id") REFERENCES "public"."users"("user_id") ON DELETE no action ON UPDATE no action;
+EXCEPTION
+ WHEN duplicate_object THEN null;
+END $$;
 --> statement-breakpoint
 DO $$ BEGIN
  ALTER TABLE "bookings" ADD CONSTRAINT "bookings_user_id_users_user_id_fk" FOREIGN KEY ("user_id") REFERENCES "public"."users"("user_id") ON DELETE no action ON UPDATE no action;
