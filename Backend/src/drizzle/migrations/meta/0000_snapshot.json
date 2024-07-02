@@ -1,5 +1,5 @@
 {
-  "id": "cc1bf924-e8b6-4dc5-bd2b-6a5d4f8f8bf6",
+  "id": "21504ada-2f7b-46f1-a788-d2102af5d8d3",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
@@ -82,8 +82,8 @@
           "primaryKey": false,
           "notNull": true
         },
-        "location_id": {
-          "name": "location_id",
+        "branch_id": {
+          "name": "branch_id",
           "type": "integer",
           "primaryKey": false,
           "notNull": true
@@ -108,10 +108,11 @@
         },
         "booking_status": {
           "name": "booking_status",
-          "type": "varchar",
+          "type": "booking_status",
+          "typeSchema": "public",
           "primaryKey": false,
           "notNull": false,
-          "default": "'Pending'"
+          "default": "'pending'"
         },
         "created_at": {
           "name": "created_at",
@@ -156,20 +157,68 @@
           "onDelete": "no action",
           "onUpdate": "no action"
         },
-        "bookings_location_id_locations_location_id_fk": {
-          "name": "bookings_location_id_locations_location_id_fk",
+        "bookings_branch_id_branches_branch_id_fk": {
+          "name": "bookings_branch_id_branches_branch_id_fk",
           "tableFrom": "bookings",
-          "tableTo": "locations",
+          "tableTo": "branches",
           "columnsFrom": [
-            "location_id"
+            "branch_id"
           ],
           "columnsTo": [
-            "location_id"
+            "branch_id"
           ],
           "onDelete": "no action",
           "onUpdate": "no action"
         }
       },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "public.branches": {
+      "name": "branches",
+      "schema": "",
+      "columns": {
+        "branch_id": {
+          "name": "branch_id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "name": {
+          "name": "name",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "address": {
+          "name": "address",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "contact_phone": {
+          "name": "contact_phone",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
       "compositePrimaryKeys": {},
       "uniqueConstraints": {}
     },
@@ -253,54 +302,6 @@
       "compositePrimaryKeys": {},
       "uniqueConstraints": {}
     },
-    "public.locations": {
-      "name": "locations",
-      "schema": "",
-      "columns": {
-        "location_id": {
-          "name": "location_id",
-          "type": "serial",
-          "primaryKey": true,
-          "notNull": true
-        },
-        "name": {
-          "name": "name",
-          "type": "varchar(100)",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "address": {
-          "name": "address",
-          "type": "varchar(100)",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "contact_phone": {
-          "name": "contact_phone",
-          "type": "varchar(100)",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "created_at": {
-          "name": "created_at",
-          "type": "timestamp",
-          "primaryKey": false,
-          "notNull": false,
-          "default": "now()"
-        },
-        "updated_at": {
-          "name": "updated_at",
-          "type": "timestamp",
-          "primaryKey": false,
-          "notNull": false,
-          "default": "now()"
-        }
-      },
-      "indexes": {},
-      "foreignKeys": {},
-      "compositePrimaryKeys": {},
-      "uniqueConstraints": {}
-    },
     "public.payments": {
       "name": "payments",
       "schema": "",
@@ -325,10 +326,11 @@
         },
         "payment_status": {
           "name": "payment_status",
-          "type": "varchar",
+          "type": "payment_status",
+          "typeSchema": "public",
           "primaryKey": false,
           "notNull": false,
-          "default": "'Pending'"
+          "default": "'pending'"
         },
         "payment_date": {
           "name": "payment_date",
@@ -662,6 +664,24 @@
     }
   },
   "enums": {
+    "public.booking_status": {
+      "name": "booking_status",
+      "schema": "public",
+      "values": [
+        "pending",
+        "confirmed",
+        "canceled"
+      ]
+    },
+    "public.payment_status": {
+      "name": "payment_status",
+      "schema": "public",
+      "values": [
+        "pending",
+        "confirmed",
+        "canceled"
+      ]
+    },
     "public.role": {
       "name": "role",
       "schema": "public",

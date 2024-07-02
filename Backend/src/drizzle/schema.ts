@@ -1,8 +1,10 @@
 import { pgTable, serial, text, varchar, integer, timestamp, pgEnum, decimal, boolean } from "drizzle-orm/pg-core";
 import { relations } from "drizzle-orm";
 
-// Define enum
+// Define enums
 export const userRoleEnum = pgEnum("role", ["admin", "user"]);
+export const bookingStatusEnum = pgEnum("booking_status", ["pending", "confirmed", "canceled"]);
+export const paymentStatusEnum = pgEnum("payment_status", ["pending", "confirmed", "canceled"]);
 
 // Users Table
 export const UsersTable = pgTable("users", {
@@ -62,7 +64,6 @@ export const VehicleSpecificationsTable = pgTable("vehicle_specifications", {
 });
 
 // Vehicles Table
-// Vehicles Table
 export const VehiclesTable = pgTable("vehicles", {
     vehicleId: serial("vehicle_id").primaryKey(),
     vehicleSpecId: integer("vehicle_spec_id").notNull().references(() => VehicleSpecificationsTable.vehicleId).unique(),
@@ -100,9 +101,9 @@ export const vehiclesRelations = relations(VehiclesTable, ({ one, many }) => ({
     fleetManagement: many(FleetManagementTable)
 }));
 
-// Location and Branches Table
-export const LocationTable = pgTable("locations", {
-    locationId: serial("location_id").primaryKey(),
+// Branches Table
+export const BranchesTable = pgTable("branches", {
+    branchId: serial("branch_id").primaryKey(),
     name: varchar("name", { length: 100 }),
     address: varchar("address", { length: 100 }),
     contactPhone: varchar("contact_phone", { length: 100 }),
@@ -115,11 +116,11 @@ export const BookingsTable = pgTable("bookings", {
     bookingId: serial("booking_id").primaryKey(),
     userId: integer("user_id").notNull().references(() => UsersTable.userId),
     vehicleId: integer("vehicle_id").notNull().references(() => VehiclesTable.vehicleId),
-    locationId: integer("location_id").notNull().references(() => LocationTable.locationId),
+    branchId: integer("branch_id").notNull().references(() => BranchesTable.branchId),
     bookingDate: timestamp("booking_date"),
     returnDate: timestamp("return_date"),
     totalAmount: decimal("total_amount"),
-    bookingStatus: varchar("booking_status").default("Pending"),
+    bookingStatus: bookingStatusEnum("booking_status").default("pending"),
     createdAt: timestamp("created_at").defaultNow(),
     updatedAt: timestamp("updated_at").defaultNow(),
 });
@@ -129,7 +130,7 @@ export const PaymentsTable = pgTable("payments", {
     paymentId: serial("payment_id").primaryKey(),
     bookingId: integer("booking_id").notNull().references(() => BookingsTable.bookingId),
     amount: decimal("amount"),
-    paymentStatus: varchar("payment_status").default("Pending"),
+    paymentStatus: paymentStatusEnum("payment_status").default("pending"),
     paymentDate: timestamp("payment_date"),
     paymentMethod: varchar("payment_method", { length: 100 }),
     transactionId: varchar("transaction_id", { length: 100 }),
@@ -147,9 +148,9 @@ export const bookingsRelations = relations(BookingsTable, ({ one }) => ({
         fields: [BookingsTable.vehicleId],
         references: [VehiclesTable.vehicleId]
     }),
-    location: one(LocationTable, {
-        fields: [BookingsTable.locationId],
-        references: [LocationTable.locationId]
+    branch: one(BranchesTable, {
+        fields: [BookingsTable.branchId],
+        references: [BranchesTable.branchId]
     }),
     payments: one(PaymentsTable, {
         fields: [BookingsTable.bookingId],
@@ -191,8 +192,8 @@ export type TSVehicleSpec = typeof VehicleSpecificationsTable.$inferSelect;
 export type TIVehicle = typeof VehiclesTable.$inferInsert;
 export type TSVehicle = typeof VehiclesTable.$inferSelect;
 
-export type TILocation = typeof LocationTable.$inferInsert;
-export type TSLocation = typeof LocationTable.$inferSelect;
+export type TIBranch = typeof BranchesTable.$inferInsert;
+export type TSBranch = typeof BranchesTable.$inferSelect;
 
 export type TIBooking = typeof BookingsTable.$inferInsert;
 export type TSBooking = typeof BookingsTable.$inferSelect;

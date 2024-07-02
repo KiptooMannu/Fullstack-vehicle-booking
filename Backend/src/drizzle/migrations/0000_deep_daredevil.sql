@@ -1,4 +1,16 @@
 DO $$ BEGIN
+ CREATE TYPE "public"."booking_status" AS ENUM('pending', 'confirmed', 'canceled');
+EXCEPTION
+ WHEN duplicate_object THEN null;
+END $$;
+--> statement-breakpoint
+DO $$ BEGIN
+ CREATE TYPE "public"."payment_status" AS ENUM('pending', 'confirmed', 'canceled');
+EXCEPTION
+ WHEN duplicate_object THEN null;
+END $$;
+--> statement-breakpoint
+DO $$ BEGIN
  CREATE TYPE "public"."role" AS ENUM('admin', 'user');
 EXCEPTION
  WHEN duplicate_object THEN null;
@@ -16,11 +28,20 @@ CREATE TABLE IF NOT EXISTS "bookings" (
 	"booking_id" serial PRIMARY KEY NOT NULL,
 	"user_id" integer NOT NULL,
 	"vehicle_id" integer NOT NULL,
-	"location_id" integer NOT NULL,
+	"branch_id" integer NOT NULL,
 	"booking_date" timestamp,
 	"return_date" timestamp,
 	"total_amount" numeric,
-	"booking_status" varchar DEFAULT 'Pending',
+	"booking_status" "booking_status" DEFAULT 'pending',
+	"created_at" timestamp DEFAULT now(),
+	"updated_at" timestamp DEFAULT now()
+);
+--> statement-breakpoint
+CREATE TABLE IF NOT EXISTS "branches" (
+	"branch_id" serial PRIMARY KEY NOT NULL,
+	"name" varchar(100),
+	"address" varchar(100),
+	"contact_phone" varchar(100),
 	"created_at" timestamp DEFAULT now(),
 	"updated_at" timestamp DEFAULT now()
 );
@@ -37,20 +58,11 @@ CREATE TABLE IF NOT EXISTS "fleet_management" (
 	"updated_at" timestamp DEFAULT now()
 );
 --> statement-breakpoint
-CREATE TABLE IF NOT EXISTS "locations" (
-	"location_id" serial PRIMARY KEY NOT NULL,
-	"name" varchar(100),
-	"address" varchar(100),
-	"contact_phone" varchar(100),
-	"created_at" timestamp DEFAULT now(),
-	"updated_at" timestamp DEFAULT now()
-);
---> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "payments" (
 	"payment_id" serial PRIMARY KEY NOT NULL,
 	"booking_id" integer NOT NULL,
 	"amount" numeric,
-	"payment_status" varchar DEFAULT 'Pending',
+	"payment_status" "payment_status" DEFAULT 'pending',
 	"payment_date" timestamp,
 	"payment_method" varchar(100),
 	"transaction_id" varchar(100),
@@ -122,7 +134,7 @@ EXCEPTION
 END $$;
 --> statement-breakpoint
 DO $$ BEGIN
- ALTER TABLE "bookings" ADD CONSTRAINT "bookings_location_id_locations_location_id_fk" FOREIGN KEY ("location_id") REFERENCES "public"."locations"("location_id") ON DELETE no action ON UPDATE no action;
+ ALTER TABLE "bookings" ADD CONSTRAINT "bookings_branch_id_branches_branch_id_fk" FOREIGN KEY ("branch_id") REFERENCES "public"."branches"("branch_id") ON DELETE no action ON UPDATE no action;
 EXCEPTION
  WHEN duplicate_object THEN null;
 END $$;
