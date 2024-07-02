@@ -102,13 +102,6 @@ CREATE TABLE IF NOT EXISTS "vehicles" (
 	"updated_at" timestamp DEFAULT now()
 );
 --> statement-breakpoint
-DROP TABLE "books";--> statement-breakpoint
-DO $$ BEGIN
- ALTER TABLE "authentication" ADD CONSTRAINT "authentication_user_id_users_user_id_fk" FOREIGN KEY ("user_id") REFERENCES "public"."users"("user_id") ON DELETE no action ON UPDATE no action;
-EXCEPTION
- WHEN duplicate_object THEN null;
-END $$;
---> statement-breakpoint
 DO $$ BEGIN
  ALTER TABLE "bookings" ADD CONSTRAINT "bookings_user_id_users_user_id_fk" FOREIGN KEY ("user_id") REFERENCES "public"."users"("user_id") ON DELETE no action ON UPDATE no action;
 EXCEPTION
