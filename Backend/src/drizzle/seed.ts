@@ -30,35 +30,12 @@ async function seed() {
       { manufacturer: 'Honda', model: 'Civic', year: 2019, fuelType: 'Petrol', engineCapacity: '2.0L', transmission: 'Manual', seatingCapacity: 5, color: 'Red', features: 'Air Conditioning, Bluetooth' },
     ]);
 
-    // // Insert data into Vehicles
-    // await db.insert(VehiclesTable).values([
-    //   { vehicleSpecId: 1, rentalRate: 50.00, availability: true },
-    //   { vehicleSpecId: 2, rentalRate: 45.00, availability: true },
-    // ]);
-
-    // // Insert data into FleetManagement
-    // await db.insert(FleetManagementTable).values([
-    //   { vehicleId: 1, acquisitionDate: new Date(), depreciationRate: 0.1, currentValue: 25000.00, maintenanceCost: 500.00, status: 'active' },
-    //   { vehicleId: 2, acquisitionDate: new Date(), depreciationRate: 0.1, currentValue: 20000.00, maintenanceCost: 300.00, status: 'active' },
-    // ]);
 
     // Insert data into Branches
     await db.insert(BranchesTable).values([
       { name: 'Downtown Branch', address: '789 Pine Street', contactPhone: '555-0102' },
       { name: 'Uptown Branch', address: '101 Maple Avenue', contactPhone: '555-0103' },
     ]);
-
-    // // Insert data into Bookings
-    // await db.insert(BookingsTable).values([
-    //   { userId: 1, vehicleId: 1, branchId: 1, bookingDate: new Date(), returnDate: new Date(new Date().getTime() + 24 * 60 * 60 * 1000), totalAmount: 50.00, bookingStatus: 'confirmed' },
-    //   { userId: 2, vehicleId: 2, branchId: 2, bookingDate: new Date(), returnDate: new Date(new Date().getTime() + 24 * 60 * 60 * 1000), totalAmount: 45.00, bookingStatus: 'pending' },
-    // ]);
-
-    // // Insert data into Payments
-    // await db.insert(PaymentsTable).values([
-    //   { bookingId: 1, amount: 50.00, paymentStatus: 'confirmed', paymentDate: new Date(), paymentMethod: 'Credit Card', transactionId: 'txn_12345' },
-    //   { bookingId: 2, amount: 45.00, paymentStatus: 'pending', paymentDate: new Date(), paymentMethod: 'PayPal', transactionId: 'txn_67890' },
-    // ]);
 
     console.log('Data seeded successfully.');
   } catch (error) {

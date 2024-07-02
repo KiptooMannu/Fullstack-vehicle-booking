@@ -9,7 +9,7 @@ GET https://hono-bookstore-api.onrender.com/api/books
 GET https://hono-bookstore-api.onrender.com/api/books
 ###
 
-GET http://localhost:8000/api/books
+GET http://localhost:8000/api/users
 
 ###
 
