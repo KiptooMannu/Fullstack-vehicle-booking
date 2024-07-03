@@ -9,11 +9,12 @@ GET https://hono-bookstore-api.onrender.com/api/books
 GET https://hono-bookstore-api.onrender.com/api/books
 ###
 
-GET http://localhost:8000/api/branches
+GET http://localhost:8000/api/vehicle-specifications/1
+
 
 ###
 
-POST http://localhost:8000/api/bookings
+POST http://localhost:8000/api/vehicle
 Content-Type: application/json
 
 {
