@@ -1,18 +1,19 @@
 import { Hono } from "hono";
-import { zValidator } from "@hono/zod-validator";
-import { authenticationSchema } from "../validators"; // Assuming you have an authSchema defined for validation
-import { getAuth, createAuth, updateAuth, deleteAuth } from "./authentication.controller";
+import { listAuth, getAuth, createAuth, updateAuth, deleteAuth } from "./authentication.controller";
 
 export const authRouter = new Hono();
 
-// GET authentication details by user ID - /api/auth/:user_id
-authRouter.get("/auth/:user_id", getAuth);
+// GET all authentication entries - /api/auth
+authRouter.get("/auth", listAuth);
+
+// GET a single authentication entry by user ID - /api/auth/:userId
+authRouter.get("/auth/:userId", getAuth);
 
 // POST create a new authentication entry - /api/auth
-authRouter.post("/auth", zValidator("json", authenticationSchema), createAuth);
+authRouter.post("/auth", createAuth);
 
-// PUT update authentication details by user ID - /api/auth/:user_id
-authRouter.put("/auth/:user_id", zValidator("json", authenticationSchema), updateAuth);
+// PUT update an authentication entry by user ID - /api/auth/:userId
+authRouter.put("/auth/:userId", updateAuth);
 
-// DELETE an authentication entry by user ID - /api/auth/:user_id
-authRouter.delete("/auth/:user_id", deleteAuth);
+// DELETE an authentication entry by user ID - /api/auth/:userId
+authRouter.delete("/auth/:userId", deleteAuth);

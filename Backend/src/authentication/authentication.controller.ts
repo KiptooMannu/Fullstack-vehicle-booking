@@ -1,11 +1,25 @@
 import { Context } from "hono";
-import { getAuthServiceByUserId, createAuthService, updateAuthService, deleteAuthService } from "./authentication.services";
+import { authService, getAuthService, createAuthService, updateAuthService, deleteAuthService } from "./authentication.services";
+
+export const listAuth = async (c: Context) => {
+    try {
+        const limit = Number(c.req.query('limit'));
+        const data = await authService(limit);
+
+        if (data == null || data.length == 0) {
+            return c.text("Authentication entries not found", 404);
+        }
+        return c.json(data, 200);
+    } catch (error: any) {
+        return c.json({ error: error?.message }, 400);
+    }
+}
 
 export const getAuth = async (c: Context) => {
-    const userId = parseInt(c.req.param("user_id"));
-    if (isNaN(userId)) return c.text("Invalid User ID", 400);
+    const userId = parseInt(c.req.param("userId"));
+    if (isNaN(userId)) return c.text("Invalid user ID", 400);
 
-    const auth = await getAuthServiceByUserId(userId);
+    const auth = await getAuthService(userId);
     if (auth == undefined) {
         return c.text("Authentication entry not found", 404);
     }
@@ -20,28 +34,22 @@ export const createAuth = async (c: Context) => {
         if (!createdAuth) {
             return c.text("Authentication entry not created", 404);
         }
-
-        return c.json({ msg: "Authentication entry created successfully" }, 201);
-
+        return c.json(createdAuth, 201);
     } catch (error: any) {
         return c.json({ error: error?.message }, 400);
     }
-};
+}
 
 export const updateAuth = async (c: Context) => {
-    const userId = parseInt(c.req.param("user_id"));
-    if (isNaN(userId)) return c.text("Invalid User ID", 400);
+    const userId = parseInt(c.req.param("userId"));
+    if (isNaN(userId)) return c.text("Invalid user ID", 400);
 
     const auth = await c.req.json();
     try {
-        // Search for the auth entry
-        const searchedAuth = await getAuthServiceByUserId(userId);
+        const searchedAuth = await getAuthService(userId);
         if (searchedAuth == undefined) return c.text("Authentication entry not found", 404);
 
-        // Update the auth data
         const res = await updateAuthService(userId, auth);
-
-        // Return a success message
         if (!res) return c.text("Authentication entry not updated", 404);
 
         return c.json({ msg: "Authentication entry updated successfully" }, 201);
@@ -51,15 +59,13 @@ export const updateAuth = async (c: Context) => {
 }
 
 export const deleteAuth = async (c: Context) => {
-    const userId = Number(c.req.param("user_id"));
-    if (isNaN(userId)) return c.text("Invalid User ID", 400);
+    const userId = Number(c.req.param("userId"));
+    if (isNaN(userId)) return c.text("Invalid user ID", 400);
 
     try {
-        // Search for the auth entry
-        const auth = await getAuthServiceByUserId(userId);
+        const auth = await getAuthService(userId);
         if (auth == undefined) return c.text("Authentication entry not found", 404);
 
-        // Delete the auth entry
         const res = await deleteAuthService(userId);
         if (!res) return c.text("Authentication entry not deleted", 404);
 
