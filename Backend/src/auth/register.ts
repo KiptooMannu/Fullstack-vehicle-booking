@@ -84,41 +84,28 @@ export interface User {
 
 export interface UserAuthDetails {
     password: string;
-    user: User;
+    // user: User;
+    email: string;
 }
 
 
 
-export const userLoginService = async (email: string): Promise<UserAuthDetails | null> => {
-    // Find the user and their authentication details by email
-    const authOnUser = await db.query.AuthenticationTable.findFirst({
+export const userLoginService = async (user : UserAuthDetails) => {
+    const { email , password } = user;
+    return await db.query.UsersTable.findFirst({
         columns: {
-            password: true,
+            email : true,
+            fullName: true,
+            role: true
         },
-        where: sql`${UsersTable.email} = ${email}`,
+        where: sql` ${UsersTable.email} = ${email}`,
         with: {
-            user: {
+            authentication: {
                 columns: {
-                    userId: true,
-                    fullName: true,
-                    contactPhone: true,
-                    address: true,
-                    role: true,
-                    email: true,
-                },
-            },
-        },
+                    password: true
+                }
+            }
+        }
     });
+}
 
-    if (!authOnUser || !authOnUser.password) {
-        return null;  // If no user or password is found, return null
-    }
-
-    // Ensure the returned object is of type UserAuthDetails
-    const userAuthDetails: UserAuthDetails = {
-        password: authOnUser.password,  // Ensure this is never null
-        user: authOnUser.user,
-    };
-
-    return userAuthDetails;
-};

@@ -1,7 +1,7 @@
 import "dotenv/config";
 import { Context } from "hono";
 import { createAuthUserService, userLoginService } from "./register";
-import bcrypt from "bcrypt";
+import bycrpt from "bcrypt";
 import assert from "assert";
 import { sign } from "hono/jwt";
 
@@ -12,7 +12,7 @@ export const registerUser = async (c: Context) => {
     try {
         const user = await c.req.json();
         const pass = user.password;
-        const hashedPassword = await bcrypt.hash(pass, 10);
+        const hashedPassword = await bycrpt.hash(pass, 10);
         user.password = hashedPassword;
         const createdUser = await createAuthUserService(user);
         if (!createdUser) return c.text("User not created", 404);
@@ -38,47 +38,45 @@ export interface UserAuthDetails {
     user: User;
 }
 
-// Authentication controller
 export const loginUser = async (c: Context) => {
     try {
-        const user = await c.req.json();
-        const { email, password } = user;
+        const { email, password } = await c.req.json();  // Extract email and password from request body
+        const userExist = await userLoginService({ email, password });  // Authenticate user
 
-        // Fetch user authentication details
-        const userAuthDetails = await userLoginService(email);
-        if (!userAuthDetails || !userAuthDetails.password) {
-            return c.json({ error: "Invalid email or password" }, 404);  // Not found
+        if (!userExist) {
+            return c.json({ error: "User not found" }, 404);  // User not found
         }
 
-        // Compare the provided password with the stored hashed password
-        const isPasswordValid = await bcrypt.compare(password, userAuthDetails.password);
-        if (!isPasswordValid) {
-            return c.json({ error: "Invalid email or password" }, 401);  // Unauthorized
+        // Check password using bcrypt
+        const passwordMatch = await bycrpt.compare(password, userExist.authentication.password as string);
+
+        if (!passwordMatch) {
+            return c.json({ error: "Invalid credentials" }, 401);  // Invalid credentials
         }
 
-        // Create a payload for the JWT token
+        // Create JWT payload
         const payload = {
-            sub: userAuthDetails.user?.email,
-            role: userAuthDetails.user?.role,
-            exp: Math.floor(Date.now() / 1000) + (60 * 180),  // 3 hours => SESSION EXPIRATION
+            sub: userExist.email,  // Assuming 'email' is a suitable unique identifier for JWT sub claim
+            role: userExist.role,
+            exp: Math.floor(Date.now() / 1000) + (60 * 180)  // 3 hours (SESSION EXPIRATION)
         };
 
-        const secret = process.env.JWT_SECRET as string;  // Secret key
-        const token = sign(payload, secret);  // Create a JWT token
+        const secret = process.env.JWT_SECRET as string;  // Secret key for JWT signing
+        const token = await sign(payload, secret);  // Create JWT token
 
-        const { fullName, contactPhone, address, userId, role } = userAuthDetails.user;
-        return c.json({
+        // Prepare response JSON
+        const responseData = {
             token,
             user: {
-                fullName,
-                contactPhone,
-                address,
-                userId,
-                role,
-            },
-        }, 200);  // Return token and user details
+                role: userExist.role,
+                fullName: userExist.fullName,
+                email: userExist.email
+                // Add other necessary fields from userExist
+            }
+        };
 
+        return c.json(responseData, 200);  // Return token and user details
     } catch (error: any) {
-        return c.json({ error: error?.message }, 400);
+        return c.json({ error: error?.message }, 400);  // Handle and return any caught errors
     }
 };
