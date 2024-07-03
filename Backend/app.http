@@ -9,7 +9,7 @@ GET https://hono-bookstore-api.onrender.com/api/books
 GET https://hono-bookstore-api.onrender.com/api/books
 ###
 
-GET http://localhost:8000/api/users/2
+GET http://localhost:8000/api/payments
 
 ###
 
@@ -32,7 +32,7 @@ Content-Type: application/json
     "author": "KAVATHA"
 }
 ###
-DELETE http://localhost:8000/api/books/1
+DELETE http://localhost:8000/api/users/1
 
 ###
 
