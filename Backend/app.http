@@ -3,15 +3,15 @@ GET http://localhost:8000/api/books?limit=2
 
 ###
 
-GET https://hono-bookstore-api.onrender.com/api/books
-
+GET http://localhost:8000/api/auth
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJqYW5lLmRvZUBleGFtcGxlLmNvbSIsInJvbGUiOiJhZG1pbiIsImV4cCI6MTcyMDAzMDc1NX0.-ShUbh--27E17kPqB8kjlOQCFEnW3z0Klpaxjquc3XQ
 ###
 
 POST http://localhost:8000/api/login
 Content-Type: application/json
 
 {
-    "email": "john.doe@example.com",
+    "email": "jane.doe@example.com",
     "password": "SecurePassword123"
 }
 ###
