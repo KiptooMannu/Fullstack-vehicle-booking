@@ -19,6 +19,7 @@ import { supportTicketsRouter } from './support/support.router'
 import { authRouter } from './authentication/authentication.router'
 import { vehicleSpecificationsRouter } from './vehicleSpec/vehicleSpec.router'
 import { fleetManagementRouter } from './FleetManagement/FleetManagement.router'
+import { vehiclesRouter } from './vehicle/vehicle.router'
 
 
 
@@ -66,6 +67,7 @@ app.route("/", supportTicketsRouter)
 app.route("/", authRouter)
 app.route("/", vehicleSpecificationsRouter)
 app.route("/", fleetManagementRouter)
+app.route("/", vehiclesRouter)
 
 
 
