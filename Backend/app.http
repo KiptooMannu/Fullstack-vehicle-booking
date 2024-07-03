@@ -14,15 +14,16 @@ GET http://localhost:8000/api/vehicle-specifications/1
 
 ###
 
-POST http://localhost:8000/api/vehicle
+POST http://localhost:8000/api/register
 Content-Type: application/json
 
 {
-  "userId": 1,
-  "vehicleId": 1,
-  "branchId": 1,
-  "totalAmount": 500.00,
-  "bookingStatus": "pending"
+    "fullName": "John Doe",
+    "email": "john.doe@example.com",
+    "contactPhone": "1234567890",
+    "address": "123 Main St, Anytown, USA",
+    "role": "user",
+    "password": "SecurePassword123"
 }
 
 ###

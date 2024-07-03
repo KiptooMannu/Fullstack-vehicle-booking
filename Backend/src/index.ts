@@ -20,6 +20,7 @@ import { authRouter } from './authentication/authentication.router'
 import { vehicleSpecificationsRouter } from './vehicleSpec/vehicleSpec.router'
 import { fleetManagementRouter } from './FleetManagement/FleetManagement.router'
 import { vehiclesRouter } from './vehicle/vehicle.router'
+import authorRouter from './auth/auth.router'
 
 
 
@@ -68,6 +69,7 @@ app.route("/", authRouter)
 app.route("/", vehicleSpecificationsRouter)
 app.route("/", fleetManagementRouter)
 app.route("/", vehiclesRouter)
+app.route("/", authorRouter)
 
 
 
