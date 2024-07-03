@@ -127,3 +127,9 @@ export const paymentSchema = z.object({
     createdAt: z.string().datetime().optional(),
     updatedAt: z.string().datetime().optional(),
 });
+
+// Login schema
+export const loginUserSchema = z.object({
+  email: z.string().email(),
+  password: z.string().min(6),
+});

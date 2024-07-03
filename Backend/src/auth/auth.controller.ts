@@ -39,7 +39,7 @@ export interface UserAuthDetails {
 }
 
 // Authentication controller
-export const authenticateUser = async (c: Context) => {
+export const loginUser = async (c: Context) => {
     try {
         const user = await c.req.json();
         const { email, password } = user;

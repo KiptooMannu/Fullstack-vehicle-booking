@@ -6,7 +6,14 @@ GET http://localhost:8000/api/books?limit=2
 GET https://hono-bookstore-api.onrender.com/api/books
 
 ###
-GET https://hono-bookstore-api.onrender.com/api/books
+
+POST http://localhost:8000/api/login
+Content-Type: application/json
+
+{
+    "email": "john.doe@example.com",
+    "password": "SecurePassword123"
+}
 ###
 
 GET http://localhost:8000/api/vehicle-specifications/1
