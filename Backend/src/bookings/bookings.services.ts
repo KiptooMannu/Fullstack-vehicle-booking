@@ -15,7 +15,7 @@ export const bookingsService = async (limit?: number): Promise<TSBooking[] | nul
 // Service to fetch a single booking by ID
 export const getBookingService = async (id: number): Promise<TSBooking | undefined> => {
     return await db.query.BookingsTable.findFirst({
-        where: eq(BookingsTable.id, id)
+        where: eq(BookingsTable.bookingId, id)
     });
 }
 
