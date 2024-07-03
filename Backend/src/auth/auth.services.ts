@@ -5,10 +5,10 @@ import { sql } from "drizzle-orm";
 
 // Define a Zod schema for the registration data
 const registrationSchema = z.object({
-  fullName: z.string().nonempty(),
+  fullName: z.string(),
   email: z.string().email(),
-  contactPhone: z.string().nonempty(),
-  address: z.string().nonempty(),
+  contactPhone: z.string(),
+  address: z.string(),
   role: z.enum(["admin", "user"]).optional().default("user"),
   password: z.string().min(6),
 });

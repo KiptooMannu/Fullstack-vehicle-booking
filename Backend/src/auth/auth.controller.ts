@@ -1,6 +1,6 @@
 import "dotenv/config";
 import { Context } from "hono";
-import { createAuthUserService, userLoginService } from "./register";
+import { createAuthUserService, userLoginService } from "./auth.services";
 import bycrpt from "bcrypt";
 import assert from "assert";
 import { sign } from "hono/jwt";

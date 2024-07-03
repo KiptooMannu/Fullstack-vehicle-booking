@@ -25,11 +25,11 @@ POST http://localhost:8000/api/register
 Content-Type: application/json
 
 {
-    "fullName": "John Doe",
-    "email": "john.doe@example.com",
+    "fullName": "Jane Doe",
+    "email": "jane.doe@example.com",
     "contactPhone": "1234567890",
     "address": "123 Main St, Anytown, USA",
-    "role": "user",
+    "role": "admin",
     "password": "SecurePassword123"
 }
 
