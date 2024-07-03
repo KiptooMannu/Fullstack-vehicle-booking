@@ -1,5 +1,7 @@
 import { Hono } from "hono";
 import { listBookings, getBooking, createBooking, updateBooking, deleteBooking } from "./bookings.controller";
+import { zValidator } from "@hono/zod-validator";
+import { bookingSchema } from "../validators";
 
 export const bookingsRouter = new Hono();
 
@@ -10,7 +12,7 @@ bookingsRouter.get("/bookings", listBookings);
 bookingsRouter.get("/bookings/:id", getBooking);
 
 // POST create a new booking - /api/bookings
-bookingsRouter.post("/bookings", createBooking);
+bookingsRouter.post("/bookings",zValidator("json", bookingSchema), createBooking);
 
 // PUT update a booking by ID - /api/bookings/:id
 bookingsRouter.put("/bookings/:id", updateBooking);

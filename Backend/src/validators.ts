@@ -84,18 +84,35 @@ export const branchSchema = z.object({
     updatedAt: z.string().datetime().optional(),
 });
 
-// Bookings Table Schema
+// // Bookings Table Schema
+// export const bookingSchema = z.object({
+//     bookingId: z.number().optional(),
+//     userId: z.number(),
+//     vehicleId: z.number(),
+//     branchId: z.number(),
+//     bookingDate: z.string().datetime(),
+//     returnDate: z.string().datetime(),
+//     totalAmount: z.number(),
+//     bookingStatus: bookingStatusEnum.default("pending"),
+//     createdAt: z.string().datetime().optional(),
+//     updatedAt: z.string().datetime().optional(),
+// });
+
+// / Assuming bookingStatusEnum is defined correctly as a Zod enum
+// const bookingStatusEnum = z.enum(["pending", "confirmed", "canceled"]);
+
+// Define schema
 export const bookingSchema = z.object({
     bookingId: z.number().optional(),
     userId: z.number(),
     vehicleId: z.number(),
     branchId: z.number(),
-    bookingDate: z.string().datetime(),
-    returnDate: z.string().datetime(),
+    bookingDate: z.string().transform((val) => new Date(val)), // Convert string to Date
+    returnDate: z.string().transform((val) => new Date(val)), // Convert string to Date
     totalAmount: z.number(),
     bookingStatus: bookingStatusEnum.default("pending"),
-    createdAt: z.string().datetime().optional(),
-    updatedAt: z.string().datetime().optional(),
+    createdAt: z.string().transform((val) => (val ? new Date(val) : undefined)).optional(), // Optional Date field
+    updatedAt: z.string().transform((val) => (val ? new Date(val) : undefined)).optional(), // Optional Date field
 });
 
 // Payments Table Schema

@@ -9,18 +9,19 @@ GET https://hono-bookstore-api.onrender.com/api/books
 GET https://hono-bookstore-api.onrender.com/api/books
 ###
 
-GET http://localhost:8000/api/payments
+GET http://localhost:8000/api/branches
 
 ###
 
-POST http://localhost:8000/api/users
+POST http://localhost:8000/api/bookings
 Content-Type: application/json
 
 {
-  "id": 40,
-  "title": "Sample Book 4",
-  "author": "John Doe",
-  "year": 2023
+  "userId": 1,
+  "vehicleId": 1,
+  "branchId": 1,
+  "totalAmount": 500.00,
+  "bookingStatus": "pending"
 }
 
 ###

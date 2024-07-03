@@ -13,6 +13,10 @@ import { cors } from 'hono/cors'
 import { readFile } from 'fs/promises'
 import { userRouter } from './users/users.router'
 import { paymentRouter } from './payments/payment.router'
+import { bookingsRouter } from './bookings/bookings.router'
+import { branchesRouter } from './branches/branches.router'
+import { supportTicketsRouter } from './support/support.router'
+import { authRouter } from './authentication/authentication.router'
 
 
 const app = new Hono().basePath('/api')
@@ -53,6 +57,10 @@ app.use('*', registerMetrics)
 
 app.route("/", userRouter)   // /users/ /profile
 app.route("/", paymentRouter)
+app.route("/", bookingsRouter)
+app.route("/", branchesRouter)
+app.route("/", supportTicketsRouter)
+app.route("/", authRouter)
 
 
 
