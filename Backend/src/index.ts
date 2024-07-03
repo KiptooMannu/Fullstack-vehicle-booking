@@ -9,8 +9,9 @@ import { HTTPException } from 'hono/http-exception'
 import { prometheus } from '@hono/prometheus'
 import { cors } from 'hono/cors'
 
-import { bookRouter } from './books/books.router'
+
 import { readFile } from 'fs/promises'
+import { userRouter } from './users/users.router'
 
 
 const app = new Hono().basePath('/api')
@@ -49,7 +50,7 @@ app.use('*', registerMetrics)
 
 
 
-app.route("/", bookRouter)   // /users/ /profile
+app.route("/", userRouter)   // /users/ /profile
 
 
 
