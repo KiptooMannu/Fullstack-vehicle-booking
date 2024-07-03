@@ -1,4 +1,4 @@
-import { Client } from 'pg';
+
 import { UsersTable, AuthenticationTable, SupportTicketsTable, VehicleSpecificationsTable, VehiclesTable, FleetManagementTable, BranchesTable, BookingsTable, PaymentsTable } from './schema'; // Import your schema file
 import db from './db';
 
