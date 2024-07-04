@@ -58,7 +58,7 @@ export const loginUser = async (c: Context) => {
         const payload = {
             sub: userExist.email,  // Assuming 'email' is a suitable unique identifier for JWT sub claim
             role: userExist.role,
-            exp: Math.floor(Date.now() / 1000) + (60 * 180)  // 3 hours (SESSION EXPIRATION)
+            exp: Math.floor(Date.now() / 1000) + (60 * 1800)  // 3 hours (SESSION EXPIRATION)
         };
 
         const secret = process.env.JWT_SECRET as string;  // Secret key for JWT signing

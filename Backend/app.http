@@ -35,12 +35,8 @@ Content-Type: application/json
 
 ###
 
-PUT http://localhost:8000/api/books/1
-Content-Type: application/json
+GET  http://localhost:8000/api/vehicles
 
-{
-    "author": "KAVATHA"
-}
 ###
 DELETE http://localhost:8000/api/users/1
 

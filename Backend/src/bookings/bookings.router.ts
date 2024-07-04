@@ -5,7 +5,7 @@ import { bookingSchema } from "../validators";
 
 export const bookingsRouter = new Hono();
 
-// GET all bookings - /api/bookings
+// GET all bookings - /api/booking
 bookingsRouter.get("/bookings", listBookings);
 
 // GET a single booking by ID - /api/bookings/:id
