@@ -48,29 +48,6 @@ export const createAuthUserService = async (data: RegistrationData): Promise<str
 };
 
 
-
-
-// export const userLoginService = async (email: string, password: string) => {
-//     // Find the user and their authentication details by email
-//     const authOnUser = await db.query.AuthenticationTable.findFirst({
-//         columns: {
-//             password: true,
-//         },
-//         where: sql`${UsersTable.email} = ${email}`,
-//         with: {
-//             user: {
-//                 columns: {
-//                     fullName: true,
-//                     contactPhone: true,
-//                     address: true,
-//                     userId: true,
-//                     role: true,
-//                 },
-//             },
-//         },
-//     });
-//   }
-// Adjust these interfaces based on your actual data structure
 export interface User {
     fullName: string;
     contactPhone: string;

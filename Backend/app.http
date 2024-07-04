@@ -4,7 +4,7 @@ GET http://localhost:8000/api/books?limit=2
 ###
 
 GET http://localhost:8000/api/auth
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJqYW5lLmRvZUBleGFtcGxlLmNvbSIsInJvbGUiOiJhZG1pbiIsImV4cCI6MTcyMDAzMDc1NX0.-ShUbh--27E17kPqB8kjlOQCFEnW3z0Klpaxjquc3XQ
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJqYW5lLmRvZUBleGFtcGxlLmNvbSIsInJvbGUiOiJhZG1pbiIsImV4cCI6MTcyMDA4NjA0M30.wLe1m72iS_Ww7rz1AHUSN0a6GmwN-9sQHU949Jj5JzQ
 ###
 
 POST http://localhost:8000/api/login

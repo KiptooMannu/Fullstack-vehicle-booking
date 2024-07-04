@@ -15,7 +15,12 @@ export const vehiclesService = async (limit?: number): Promise<TSVehicle[] | nul
 // Service to fetch a single vehicle by ID
 export const getVehicleService = async (id: number): Promise<TSVehicle | undefined> => {
     return await db.query.VehiclesTable.findFirst({
-        where: eq(VehiclesTable.vehicleId, id)
+        // columns:{},
+        where: eq(VehiclesTable.vehicleId, id),
+        with:{
+
+        }
+        
     });
 }
 
