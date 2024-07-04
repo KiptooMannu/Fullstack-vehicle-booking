@@ -16,7 +16,7 @@ Content-Type: application/json
 }
 ###
 
-GET http://localhost:8000/api/vehicle-specifications/1
+GET http://localhost:8000/api/users
 
 
 ###
@@ -25,8 +25,8 @@ POST http://localhost:8000/api/register
 Content-Type: application/json
 
 {
-    "fullName": "Jane Doe",
-    "email": "jane.doe@example.com",
+    "fullName": "John Doe",
+    "email": "john.doe@example.com",
     "contactPhone": "1234567890",
     "address": "123 Main St, Anytown, USA",
     "role": "admin",
