@@ -1,35 +1,44 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+// import logo from './logo.svg';
+import './App.css';
+import {Route , BrowserRouter, Routes, Navigate} from 'react-router-dom';
+import Home from './pages/Home';
+import Login from './pages/Login';
+import Register from './pages/Register';
+import BookingCar from './pages/BookingCar';
+import UserBookings from './pages/UserBookings';
+import AddCar from './pages/AddCar';
+import AdminHome from './pages/AdminHome';
+import EditCar from './pages/EditCar';
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <div className="App">
+      <BrowserRouter>
+      <Routes>
+      <Route path="/" exact element={<Home/>}/>
+        <Route path="/login" exact element={<Login/>}/>
+        <Route path="/register" exact element={<Register/>}/>
+        
+        <Route path="/booking/:carid" exact element={<ProtectedRoute ><BookingCar/></ProtectedRoute>}/>
+        <Route path="/userbookings" exact element={<ProtectedRoute ><UserBookings/></ProtectedRoute>}/>
+        <Route path="/addcar" exact element={<ProtectedRoute ><AddCar/></ProtectedRoute>}/>
+        <Route path="/admin" exact element={<ProtectedRoute ><AdminHome/></ProtectedRoute>}/>
+        <Route path="/editcar/:carid" exact element={<ProtectedRoute ><EditCar/></ProtectedRoute>}/>
+      </Routes>
+      </BrowserRouter>
+    </div>
+  );
 }
 
-export default App
+export default App;
+
+export function ProtectedRoute ({children})
+{
+      if(localStorage.getItem('user'))
+      {
+        return children
+      }
+      else{
+      return <Navigate to='/login'/>
+      }
+}
