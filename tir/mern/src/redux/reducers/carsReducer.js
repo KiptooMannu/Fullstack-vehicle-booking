@@ -18,3 +18,5 @@ export const carsReducer = (state=initialData, action)=>{
     }
 
 }
+
+export default carsReducer
