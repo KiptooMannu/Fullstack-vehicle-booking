@@ -2,7 +2,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { IMutateNote, INote, INoteResponse } from "./types";
 import NProgress from "nprogress";
 
-const BASEURL = "http://localhost:8000/api/notes";
+const BASEURL = "http://localhost:8000/api/users";
 
 export const noteAPI = createApi({
   reducerPath: "noteAPI",
