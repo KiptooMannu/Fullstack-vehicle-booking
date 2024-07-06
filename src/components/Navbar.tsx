@@ -35,36 +35,38 @@ const Navbar: React.FC = () => {
           <ul className='mobile-navbar__links'>
             <li>
               <IconUser />
-              <span>Entrar</span>
+              <Link onClick={openNav} to='/login'>
+                <span>Login</span>
+              </Link>
             </li>
             <li>
               <Link onClick={openNav} to='/'>
-                Início
+                Home
               </Link>
             </li>
             <li>
               <Link onClick={openNav} to='/about'>
-                Sobre Nós
+                About Us
               </Link>
             </li>
             <li>
               <Link onClick={openNav} to='/models'>
-                Carros
+                Cars
               </Link>
             </li>
             <li>
               <Link onClick={openNav} to='/testimonials'>
-                Testemunhas
+                Testimonials
               </Link>
             </li>
             <li>
               <Link onClick={openNav} to='/team'>
-                Equipe
+                Team
               </Link>
             </li>
             <li>
               <Link onClick={openNav} to='/contact'>
-                Contato
+                Contact
               </Link>
             </li>
           </ul>
@@ -80,41 +82,41 @@ const Navbar: React.FC = () => {
           <ul className='navbar__links'>
             <li>
               <Link className='home-link' to='/'>
-                Início
+                Home
               </Link>
             </li>
             <li>
               <Link className='about-link' to='/about'>
-                Sobre Nós
+                About Us
               </Link>
             </li>
             <li>
               <Link className='models-link' to='/models'>
-                Carros
+                Cars
               </Link>
             </li>
             <li>
               <Link className='testi-link' to='/testimonials'>
-                Testemunhas
+                Testimonials
               </Link>
             </li>
             <li>
               <Link className='team-link' to='/team'>
-                Equipe
+                Team
               </Link>
             </li>
             <li>
               <Link className='contact-link' to='/contact'>
-                Contato
+                Contact
               </Link>
             </li>
           </ul>
           <div className='navbar__buttons'>
-            <Link className='navbar__buttons__sign-in' to='/'>
-              Entrar
+            <Link className='navbar__buttons__sign-in' to='/login'>
+              Login
             </Link>
-            <Link className='navbar__buttons__register' to='/'>
-              Registrar
+            <Link className='navbar__buttons__register' to='/register'>
+              Register
             </Link>
           </div>
 

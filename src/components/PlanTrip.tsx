@@ -1,40 +1,57 @@
-import SelectCar from '../images/plan/select-car.png';
-import Contact from '../images/plan/contact.png';
-import Drive from '../images/plan/drive.png';
+import { IconQuote } from '@tabler/icons-react';
 
-const PlanTrip: React.FC = () => {
+import User1 from '../images/testimonials/user-1.webp';
+import User2 from '../images/testimonials/user-2.webp';
+
+const Testimonials: React.FC = () => {
   return (
-    <section className='plan-section'>
+    <section className='testimonials-section'>
       <div className='container'>
-        <div className='plan-container'>
-          <div className='plan-container__title'>
-            <h3>Alugue rápido e sem buroracia</h3>
-            <h2>Como funciona?</h2>
+        <div className='testimonials-content'>
+          <div className='testimonials-content__title'>
+            <span>100% Satisfaction</span>
+            <h2>Customer Reviews</h2>
+            <p>
+              Discover the positive impact we've made on our clients by reading their testimonials.
+              Our clients have experienced our services and results, and are eager to share their positive experiences with you.
+            </p>
           </div>
 
-          <div className='plan-container__boxes'>
-            <div className='plan-container__boxes__box'>
-              <img src={SelectCar} alt='' width='117' />
-              <h3>Escolha um carro</h3>
+          <div className='all-testimonials'>
+            <div className='all-testimonials__box'>
+              <span className='quotes-icon'>
+                <IconQuote width={60} height={60} />
+              </span>
               <p>
-                Oferecemos uma grande variedade de veículos para todas as suas necessidades de
-                condução. Temos o carro perfeito para atender às suas necessidades.
+                "We rented a car from this site and had an amazing experience! The booking was simple and the rental rates were very affordable."
               </p>
+              <div className='all-testimonials__box__name'>
+                <div className='all-testimonials__box__name__profile'>
+                  <img src={User1} alt='' />
+                  <span>
+                    <h1>João Pedro</h1>
+                    <p>Recife</p>
+                  </span>
+                </div>
+              </div>
             </div>
 
-            <div className='plan-container__boxes__box'>
-              <img src={Contact} alt='' width='52' />
-              <h3>Preencha o formulário</h3>
-              <p>Nosso time irá entrar em contato com voce para confirmar o seu pedido.</p>
-            </div>
-
-            <div className='plan-container__boxes__box'>
-              <img src={Drive} alt='' width='44' />
-              <h3>Saia dirigindo!</h3>
+            <div className='all-testimonials__box box-2'>
+              <span className='quotes-icon'>
+                <IconQuote width={60} height={60} />
+              </span>
               <p>
-                Agora você pode partir e aproveitar o conforto da sua viagem. Nós temos o que você
-                precisa com nossa ampla variedade de carros.
+                "The car was in great condition and made our trip even better. Highly recommend this car rental site!"
               </p>
+              <div className='all-testimonials__box__name'>
+                <div className='all-testimonials__box__name__profile'>
+                  <img src={User2} alt='' />
+                  <span>
+                    <h1>Maria Joana</h1>
+                    <p>São Paulo</p>
+                  </span>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -43,4 +60,4 @@ const PlanTrip: React.FC = () => {
   );
 };
 
-export default PlanTrip;
+export default Testimonials;

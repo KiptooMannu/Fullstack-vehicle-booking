@@ -5,21 +5,20 @@ import { IconMail, IconMailOpened, IconPhone, IconLocation } from '@tabler/icons
 const Contact: React.FC = () => {
   return (
     <section className='contact-page'>
-      <HeroPages name='Contato' />
+      <HeroPages name='Contact' />
       <div className='container'>
         <div className='contact-div'>
           <div className='contact-div__text'>
-            <h2>Fale conosco</h2>
+            <h2>Contact Us</h2>
             <p>
-              Estamos aqui para tornar seu aluguel de carros fácil e conveniente. Entre em contato
-              conosco para reservas, assistência ou qualquer dúvida que você possa ter. Nossa equipe
-              dedicada está pronta para ajudar!
+              We are here to make your car rental easy and convenient. Contact us for reservations,
+              assistance, or any questions you may have. Our dedicated team is ready to help!
             </p>
             <a href='/'>
               <IconPhone /> &nbsp; (123) 456-7869
             </a>
             <a href='/'>
-              <IconMail /> &nbsp; email@exemplo.com
+              <IconMail /> &nbsp; email@example.com
             </a>
             <a href='/'>
               <IconLocation />
@@ -29,23 +28,23 @@ const Contact: React.FC = () => {
           <div className='contact-div__form'>
             <form>
               <label>
-                Nome Completo <b>*</b>
+                Full Name <b>*</b>
               </label>
-              <input type='text' placeholder='Nome Completo'></input>
+              <input type='text' placeholder='Full Name'></input>
 
               <label>
-                Endereço de Email <b>*</b>
+                Email Address <b>*</b>
               </label>
-              <input type='email' placeholder='seuemail@exemplo.com'></input>
+              <input type='email' placeholder='youremail@example.com'></input>
 
               <label>
-                Sua mensagem <b>*</b>
+                Your Message <b>*</b>
               </label>
-              <textarea placeholder='Escreva sua dúvida aqui...'></textarea>
+              <textarea placeholder='Write your question here...'></textarea>
 
               <button type='submit'>
                 <IconMailOpened />
-                &nbsp; Enviar
+                &nbsp; Send
               </button>
             </form>
           </div>

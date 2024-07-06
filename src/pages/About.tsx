@@ -9,38 +9,38 @@ const About: React.FC = () => {
   return (
     <>
       <section className='about-page'>
-        <HeroPages name='Sobre Nós' />
+        <HeroPages name='About Us' />
         <div className='container'>
           <div className='about-main'>
             <img className='about-main__img' src={AboutMain} alt='' />
             <div className='about-main__text'>
-              <span>Sobre Nossa Empresa</span>
-              <h2>Carros Confiáveis</h2>
+              <span>About Our Company</span>
+              <h2>Reliable Cars</h2>
               <p>
-                Oferecemos uma experiência de viagem sem complicações. Com uma variedade de veículos
-                bem-mantidos e tarifas acessíveis, estamos aqui para tornar sua próxima aventura
-                memorável e sem estresse. Reserve conosco e comece a sua jornada hoje mesmo!
+                We offer a hassle-free travel experience. With a variety of well-maintained vehicles
+                and affordable rates, we are here to make your next adventure memorable and
+                stress-free. Book with us and start your journey today!
               </p>
               <div className='about-main__text__icons'>
                 <div className='about-main__text__icons__box'>
                   <img src={Box1} alt='' />
                   <div>
                     <span>10</span>
-                    <p>Modelos</p>
+                    <p>Models</p>
                   </div>
                 </div>
                 <div className='about-main__text__icons__box'>
                   <img src={Box2} alt='' />
                   <div>
                     <span>12</span>
-                    <p>Locadoras</p>
+                    <p>Rental Locations</p>
                   </div>
                 </div>
                 <div className='about-main__text__icons__box'>
                   <img src={Box3} alt='' />
                   <div>
                     <span>25</span>
-                    <p>Oficinas</p>
+                    <p>Workshops</p>
                   </div>
                 </div>
               </div>

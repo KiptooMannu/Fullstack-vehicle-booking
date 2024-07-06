@@ -19,11 +19,10 @@ const PickCar: React.FC = () => {
       <div className='container'>
         <div className='pick-container'>
           <div className='pick-container__title'>
-            <h3>Conheça os principais modelos</h3>
-            <h2>Modernos e confiáveis</h2>
+            <h3>Check out the main models</h3>
+            <h2>Modern and reliable</h2>
             <p>
-              Escolha entre a variedade de veículos incríveis que temos disponíveis para aluguel na
-              sua próxima aventura ou viagem de trabalho.
+              Choose from the variety of amazing vehicles we have available for rent on your next adventure or business trip.
             </p>
           </div>
           <div className='pick-container__car-content'>
@@ -63,7 +62,7 @@ const PickCar: React.FC = () => {
                   setActive('FourthCar');
                   btnID('btn4');
                 }}>
-                BMW X5 Conversivel
+                BMW X5 Convertible
               </button>
               <button
                 className={`${coloringButton('btn5')}`}

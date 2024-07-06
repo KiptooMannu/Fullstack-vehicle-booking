@@ -9,12 +9,11 @@ const Testimonials: React.FC = () => {
       <div className='container'>
         <div className='testimonials-content'>
           <div className='testimonials-content__title'>
-            <span>100% de Satisfação</span>
-            <h2>Avaliações de Clientes</h2>
+            <span>100% Satisfaction</span>
+            <h2>Customer Reviews</h2>
             <p>
-              Descubra o impacto positivo que temos gerado em nossos clientes lendo os depoimentos.
-              Nossos clientes têm experimentado nossos serviços e resultados, e estão ansiosos para
-              compartilhar suas experiências positivas com você.
+              Discover the positive impact we've made on our clients by reading their testimonials.
+              Our clients have experienced our services and results, and are eager to share their positive experiences with you.
             </p>
           </div>
 
@@ -24,8 +23,7 @@ const Testimonials: React.FC = () => {
                 <IconQuote width={60} height={60} />
               </span>
               <p>
-                "Alugamos um carro neste site e tivemos uma experiência incrível! A reserva foi
-                simples e as tarifas de aluguel foram muito acessíveis. "
+                "We rented a car from this site and had an amazing experience! The booking was simple and the rental rates were very affordable."
               </p>
               <div className='all-testimonials__box__name'>
                 <div className='all-testimonials__box__name__profile'>
@@ -43,8 +41,7 @@ const Testimonials: React.FC = () => {
                 <IconQuote width={60} height={60} />
               </span>
               <p>
-                "O carro estava em ótimo estado e tornou nossa viagem ainda melhor. Altamente
-                recomendado este site de aluguel de carros!"
+                "The car was in great condition and made our trip even better. Highly recommend this car rental site!"
               </p>
               <div className='all-testimonials__box__name'>
                 <div className='all-testimonials__box__name__profile'>
