@@ -35,9 +35,7 @@ const Navbar: React.FC = () => {
           <ul className='mobile-navbar__links'>
             <li>
               <IconUser />
-              <Link onClick={openNav} to='/login'>
-                <span>Login</span>
-              </Link>
+              <span>Login</span>
             </li>
             <li>
               <Link onClick={openNav} to='/'>
