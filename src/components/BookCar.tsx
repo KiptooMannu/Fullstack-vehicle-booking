@@ -96,24 +96,24 @@ const BookCar: React.FC = () => {
       <div className='container'>
         <div className='book-content'>
           <div className='book-content__box'>
-            <h2>Alugue seu carro</h2>
+            <h2>Rent your car</h2>
 
             <p className='error-message'>
-              Preencha todos os campos! <IconX width={20} height={20} />
+              Fill in all the fields! <IconX width={20} height={20} />
             </p>
 
             <p className='booking-done'>
-              Quase lá! Te enviamos um link de confirmação por email.{' '}
+              Almost there! We will send you a confirmation link by email.{' '}
               <IconX width={20} height={20} onClick={hideMessage} />
             </p>
 
             <form className='box-form'>
               <div className='box-form__car-type'>
                 <label htmlFor='select-car'>
-                  <IconCar className='input-icon' /> &nbsp; Escolha seu modelo preferido <b>*</b>
+                  <IconCar className='input-icon' /> &nbsp; Choose your preferred model <b>*</b>
                 </label>
                 <select id='select-car' value={carType} onChange={handleCar}>
-                  <option>Escolha seu carro</option>
+                  <option>Choose your car</option>
                   {CAR_DATA.map((car, index) => (
                     <option key={index} value={car[0].name}>
                       {car[0].name}
@@ -124,10 +124,10 @@ const BookCar: React.FC = () => {
 
               <div className='box-form__car-type'>
                 <label htmlFor='pick-car'>
-                  <IconMapPinFilled className='input-icon' /> &nbsp; Local da coleta <b>*</b>
+                  <IconMapPinFilled className='input-icon' /> &nbsp; Collection location <b>*</b>
                 </label>
                 <select id='pick-car' value={pickUp} onChange={handlePick}>
-                  <option>Onde você vai pegar?</option>
+                  <option>Where are you going to get it?</option>
                   {citiesArr.map((city, index) => (
                     <option key={index} value={city}>
                       {city}
@@ -138,7 +138,7 @@ const BookCar: React.FC = () => {
 
               <div className='box-form__car-type'>
                 <label htmlFor='drop-car'>
-                  <IconMapPinFilled className='input-icon' /> &nbsp; Local da entrega <b>*</b>
+                  <IconMapPinFilled className='input-icon' /> &nbsp; Delivery location <b>*</b>
                 </label>
                 <select id='drop-car' value={dropOff} onChange={handleDrop}>
                   <option>Onde vai entregar?</option>
@@ -152,20 +152,20 @@ const BookCar: React.FC = () => {
 
               <div className='box-form__car-time'>
                 <label htmlFor='picktime'>
-                  <IconCalendarEvent className='input-icon' /> &nbsp; Data de Coleta <b>*</b>
+                  <IconCalendarEvent className='input-icon' /> &nbsp; Collection Date <b>*</b>
                 </label>
                 <input id='picktime' value={pickTime} onChange={handlePickTime} type='date'></input>
               </div>
 
               <div className='box-form__car-time'>
                 <label htmlFor='droptime'>
-                  <IconCalendarEvent className='input-icon' /> &nbsp; Data de Entrega <b>*</b>
+                  <IconCalendarEvent className='input-icon' /> &nbsp; Delivery date <b>*</b>
                 </label>
                 <input id='droptime' value={dropTime} onChange={handleDropTime} type='date'></input>
               </div>
 
               <button onClick={openModal} type='submit'>
-                Procurar
+                 search 
               </button>
             </form>
           </div>

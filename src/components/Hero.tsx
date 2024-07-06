@@ -42,20 +42,19 @@ const Hero: React.FC = () => {
         <img className='bg-shape' src={BgShape} alt='' />
         <div className='hero-content'>
           <div className='hero-content__text'>
-            <h4>Os melhores preços e condições</h4>
+            <h4>The best prices and conditions</h4>
             <h1>
-              Reserve seu carro na <span>Aluga Fácil</span>.
+              Book your car at <span>Rent Easy</span>.
             </h1>
             <p>
-              Oferecemos uma frota diversificada, desde econômicos até SUVs luxuosos. Sua jornada
-              começa aqui - reserve agora e explore o mundo ao seu próprio ritmo.
+              We offer a diverse fleet, from economy to luxury SUVs. Your journey starts here - book now and explore the world at your own pace.
             </p>
             <div className='hero-content__text__btns'>
               <Link onClick={bookBtn} className='hero-content__text__btns__book-ride' to='/'>
-                Alugue Agora &nbsp; <IconCircleCheck />
+                Rent Now &nbsp; <IconCircleCheck />
               </Link>
               <Link className='hero-content__text__btns__learn-more' to='/about'>
-                Saiba Mais &nbsp; <IconChevronRight />
+                Learn More &nbsp; <IconChevronRight />
               </Link>
             </div>
           </div>
@@ -63,7 +62,7 @@ const Hero: React.FC = () => {
           {/* right side img */}
           <img
             src={HeroCar}
-            alt='carro da marca fiat modelo onix cor azul'
+            alt='blue Fiat Onix car'
             className='hero-content__car-img'
           />
         </div>

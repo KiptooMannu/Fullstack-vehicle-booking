@@ -7,10 +7,10 @@ const Footer: React.FC = () => {
         <div className='footer-content'>
           <ul className='footer-content__1'>
             <li>
-              <span>Aluga Fácil</span>
+              <span>Easy Rent</span>
             </li>
             <li>
-              Nós temos uma grande variedade de veículos para atender a todas as suas necessidades.
+              We have a wide variety of vehicles to meet all your needs.
             </li>
             <li>
               <a href='tel:123456789'>
@@ -19,25 +19,23 @@ const Footer: React.FC = () => {
             </li>
 
             <li>
-              <a
-                href='mailto: 
-                email@exemplo.com'>
+              <a href='mailto:email@example.com'>
                 <IconMail />
-                &nbsp; email@exemplo.com
+                &nbsp; email@example.com
               </a>
             </li>
           </ul>
 
           <ul className='footer-content__2'>
-            <li>Empresa</li>
+            <li>Company</li>
             <li>
-              <a href='#home'>Sobre Nós</a>
+              <a href='#home'>About Us</a>
             </li>
             <li>
-              <a href='#home'>Trabalhe Conosco</a>
+              <a href='#home'>Careers</a>
             </li>
             <li>
-              <a href='#home'>Acessibilidade</a>
+              <a href='#home'>Accessibility</a>
             </li>
             <li>
               <a href='#home'>Blog</a>
@@ -45,22 +43,22 @@ const Footer: React.FC = () => {
           </ul>
 
           <ul className='footer-content__2'>
-            <li>Horários de Funcionamento</li>
-            <li>Seg - Sex: 8:00 - 18:00</li>
-            <li>Sab: 9:00 - 12:00</li>
-            <li>Dom: Fechado</li>
+            <li>Opening Hours</li>
+            <li>Mon - Fri: 8:00 - 18:00</li>
+            <li>Sat: 9:00 - 12:00</li>
+            <li>Sun: Closed</li>
           </ul>
 
           <ul className='footer-content__2'>
-            <li>Receber Novidades</li>
+            <li>Receive Updates</li>
             <li>
-              <p>Insira seu E-mail para Receber Atualizações e Promoções.</p>
+              <p>Enter your email to receive updates and promotions.</p>
             </li>
             <li>
-              <input type='email' placeholder='Endereço de E-mail'></input>
+              <input type='email' placeholder='Email Address'></input>
             </li>
             <li>
-              <button className='submit-email'>Inscrever</button>
+              <button className='submit-email'>Subscribe</button>
             </li>
           </ul>
         </div>

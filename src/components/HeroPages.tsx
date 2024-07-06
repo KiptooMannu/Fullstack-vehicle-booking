@@ -12,7 +12,7 @@ const HeroPages: React.FC<HeroPagesProps> = ({ name }) => {
         <div className='hero-pages__text'>
           <h3>{name}</h3>
           <p>
-            <Link to='/'>Início</Link> / {name}
+            <Link to='/'>Home</Link> / {name}
           </p>
         </div>
       </div>

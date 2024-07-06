@@ -39,47 +39,47 @@ const CarBox: React.FC<CarBoxProps> = ({ data, carID }) => {
           {/* description */}
           <div className='pick-description'>
             <div className='pick-description__price'>
-              <span>R$ {car.price}</span>/ por dia
+              <span>R$ {car.price}</span>/ per day
             </div>
             <div className='pick-description__table'>
               <div className='pick-description__table__col'>
-                <span>Modelo</span>
+                <span>Model</span>
                 <span>{car.model}</span>
               </div>
 
               <div className='pick-description__table__col'>
-                <span>Marca</span>
+                <span>Brand</span>
                 <span>{car.mark}</span>
               </div>
 
               <div className='pick-description__table__col'>
-                <span>Ano</span>
+                <span>Year</span>
                 <span>{car.year}</span>
               </div>
 
               <div className='pick-description__table__col'>
-                <span>Portas</span>
+                <span>Doors</span>
                 <span>{car.doors}</span>
               </div>
 
               <div className='pick-description__table__col'>
-                <span>Ar</span>
+                <span>Air Conditioning</span>
                 <span>{car.air}</span>
               </div>
 
               <div className='pick-description__table__col'>
-                <span>Transmissão</span>
+                <span>Transmission</span>
                 <span>{car.transmission}</span>
               </div>
 
               <div className='pick-description__table__col'>
-                <span>Combustível</span>
+                <span>Fuel</span>
                 <span>{car.fuel}</span>
               </div>
             </div>
-            {/* btn cta */}
+            {/* call to action button */}
             <a className='cta-btn' href='#booking-section'>
-              Quero Esse!
+              I Want This!
             </a>
           </div>
         </div>

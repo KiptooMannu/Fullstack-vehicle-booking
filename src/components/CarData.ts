@@ -3,7 +3,7 @@ import ToyotaHilux from '../images/cars/toyota-hilux.webp';
 import BmwX4 from '../images/cars/bmw-x4.webp';
 import BmwX5 from '../images/cars/bmw-x5.webp';
 import ChevroletOnix from '../images/cars/chevrolet-onix.webp';
-import CheroletSpin from '../images/cars/chevrolet-spin.webp';
+import ChevroletSpin from '../images/cars/chevrolet-spin.webp';
 import FiatMobi from '../images/cars/fiat-mobi.webp';
 import FiatUno from '../images/cars/fiat-uno.webp';
 import VolkswagenGolf from '../images/cars/volkswagen-golf.webp';
@@ -32,9 +32,9 @@ export const CAR_DATA: Car[][] = [
       mark: 'Toyota',
       year: '2020',
       doors: '4',
-      air: 'Sim',
-      transmission: 'Automático',
-      fuel: 'Híbrido',
+      air: 'Yes',
+      transmission: 'Automatic',
+      fuel: 'Hybrid',
     },
   ],
   [
@@ -46,9 +46,9 @@ export const CAR_DATA: Car[][] = [
       mark: 'Toyota',
       year: '2021',
       doors: '4',
-      air: 'Sim',
+      air: 'Yes',
       transmission: 'Manual',
-      fuel: 'Gasolina',
+      fuel: 'Gasoline',
     },
   ],
   [
@@ -60,22 +60,22 @@ export const CAR_DATA: Car[][] = [
       mark: 'BMW',
       year: '2019',
       doors: '4',
-      air: 'Sim',
-      transmission: 'Automático',
+      air: 'Yes',
+      transmission: 'Automatic',
       fuel: 'Flex',
     },
   ],
   [
     {
-      name: 'BMW X5 Conversivel',
+      name: 'BMW X5 Convertible',
       price: '250',
       img: BmwX5,
       model: 'X5',
       mark: 'BMW',
       year: '2020',
       doors: '2',
-      air: 'Sim',
-      transmission: 'Automático',
+      air: 'Yes',
+      transmission: 'Automatic',
       fuel: 'Flex',
     },
   ],
@@ -88,8 +88,8 @@ export const CAR_DATA: Car[][] = [
       mark: 'Chevrolet',
       year: '2019',
       doors: '4',
-      air: 'Sim',
-      transmission: 'Automático',
+      air: 'Yes',
+      transmission: 'Automatic',
       fuel: 'Flex',
     },
   ],
@@ -97,14 +97,14 @@ export const CAR_DATA: Car[][] = [
     {
       name: 'Chevrolet Spin',
       price: '140',
-      img: CheroletSpin,
+      img: ChevroletSpin,
       model: 'Spin',
       mark: 'Chevrolet',
       year: '2019',
       doors: '4',
-      air: 'Sim',
+      air: 'Yes',
       transmission: 'Manual',
-      fuel: 'Gasolina',
+      fuel: 'Gasoline',
     },
   ],
   [
@@ -116,9 +116,9 @@ export const CAR_DATA: Car[][] = [
       mark: 'Fiat',
       year: '2022',
       doors: '4',
-      air: 'Sim',
+      air: 'Yes',
       transmission: 'Manual',
-      fuel: 'Gasolina',
+      fuel: 'Gasoline',
     },
   ],
   [
@@ -130,9 +130,9 @@ export const CAR_DATA: Car[][] = [
       mark: 'Fiat',
       year: '2022',
       doors: '4',
-      air: 'Sim',
+      air: 'Yes',
       transmission: 'Manual',
-      fuel: 'Gasolina',
+      fuel: 'Gasoline',
     },
   ],
   [
@@ -144,9 +144,9 @@ export const CAR_DATA: Car[][] = [
       mark: 'Volkswagen',
       year: '2020',
       doors: '4',
-      air: 'Sim',
+      air: 'Yes',
       transmission: 'Manual',
-      fuel: 'Gasolina',
+      fuel: 'Gasoline',
     },
   ],
   [
@@ -158,8 +158,8 @@ export const CAR_DATA: Car[][] = [
       mark: 'Volkswagen',
       year: '2021',
       doors: '2',
-      air: 'Sim',
-      transmission: 'Automático',
+      air: 'Yes',
+      transmission: 'Automatic',
       fuel: 'Flex',
     },
   ],

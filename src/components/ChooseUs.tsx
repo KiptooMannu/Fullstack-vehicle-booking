@@ -10,19 +10,19 @@ const ChooseUs: React.FC = () => {
     <section className='choose-section'>
       <div className='container'>
         <div className='choose-container'>
-          <img className='choose-container__img' src={MainImg} alt='três carros' />
+          <img className='choose-container__img' src={MainImg} alt='three cars' />
           <div className='text-container'>
             <div className='text-container__left'>
-              <span>Porque Somos Melhores</span>
-              <h2>Os melhores carros pelo melhor preço que você já viu!</h2>
+              <span>Why We Are the Best</span>
+              <h2>The best cars at the best price you've ever seen!</h2>
               <p>
-                Explore oportunidades incríveis com nossas ofertas irresistíveis. Nosso compromisso
-                é garantir o melhor custo-benefício para você, permitindo desfrutar de produtos e
-                serviços de alta qualidade sem comprometer suas finanças. Não deixe passar a chance
-                de economizar enquanto vive uma experiência de locação excepcional.
+                Explore incredible opportunities with our irresistible offers. Our commitment is to
+                ensure the best value for you, allowing you to enjoy high-quality products and
+                services without compromising your finances. Don't miss the chance to save while
+                experiencing exceptional rental service.
               </p>
               <a href='#home'>
-                Saiba Mais &nbsp;
+                Learn More &nbsp;
                 <IconChevronRight />
               </a>
             </div>
@@ -33,10 +33,10 @@ const ChooseUs: React.FC = () => {
                   <img src={Box1} alt='' />
                 </div>
                 <div className='text-container__right__box__text'>
-                  <span>Aventura de Carro pelo Brasil</span>
+                  <span>Car Adventure Across Brazil</span>
                   <p>
-                    Eleve sua jornada ao volante para um novo patamar com nossos veículos de
-                    qualidade para suas aventuras pelo país.
+                    Elevate your driving journey to a new level with our quality vehicles for your
+                    adventures across the country.
                   </p>
                 </div>
               </div>
@@ -45,10 +45,10 @@ const ChooseUs: React.FC = () => {
                   <img src={Box2} alt='' />
                 </div>
                 <div className='text-container__right__box__text'>
-                  <span>Preços Transparentes</span>
+                  <span>Transparent Prices</span>
                   <p>
-                    Tenha tudo o que precisa em um só lugar, com nossa política de preços
-                    transparentes e sem surpresas.
+                    Have everything you need in one place, with our transparent pricing policy and
+                    no surprises.
                   </p>
                 </div>
               </div>
@@ -57,10 +57,10 @@ const ChooseUs: React.FC = () => {
                   <img src={Box3} alt='' />
                 </div>
                 <div className='text-container__right__box__text'>
-                  <span>Sem Custos Escondidos</span>
+                  <span>No Hidden Costs</span>
                   <p>
-                    Desfrute da tranquilidade de saber que não haverá custos ocultos. Aqui,
-                    valorizamos a transparência e a honestidade em todas as etapas da sua viagem.
+                    Enjoy the peace of mind knowing there are no hidden costs. Here, we value
+                    transparency and honesty at every stage of your journey.
                   </p>
                 </div>
               </div>

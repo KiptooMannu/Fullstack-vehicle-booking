@@ -151,28 +151,28 @@ const BookCarModal: React.FC<BookCarProps> = ({
     <div className={'booking-modal active-modal'}>
       {/* title */}
       <div className='booking-modal__title'>
-        <h2>Completar Reserva</h2>
+        <h2>Complete Booking</h2>
         <IconX onClick={openModal} />
       </div>
       {/* message */}
       <div className='booking-modal__message'>
         <h4>
-          <IconInfoCircleFilled /> Após completar sua reserva, você irá receber:
+          <IconInfoCircleFilled /> After completing your reservation, you will receive:
         </h4>
         <p>
-          Um voucher para concorrer a vale presentes e cashback de até 15% do valor total do
-          aluguel.
+          A voucher to compete for gift vouchers and cashback of up to 15% of the total value of the purchase
+          rent.
         </p>
       </div>
       {/* car info */}
       <div className='booking-modal__car-info'>
         <div className='dates-div'>
           <div className='booking-modal__car-info__dates'>
-            <h5>Local e Data</h5>
+            <h5>Location & Date</h5>
             <span>
               <IconMapPinFilled />
               <div>
-                <h6>Data da Reserva & Hora</h6>
+                <h6>Booking Date & Time</h6>
                 <p>
                   {pickTime} / <input type='time' className='input-time'></input>
                 </p>
@@ -184,7 +184,7 @@ const BookCarModal: React.FC<BookCarProps> = ({
             <span>
               <IconMapPinFilled />
               <div>
-                <h6>Data da Entrega & Hora</h6>
+                <h6>Delivery Date & Time</h6>
                 <p>
                   {dropTime} / <input type='time' className='input-time'></input>
                 </p>
@@ -196,7 +196,7 @@ const BookCarModal: React.FC<BookCarProps> = ({
             <span>
               <IconMapPinFilled />
               <div>
-                <h6>Local de Coleta</h6>
+                <h6>Collection Location</h6>
                 <p>{pickUp}</p>
               </div>
             </span>
@@ -206,7 +206,7 @@ const BookCarModal: React.FC<BookCarProps> = ({
             <span>
               <IconMapPinFilled />
               <div>
-                <h6>Local de Entrega</h6>
+                <h6>Delivery Location</h6>
                 <p>{dropOff}</p>
               </div>
             </span>
@@ -214,7 +214,7 @@ const BookCarModal: React.FC<BookCarProps> = ({
         </div>
         <div className='booking-modal__car-info__model'>
           <h5>
-            <span>Carro -</span> {carType}
+            <span>Car -</span> {carType}
           </h5>
           {imgUrl && <img src={imgUrl} alt='car_img' width='600' height='400' />}
         </div>
@@ -226,43 +226,46 @@ const BookCarModal: React.FC<BookCarProps> = ({
           <div className='info-form__2col'>
             <span>
               <label>
-                Nome <b>*</b>
+                First Name <b>*</b>
               </label>
               <input
                 value={name}
                 onChange={handleName}
                 type='text'
-                placeholder='Seu primeiro nome'></input>
-              <p className='error-modal'>Campo obrigatório.</p>
+                placeholder='Your first name'
+              />
+              <p className='error-modal'>Required field.</p>
             </span>
 
             <span>
               <label>
-                Sobrenome <b>*</b>
+                Last Name <b>*</b>
               </label>
               <input
                 value={lastName}
                 onChange={handleLastName}
                 type='text'
-                placeholder='Seu sobrenome'></input>
-              <p className='error-modal '>Campo obrigatório.</p>
+                placeholder='Your last name'
+              />
+              <p className='error-modal '>Required field.</p>
             </span>
 
             <span>
               <label>
-                Celular <b>*</b>
+                Phone <b>*</b>
               </label>
               <input
                 value={phone}
                 onChange={handlePhone}
                 type='tel'
-                placeholder='Enter your phone number'></input>
-              <p className='error-modal'>Campo obrigatório.</p>
+                placeholder='Enter your phone number'
+              />
+              <p className='error-modal'>Required field.</p>
             </span>
 
             <span>
               <label>
-                Idade <b>*</b>
+                Age <b>*</b>
               </label>
               <input
                 value={age}
@@ -270,8 +273,9 @@ const BookCarModal: React.FC<BookCarProps> = ({
                 type='number'
                 placeholder='18'
                 min='18'
-                max='100'></input>
-              <p className='error-modal'>Campo obrigatório.</p>
+                max='100'
+              />
+              <p className='error-modal'>Required field.</p>
             </span>
           </div>
 
@@ -284,52 +288,55 @@ const BookCarModal: React.FC<BookCarProps> = ({
                 value={email}
                 onChange={handleEmail}
                 type='email'
-                placeholder='Seu endereço de email'></input>
-              <p className='error-modal'>Campo obrigatório.</p>
+                placeholder='Your email address'
+              />
+              <p className='error-modal'>Required field.</p>
             </span>
 
             <span>
               <label>
-                Endereço <b>*</b>
+                Address <b>*</b>
               </label>
               <input
                 value={address}
                 onChange={handleAddress}
                 type='text'
-                placeholder='Rua exemplo número 123'></input>
-              <p className='error-modal'>Campo obrigatório.</p>
+                placeholder='Example street number 123'
+              />
+              <p className='error-modal'>Required field.</p>
             </span>
           </div>
 
           <div className='info-form__2col'>
             <span>
               <label>
-                Cidade <b>*</b>
+                City <b>*</b>
               </label>
-              <input value={city} onChange={handleCity} type='text' placeholder='Cidade'></input>
-              <p className='error-modal'>Campo obrigatório.</p>
+              <input value={city} onChange={handleCity} type='text' placeholder='City' />
+              <p className='error-modal'>Required field.</p>
             </span>
 
             <span>
               <label>
-                CEP <b>*</b>
+                Zip Code <b>*</b>
               </label>
               <input
                 value={zipcode}
                 onChange={handleZip}
                 type='text'
-                placeholder='00000-000'></input>
-              <p className='error-modal'>Campo obrigatório.</p>
+                placeholder='00000-000'
+              />
+              <p className='error-modal'>Required field.</p>
             </span>
           </div>
 
           <span className='info-form__checkbox'>
-            <input type='checkbox'></input>
-            <p>Me envie promoções e novidades por email</p>
+            <input type='checkbox' />
+            <p>Send me promotions and news by email</p>
           </span>
 
           <div className='reserve-button'>
-            <button onClick={confirmBooking}>Reserve Agora</button>
+            <button onClick={confirmBooking}>Book Now</button>
           </div>
         </form>
       </div>

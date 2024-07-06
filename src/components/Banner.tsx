@@ -4,9 +4,9 @@ const Banner: React.FC = () => {
       <div className='container'>
         <div className='banner-content'>
           <div className='banner-content__text'>
-            <h2>Carros para suas necessidades!</h2>
+            <h2>Cars for your needs!</h2>
             <p>
-              Melhorers marcas. Suporte <span>24/7</span>.
+              Best brands. Support <span>24/7</span>.
             </p>
           </div>
         </div>
