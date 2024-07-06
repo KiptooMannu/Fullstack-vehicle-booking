@@ -1,6 +1,6 @@
 
 import './overall-list.scss'
-import { data } from '../constants/data'
+import { data } from '../../constants'
 
 const icons = [
     <i className='bx bx-receipt'></i>,

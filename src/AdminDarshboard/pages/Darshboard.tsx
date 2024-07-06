@@ -1,9 +1,10 @@
-import React from 'react'
-import { Bar } from 'react-chartjs-2'
-import Box from '../components/box/Box'
-import DashboardWrapper, { DashboardWrapperMain, DashboardWrapperRight } from '../components/dashboard-wrapper/DashboardWrapper'
-import SummaryBox, { SummaryBoxSpecial } from '../components/summary-box/SummaryBox'
-import { colors, data } from '../constants'
+// src/pages/Dashboard.tsx
+import React from 'react';
+import { Bar } from 'react-chartjs-2';
+import Box from '../components/box/Box';
+import DashboardWrapper, { DashboardWrapperMain, DashboardWrapperRight } from '../components/dashboard-wrapper/DashboardWrapper';
+import SummaryBox, { SummaryBoxSpecial } from '../components/summary-box/SummaryBox';
+import { colors, data } from '../constants';
 import {
     Chart as ChartJS,
     CategoryScale,
@@ -13,9 +14,9 @@ import {
     Title,
     Tooltip,
     Legend
-} from 'chart.js'
-import OverallList from '../components/overall-list/OverallList'
-import RevenueList from '../components/revenue-list/RevenueList'
+} from 'chart.js';
+import OverallList from '../components/overall-list/OverallList';
+import RevenueList from '../components/revenue-list/RevenueList';
 
 ChartJS.register(
     CategoryScale,
@@ -25,22 +26,20 @@ ChartJS.register(
     Title,
     Tooltip,
     Legend
-)
+);
 
-const Dashboard = () => {
+const Dashboard: React.FC = () => {
     return (
         <DashboardWrapper>
             <DashboardWrapperMain>
                 <div className="row">
                     <div className="col-8 col-md-12">
                         <div className="row">
-                            {
-                                data.summary.map((item, index) => (
-                                    <div key={`summary-${index}`} className="col-6 col-md-6 col-sm-12 mb">
-                                        <SummaryBox item={item} />
-                                    </div>
-                                ))
-                            }
+                            {data.summary.map((item, index) => (
+                                <div key={`summary-${index}`} className="col-6 col-md-6 col-sm-12 mb">
+                                    <SummaryBox item={item} />
+                                </div>
+                            ))}
                         </div>
                     </div>
                     <div className="col-4 hide-md">
@@ -66,12 +65,12 @@ const Dashboard = () => {
                 </div>
             </DashboardWrapperRight>
         </DashboardWrapper>
-    )
-}
+    );
+};
 
-export default Dashboard
+export default Dashboard;
 
-const RevenueByMonthsChart = () => {
+const RevenueByMonthsChart: React.FC = () => {
     const chartOptions = {
         responsive: true,
         maintainAspectRatio: false,
@@ -101,10 +100,10 @@ const RevenueByMonthsChart = () => {
             bar: {
                 backgroundColor: colors.orange,
                 borderRadius: 20,
-                borderSkipped: 'bottom'
+                borderSkipped: false // Updated to a valid type
             }
         }
-    }
+    };
 
     const chartData = {
         labels: data.revenueByMonths.labels,
@@ -114,7 +113,7 @@ const RevenueByMonthsChart = () => {
                 data: data.revenueByMonths.data
             }
         ]
-    }
+    };
     return (
         <>
             <div className="title mb">
@@ -124,5 +123,5 @@ const RevenueByMonthsChart = () => {
                 <Bar options={chartOptions} data={chartData} height={`300px`} />
             </div>
         </>
-    )
-}
+    );
+};
