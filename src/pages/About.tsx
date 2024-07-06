@@ -8,7 +8,6 @@ import Box3 from '../images/about/icon3.png';
 const About: React.FC = () => {
   return (
     <>
-    <h1>kavatha about</h1>
       <section className='about-page'>
         <HeroPages name='About Us' />
         <div className='container'>

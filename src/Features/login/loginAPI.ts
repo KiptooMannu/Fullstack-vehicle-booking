@@ -1,3 +1,4 @@
+// src/Features/login/loginAPI.ts
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 export interface logInUser {
@@ -5,24 +6,32 @@ export interface logInUser {
     password: string;
 }
 
+export interface LoginResponse {
+    token: string;
+    user: {
+        role: 'admin' | 'user';
+        fullName: string;
+        email: string;
+    };
+}
+
 export const loginAPI = createApi({
     reducerPath: 'loginAPI',
     baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:8000/api' }),
     endpoints: (builder) => ({
-        loginUser: builder.mutation<logInUser, Partial<logInUser>>({
+        loginUser: builder.mutation<LoginResponse, Partial<logInUser>>({
             query: (user) => ({
                 url: 'login',
                 method: 'POST',
                 body: user,
             }),
         }),
-        logout: builder.mutation<logInUser, Partial<logInUser>>({
-            query: (user) => ({
+        logout: builder.mutation<void, void>({
+            query: () => ({
                 url: 'logout',
                 method: 'POST',
-                body: user,
             }),
-        })
+        }),
     }),
 });
 
