@@ -1,28 +1,32 @@
-import React from 'react'
-import './dashboard-wrapper.scss'
+import React, { ReactNode } from 'react';
+import './dashboard-wrapper.scss';
 
-const DashboardWrapper = props => {
+interface DashboardWrapperProps {
+    children?: ReactNode;
+}
+
+const DashboardWrapper: React.FC<DashboardWrapperProps> = (props) => {
     return (
         <div className='dashboard-wrapper'>
             {props.children}
         </div>
-    )
+    );
 }
 
-export default DashboardWrapper
+export default DashboardWrapper;
 
-export const DashboardWrapperMain = props => {
+export const DashboardWrapperMain: React.FC<DashboardWrapperProps> = (props) => {
     return (
         <div className='dashboard-wrapper__main'>
             {props.children}
         </div>
-    )
+    );
 }
 
-export const DashboardWrapperRight = props => {
+export const DashboardWrapperRight: React.FC<DashboardWrapperProps> = (props) => {
     return (
         <div className='dashboard-wrapper__right'>
             {props.children}
         </div>
-    )
+    );
 }
