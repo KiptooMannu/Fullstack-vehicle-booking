@@ -1,9 +1,9 @@
-import React from 'react'
-import './summary-box.scss'
-import Box from '../box/Box'
-import { buildStyles, CircularProgressbarWithChildren } from 'react-circular-progressbar'
-import { colors } from '../../constants'
-import { Line } from 'react-chartjs-2'
+import React from 'react';
+import './summary-box.scss';
+import Box from '../box/Box';
+import { buildStyles, CircularProgressbarWithChildren } from 'react-circular-progressbar';
+import { colors } from '../../constants';
+import { Line } from 'react-chartjs-2';
 import {
     Chart as ChartJS,
     CategoryScale,
@@ -13,7 +13,7 @@ import {
     Title,
     Tooltip,
     Legend
-} from 'chart.js'
+} from 'chart.js';
 
 ChartJS.register(
     CategoryScale,
@@ -23,9 +23,20 @@ ChartJS.register(
     Title,
     Tooltip,
     Legend
-)
+);
 
-const SummaryBox = ({ item }) => {
+interface Item {
+    title: string;
+    subtitle: string;
+    value: string | number;
+    percent: number;
+    chartData?: {
+        labels: string[];
+        data: number[];
+    };
+}
+
+const SummaryBox: React.FC<{ item: Item }> = ({ item }) => {
     return (
         <Box>
             <div className='summary-box'>
@@ -55,12 +66,12 @@ const SummaryBox = ({ item }) => {
                 </div>
             </div>
         </Box>
-    )
-}
+    );
+};
 
-export default SummaryBox
+export default SummaryBox;
 
-export const SummaryBoxSpecial = ({ item }) => {
+export const SummaryBoxSpecial: React.FC<{ item: Item }> = ({ item }) => {
     const chartOptions = {
         responsive: true,
         scales: {
@@ -81,19 +92,20 @@ export const SummaryBoxSpecial = ({ item }) => {
                 radius: 0
             }
         }
-    }
+    };
 
     const chartData = {
-        labels: item.chartData.labels,
+        labels: item.chartData?.labels || [],
         datasets: [
             {
                 label: 'Revenue',
-                data: item.chartData.data,
+                data: item.chartData?.data || [],
                 borderColor: '#fff',
                 tension: 0.5
             }
         ]
-    }
+    };
+
     return (
         <Box purple fullheight>
             <div className="summary-box-special">
@@ -108,5 +120,5 @@ export const SummaryBoxSpecial = ({ item }) => {
                 </div>
             </div>
         </Box>
-    )
-}
+    );
+};

@@ -1,4 +1,4 @@
-import React from 'react'
+
 import { data } from '../../constants'
 import './revenue-list.scss'
 import ProgressBar from '../progressbar/ProgressBar'
