@@ -2,7 +2,8 @@ import React from 'react';
 import { Route, Routes, BrowserRouter as Router } from 'react-router-dom';
 import { Models, TestimonialsPage, Team, Contact, Home, About } from './pages';
 import { Navbar } from './components';
-import Register from './pages/Register'; // Import the Register page
+import Register from './pages/Register';
+import Darshboard from './AdminDarshboard/Darshboard';
 
 import '@fontsource/poppins/300.css';
 import '@fontsource/poppins/400.css';
@@ -32,6 +33,7 @@ const App: React.FC = () => {
         <Route path='contact' element={<Contact />} />
         <Route path='login' element={<Login />} />
         <Route path='register' element={<Register />} /> {/* Add the Register route */}
+        <Route path="/admin-dashboard" element={<Darshboard />} />
       </Routes>
     </Router>
   );
