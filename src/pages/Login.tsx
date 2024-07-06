@@ -1,6 +1,6 @@
 // import React from 'react';
 import { useForm } from "react-hook-form";
-import { useLoginUserMutation } from './loginAPI';
+import { useLoginUserMutation } from '../Features/login/loginAPI';
 
 type FormValues = {
     email: string;
