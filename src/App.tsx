@@ -22,6 +22,7 @@ import Login from './pages/Login';
 import Blank from './AdminDarshboard/pages/Blank';
 // import MainLayout from './AdminDarshboard/layout/MainLayout';
 import Dashboard from './AdminDarshboard/pages/Darshboard';
+import Bookings from './Darshboards/UserDarshboard/pages/Bookings';
 
 const App: React.FC = () => {
   return (
@@ -49,11 +50,10 @@ const App: React.FC = () => {
         {/* User Routes */}
         <Route path="users/*" element={<Darshboard />}>
           <Route index element={<Dashboard />} />
-          <Route path="orders" element={<Blank />} />
-          <Route path="products" element={<Blank />} />
-          <Route path="customers" element={<Blank />} />
-          <Route path="settings" element={<Blank />} />
-          <Route path="stats" element={<Blank />} />
+          <Route path="bookings" element={<Bookings />} />
+          <Route path="vehicles" element={<Blank />} />
+          <Route path="My transactions" element={<Blank />} />
+          <Route path="Profile" element={<Blank />} />
         </Route>
       </Routes>
     </Router>

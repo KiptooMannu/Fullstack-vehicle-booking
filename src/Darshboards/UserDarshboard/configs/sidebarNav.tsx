@@ -12,25 +12,25 @@ const sidebarNav = [
         text: 'Bookings'
     },
     {
-        link: '/admin/products',
+        link: '/users/products',
         section: 'products',
         icon: <i className='bx bx-cube'></i>,
         text: 'Products'
     },
     {
-        link: '/admin/customers',
+        link: '/users/customers',
         section: 'customers',
         icon: <i className='bx bx-user'></i>,
         text: 'Customers'
     },
     {
-        link: '/admin/settings',
+        link: '/users/settings',
         section: 'settings',
         icon: <i className='bx bx-cog'></i>,
         text: 'Settings'
     },
     {
-        link: '/admin/stats',
+        link: '/users/stats',
         section: 'stats',
         icon: <i className='bx bx-chart'></i>,
         text: 'Stats'
