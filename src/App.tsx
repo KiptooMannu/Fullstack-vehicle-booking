@@ -20,11 +20,12 @@ import '@fontsource/rubik/700.css';
 import '../src/dist/styles.css';
 import Login from './pages/Login';
 import Blank from './AdminDarshboard/pages/Blank';
+import MainLayout from './AdminDarshboard/layout/MainLayout';
+import Dashboard from './AdminDarshboard/pages/Darshboard';
 
 const App: React.FC = () => {
   return (
     <Router>
-      
       <Routes>
         <Route index path='/' element={<Home />} />
         <Route path='about' element={<About />} />
@@ -33,13 +34,17 @@ const App: React.FC = () => {
         <Route path='team' element={<Team />} />
         <Route path='contact' element={<Contact />} />
         <Route path='login' element={<Login />} />
-        <Route path='register' element={<Register />} /> {/* Add the Register route */}
-        <Route path="admin-dashboard" element={<Darshboard />} />
-        <Route path="orders" element={<Blank />} />
-        <Route path="products" element={<Blank />} />
-        <Route path="customers" element={<Blank />} />
-        <Route path="settings" element={<Blank />} />
-        <Route path="stats" element={<Blank />} />
+        <Route path='register' element={<Register />} />
+
+        {/* Admin Routes */}
+        <Route path="admin/*" element={<Darshboard />}>
+          <Route index element={<Dashboard />} />
+          <Route path="orders" element={<Blank />} />
+          <Route path="products" element={<Blank />} />
+          <Route path="customers" element={<Blank />} />
+          <Route path="settings" element={<Blank />} />
+          <Route path="stats" element={<Blank />} />
+        </Route>
       </Routes>
     </Router>
   );

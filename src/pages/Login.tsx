@@ -24,9 +24,9 @@ function Login() {
 
             const userRole = response.user.role;
             if (userRole === 'admin') {
-                navigate('/admin-dashboard');
+                navigate('/admin');
             } else if (userRole === 'user') {
-                navigate('/user-dashboard');
+                navigate('/users');
             }
         } catch (error) {
             console.error('Failed to login', error);
