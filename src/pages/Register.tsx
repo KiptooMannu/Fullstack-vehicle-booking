@@ -3,6 +3,7 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import styles from '../styles/forms/Register.module.scss';
+import { Navbar } from '../components';
 
 type FormValues = {
   username: string;
@@ -15,6 +16,8 @@ const Register: React.FC = () => {
   const onSubmit = (data: FormValues) => console.log(data);
 
   return (
+    <>
+    <Navbar />
     <div className={styles['register-container']}>
       <form onSubmit={handleSubmit(onSubmit)} className={styles['register-form']}>
         <h2>Register</h2>
@@ -36,6 +39,7 @@ const Register: React.FC = () => {
         <button type='submit' className={styles['submit-btn']}>Register</button>
       </form>
     </div>
+    </>
   );
 };
 

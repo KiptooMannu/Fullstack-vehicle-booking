@@ -1,9 +1,11 @@
-import { HeroPages, Footer } from '../components';
+import { HeroPages, Footer, Navbar } from '../components';
 
 import { IconMail, IconMailOpened, IconPhone, IconLocation } from '@tabler/icons-react';
 
 const Contact: React.FC = () => {
   return (
+    <>
+    <Navbar />
     <section className='contact-page'>
       <HeroPages name='Contact' />
       <div className='container'>
@@ -53,6 +55,7 @@ const Contact: React.FC = () => {
       {/* footer */}
       <Footer />
     </section>
+    </>
   );
 };
 

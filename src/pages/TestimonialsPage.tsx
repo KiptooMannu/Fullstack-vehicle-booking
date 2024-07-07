@@ -1,7 +1,9 @@
-import { BookBanner, Footer, HeroPages, Testimonials } from '../components';
+import { BookBanner, Footer, HeroPages, Navbar, Testimonials } from '../components';
 
 const TestimonialsPage: React.FC = () => {
   return (
+    <>
+    <Navbar />
     <section className='testimonial-page'>
       <HeroPages name='Testemunhas' />
       <Testimonials />
@@ -10,6 +12,7 @@ const TestimonialsPage: React.FC = () => {
       {/* footer */}
       <Footer />
     </section>
+    </>
   );
 };
 

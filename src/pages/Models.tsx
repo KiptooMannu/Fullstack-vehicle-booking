@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 
-import { BookBanner, Footer, HeroPages } from '../components';
+import { BookBanner, Footer, HeroPages, Navbar } from '../components';
 
 import { IconCar, IconStar } from '@tabler/icons-react';
 
@@ -8,6 +8,8 @@ import { CAR_DATA } from '../components/CarData';
 
 const Models: React.FC = () => {
   return (
+    <>
+    <Navbar />
     <section className='models-section'>
       <HeroPages name='Modelos de Carros' />
       <div className='container'>
@@ -65,6 +67,7 @@ const Models: React.FC = () => {
       {/* footer */}
       <Footer />
     </section>
+    </>
   );
 };
 

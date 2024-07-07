@@ -23,7 +23,7 @@ import Login from './pages/Login';
 const App: React.FC = () => {
   return (
     <Router>
-      <Navbar />
+      
       <Routes>
         <Route index path='/' element={<Home />} />
         <Route path='about' element={<About />} />

@@ -1,4 +1,4 @@
-import { Footer, HeroPages, BookBanner } from '../components';
+import { Footer, HeroPages, BookBanner, Navbar } from '../components';
 
 import Person1 from '../images/team/1.webp';
 import Person2 from '../images/team/2.webp';
@@ -24,6 +24,8 @@ const Team: React.FC = () => {
   ];
 
   return (
+    <>
+    <Navbar />
     <section className='team-page'>
       <HeroPages name='Nossa Equipe' />
       <div className='container'>
@@ -46,6 +48,7 @@ const Team: React.FC = () => {
       {/* footer */}
       <Footer />
     </section>
+    </>
   );
 };
 

@@ -8,7 +8,7 @@ import MainLayout from './layout/MainLayout'
 
 function Darshboard() {
     return (
-        <BrowserRouter>
+        // <BrowserRouter>
             <Routes>
                 <Route path="/" element={<MainLayout />}>
                     <Route index element={<Dashboard />} />
@@ -19,7 +19,7 @@ function Darshboard() {
                     <Route path="stats" element={<Blank />} />
                 </Route>
             </Routes>
-        </BrowserRouter>
+        // </BrowserRouter>
     )
 }
 

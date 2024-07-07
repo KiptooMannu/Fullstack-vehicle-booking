@@ -9,11 +9,13 @@ import {
   Faq,
   Download,
   Footer,
+  Navbar,
 } from '../components';
 
 const Home: React.FC = () => {
   return (
     <main>
+      <Navbar />
       <Hero />
       <BookCar />
       <PlanTrip />

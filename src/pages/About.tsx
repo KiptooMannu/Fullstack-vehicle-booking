@@ -1,4 +1,4 @@
-import { Footer, HeroPages, PlanTrip, BookBanner } from '../components';
+import { Footer, HeroPages, PlanTrip, BookBanner, Navbar } from '../components';
 
 import AboutMain from '../images/about/about-main.webp';
 import Box1 from '../images/about/icon1.png';
@@ -8,6 +8,7 @@ import Box3 from '../images/about/icon3.png';
 const About: React.FC = () => {
   return (
     <>
+      <Navbar />
       <section className='about-page'>
         <HeroPages name='About Us' />
         <div className='container'>

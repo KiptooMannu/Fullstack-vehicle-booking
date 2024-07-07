@@ -4,6 +4,7 @@ import { useLoginUserMutation } from '../Features/login/loginAPI';
 import { useNavigate } from 'react-router-dom';
 import styles from '../styles/forms/Login.module.scss';
 import { LoginResponse } from '../Features/login/loginAPI'; // Import the LoginResponse type
+import { Navbar } from "../components";
 
 type FormValues = {
     email: string;
@@ -33,6 +34,8 @@ function Login() {
     };
 
     return (
+        <>
+        <Navbar />
         <div className={styles['login-container']}>
             <form onSubmit={handleSubmit(onSubmit)} className={styles['login-form']}>
                 <div className={styles['form-title']}>Login</div>
@@ -51,6 +54,7 @@ function Login() {
                 {error && <p className={styles['error-message']}>Failed to login</p>}
             </form>
         </div>
+        </>
     );
 }
 
