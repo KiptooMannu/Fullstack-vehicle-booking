@@ -1,15 +1,15 @@
 const sidebarNav = [
     {
-        link: '/admin',
-        section: 'home',
+        link: '/users',
+        section: 'dashboard',
         icon: <i className='bx bx-home-alt'></i>,
-        text: 'Home'
+        text: 'Dashboard'
     },
     {
-        link: '/admin/orders',
-        section: 'orders',
-        icon: <i className='bx bx-receipt' ></i>,
-        text: 'Orders'
+        link: '/users/bookings', 
+        section: 'bookings', 
+        icon: <i className='bx bx-receipt'></i>,
+        text: 'Bookings'
     },
     {
         link: '/admin/products',
@@ -24,17 +24,17 @@ const sidebarNav = [
         text: 'Customers'
     },
     {
-        link: '/admin/stats',
-        section: 'stats',
-        icon: <i className='bx bx-line-chart'></i>,
-        text: 'Stats'
-    },
-    {
         link: '/admin/settings',
         section: 'settings',
         icon: <i className='bx bx-cog'></i>,
         text: 'Settings'
+    },
+    {
+        link: '/admin/stats',
+        section: 'stats',
+        icon: <i className='bx bx-chart'></i>,
+        text: 'Stats'
     }
-]
+];
 
-export default sidebarNav
+export default sidebarNav;
