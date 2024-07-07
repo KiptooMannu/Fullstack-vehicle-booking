@@ -20,7 +20,7 @@ import '@fontsource/rubik/700.css';
 import '../src/dist/styles.css';
 import Login from './pages/Login';
 import Blank from './AdminDarshboard/pages/Blank';
-import MainLayout from './AdminDarshboard/layout/MainLayout';
+// import MainLayout from './AdminDarshboard/layout/MainLayout';
 import Dashboard from './AdminDarshboard/pages/Darshboard';
 
 const App: React.FC = () => {
