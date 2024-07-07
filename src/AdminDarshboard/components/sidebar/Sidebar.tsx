@@ -33,7 +33,7 @@ const Sidebar = () => {
 
     const handleLogout = () => {
         // Clear authentication tokens or session information
-        localStorage.removeItem('authToken');
+        localStorage.clear();
         // Add any other logout logic here
 
         // Redirect to home page

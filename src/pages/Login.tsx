@@ -22,6 +22,9 @@ function Login() {
             const response = await loginUser(data).unwrap() as LoginResponse;
             console.log(response);
 
+            // Persist the response to local storage
+            localStorage.setItem('user', JSON.stringify(response.user));
+
             const userRole = response.user.role;
             if (userRole === 'admin') {
                 navigate('/admin');
@@ -35,25 +38,25 @@ function Login() {
 
     return (
         <>
-        <Navbar />
-        <div className={styles['login-container']}>
-            <form onSubmit={handleSubmit(onSubmit)} className={styles['login-form']}>
-                <div className={styles['form-title']}>Login</div>
-                <div className={styles['form-group']}>
-                    <label>Email</label>
-                    <input {...register("email", { required: true })} type="email" />
-                    {errors.email && <span className={styles['error']}>Email is required</span>}
-                </div>
-                <div className={styles['form-group']}>
-                    <label>Password</label>
-                    <input {...register("password", { required: true })} type="password" />
-                    {errors.password && <span className={styles['error']}>Password is required</span>}
-                </div>
-                <button type='submit' className={styles['submit-btn']}>Login</button>
-                {isLoading && <p className={styles['loading']}>Loading...</p>}
-                {error && <p className={styles['error-message']}>Failed to login</p>}
-            </form>
-        </div>
+            <Navbar />
+            <div className={styles['login-container']}>
+                <form onSubmit={handleSubmit(onSubmit)} className={styles['login-form']}>
+                    <div className={styles['form-title']}>Login</div>
+                    <div className={styles['form-group']}>
+                        <label>Email</label>
+                        <input {...register("email", { required: true })} type="email" />
+                        {errors.email && <span className={styles['error']}>Email is required</span>}
+                    </div>
+                    <div className={styles['form-group']}>
+                        <label>Password</label>
+                        <input {...register("password", { required: true })} type="password" />
+                        {errors.password && <span className={styles['error']}>Password is required</span>}
+                    </div>
+                    <button type='submit' className={styles['submit-btn']}>Login</button>
+                    {isLoading && <p className={styles['loading']}>Loading...</p>}
+                    {error && <p className={styles['error-message']}>Failed to login</p>}
+                </form>
+            </div>
         </>
     );
 }
