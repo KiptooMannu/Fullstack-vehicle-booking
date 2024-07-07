@@ -1,7 +1,7 @@
 import React from 'react';
 import { Route, Routes, BrowserRouter as Router } from 'react-router-dom';
 import { Models, TestimonialsPage, Team, Contact, Home, About } from './pages';
-import { Navbar } from './components';
+// import { Navbar } from './components';
 import Register from './pages/Register';
 import Darshboard from './AdminDarshboard/Darshboard';
 
@@ -19,6 +19,7 @@ import '@fontsource/rubik/700.css';
 
 import '../src/dist/styles.css';
 import Login from './pages/Login';
+import Blank from './AdminDarshboard/pages/Blank';
 
 const App: React.FC = () => {
   return (
@@ -34,6 +35,11 @@ const App: React.FC = () => {
         <Route path='login' element={<Login />} />
         <Route path='register' element={<Register />} /> {/* Add the Register route */}
         <Route path="admin-dashboard" element={<Darshboard />} />
+        <Route path="orders" element={<Blank />} />
+        <Route path="products" element={<Blank />} />
+        <Route path="customers" element={<Blank />} />
+        <Route path="settings" element={<Blank />} />
+        <Route path="stats" element={<Blank />} />
       </Routes>
     </Router>
   );
