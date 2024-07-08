@@ -6,6 +6,7 @@ import { usersAPI } from '../Features/users/UsersAPI';
 import { vehicleAPI } from '../Features/vehicles/vehicleAPI';
 import { bookingAPI } from '../Features/bookings/bookingAPI';
 import { transactionsAPI } from '../Features/Transactions/transactionsAPI';
+import { fleetManagementAPI } from '../Features/Fleet/fleetManagementAPI';
 
 //auth persist config
 const persistConfig = {
@@ -20,6 +21,7 @@ const rootReducer = combineReducers({
   [vehicleAPI.reducerPath]: vehicleAPI.reducer,
   [bookingAPI.reducerPath]: bookingAPI.reducer,
   [transactionsAPI.reducerPath]: transactionsAPI.reducer,
+  [fleetManagementAPI.reducerPath]: fleetManagementAPI.reducer,
 });
 
 //apply pesist Reducer to only counter reducer
@@ -29,7 +31,8 @@ export const store = configureStore({
   reducer: persistedReducer,
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(loginAPI.middleware).concat(usersAPI.middleware)
-    .concat(vehicleAPI.middleware).concat(bookingAPI.middleware).concat(transactionsAPI.middleware),
+    .concat(vehicleAPI.middleware).concat(bookingAPI.middleware).concat(transactionsAPI.middleware)
+    .concat(fleetManagementAPI.middleware),
 });
 
 export const persistedStore = persistStore(store);

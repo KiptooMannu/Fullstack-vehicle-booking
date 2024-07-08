@@ -1,0 +1,71 @@
+.fleet-management-table-container {
+    padding: 20px;
+
+    .title {
+        font-size: 24px;
+        margin-bottom: 20px;
+    }
+
+    .fleet-management-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 20px;
+
+        thead {
+            background-color: #f4f4f4;
+
+            th {
+                padding: 10px;
+                border: 1px solid #ddd;
+                text-align: left;
+            }
+        }
+
+        tbody {
+            td {
+                padding: 10px;
+                border: 1px solid #ddd;
+
+                input {
+                    width: 100%;
+                    padding: 5px;
+                    border: 1px solid #ddd;
+                    border-radius: 4px;
+                }
+            }
+
+            .options {
+                button {
+                    margin-right: 5px;
+                }
+            }
+        }
+
+        tfoot {
+            td {
+                padding: 10px;
+                border: 1px solid #ddd;
+                text-align: center;
+            }
+        }
+    }
+
+    .pagination {
+        display: flex;
+        justify-content: center;
+
+        .page-btn {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            margin: 0 5px;
+            cursor: pointer;
+            border-radius: 4px;
+
+            &.active {
+                background-color: #0056b3;
+            }
+        }
+    }
+}
