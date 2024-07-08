@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useGetTransactionsQuery, useUpdateTransactionMutation, useDeleteTransactionMutation } from './transactionsAPI';
 import { Toaster, toast } from 'sonner';
-import './TransactionTable.scss';
+import './TransactionsTable.scss';
 
 interface TTransaction {
     paymentId: number;

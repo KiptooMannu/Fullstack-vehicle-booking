@@ -24,16 +24,22 @@ const sidebarNav = [
         text: 'Customers'
     },
     {
-        link: '/admin/stats',
-        section: 'stats',
+        link: '/admin/transactions',
+        section: 'transactions',
         icon: <i className='bx bx-line-chart'></i>,
-        text: 'Stats'
+        text: 'Transactions'
     },
     {
-        link: '/admin/settings',
-        section: 'settings',
+        link: '/admin/fleet-management',
+        section: 'fleet-management',
+        icon: <i className='bx bx-car'></i>,
+        text: 'Fleet Management'
+    },
+    {
+        link: '/admin/profile',
+        section: 'profile',
         icon: <i className='bx bx-cog'></i>,
-        text: 'Settings'
+        text: 'Profile'
     }
 ]
 
