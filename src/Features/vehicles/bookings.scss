@@ -1,8 +1,8 @@
 .bookings {
-    margin-top: 100px;
-
-    padding: 0px 30px;
-    padding-bottom: 50px;
+    margin-top: 20px;
+    background-color: #21184f;
+    padding: 0px 10px;
+    padding-bottom: 20px;
 }
 
 .booking__title {
@@ -23,7 +23,7 @@
     padding: 7px 20px;
     border-radius: 50px;
     background: var(--primary-color);
-    color: #fff;
+    color: #ddd1d1;
     cursor: pointer;
     margin-bottom: 2rem;
 }
@@ -31,6 +31,7 @@
 .car__item {
     padding: 20px;
     border-radius: 5px;
+    background-color: #e0a117;
     background: var(--primary-color);
     cursor: pointer;
 }

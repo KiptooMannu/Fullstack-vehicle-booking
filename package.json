@@ -10,11 +10,14 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@emotion/react": "^11.11.4",
+    "@emotion/styled": "^11.11.5",
     "@fontsource/poppins": "^5.0.12",
     "@fontsource/rubik": "^5.0.19",
     "@hono/node-server": "^1.11.2",
     "@hono/prometheus": "^1.0.1",
     "@hono/zod-validator": "^0.2.2",
+    "@mui/material": "^5.16.0",
     "@reduxjs/toolkit": "^2.2.6",
     "@tabler/icons-react": "^2.47.0",
     "@types/bcrypt": "^5.0.2",
