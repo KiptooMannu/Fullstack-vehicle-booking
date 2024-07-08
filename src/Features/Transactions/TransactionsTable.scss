@@ -1,0 +1,64 @@
+.transaction-table-container {
+    padding: 20px;
+
+    .title {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    .transaction-table {
+        width: 100%;
+        border-collapse: collapse;
+
+        th,
+        td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f4f4f4;
+        }
+
+        .options {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+
+            .btn {
+                padding: 5px 10px;
+                border: none;
+                cursor: pointer;
+
+                &.btn-info {
+                    background-color: #5bc0de;
+                    color: white;
+                }
+
+                &.btn-warning {
+                    background-color: #f0ad4e;
+                    color: white;
+                }
+            }
+        }
+    }
+
+    .pagination {
+        margin-top: 20px;
+        text-align: center;
+
+        .page-btn {
+            padding: 5px 10px;
+            margin: 0 5px;
+            border: 1px solid #ddd;
+            background-color: #f4f4f4;
+            cursor: pointer;
+
+            &.active {
+                background-color: #007bff;
+                color: white;
+            }
+        }
+    }
+}
