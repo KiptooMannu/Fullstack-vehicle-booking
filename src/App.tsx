@@ -42,7 +42,7 @@ const App: React.FC = () => {
         {/* Admin Routes */}
         <Route path="admin/*" element={<Darshboard />}>
           <Route index element={<Dashboard />} />
-          <Route path="orders" element={<Blank />} />
+          <Route path="bookings" element={<Bookings />} />
           <Route path="vehicles" element={<Blank />} />
           <Route path="customers" element={<UserTable />} />
           <Route path="settings" element={<Blank />} />

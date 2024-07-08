@@ -4,6 +4,7 @@ import storage from 'redux-persist/lib/storage';
 import { loginAPI } from '../Features/login/loginAPI';
 import { usersAPI } from '../Features/users/UsersAPI';
 import { vehicleAPI } from '../Features/vehicles/vehicleAPI';
+import { bookingAPI } from '../Features/bookings/bookingAPI';
 
 //auth persist config
 const persistConfig = {
@@ -16,6 +17,7 @@ const rootReducer = combineReducers({
   [loginAPI.reducerPath]: loginAPI.reducer,
   [usersAPI.reducerPath]: usersAPI.reducer,
   [vehicleAPI.reducerPath]: vehicleAPI.reducer,
+  [bookingAPI.reducerPath]: bookingAPI.reducer,
 });
 
 //apply pesist Reducer to only counter reducer
@@ -25,7 +27,7 @@ export const store = configureStore({
   reducer: persistedReducer,
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(loginAPI.middleware).concat(usersAPI.middleware)
-    .concat(vehicleAPI.middleware),
+    .concat(vehicleAPI.middleware).concat(bookingAPI.middleware),
 });
 
 export const persistedStore = persistStore(store);

@@ -1,22 +1,25 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useGetBookingsQuery, useUpdateBookingMutation, useDeleteBookingMutation } from './bookingAPI';
 import { Toaster, toast } from 'sonner';
-import './UserTable.scss';
+import './BookingTable.scss';
 
 interface TBooking {
-    id: number;
-    userId: number;
-    carId: number;
-    startDate: string;
-    endDate: string;
-    status: string;
+    bookingId: number;
+    bookingDate: string;
+    returnDate: string;
+    bookingStatus: string;
+    totalAmount: string;
+    createdAt: string;
+    updatedAt: string;
 }
 
 const BookingTable: React.FC = () => {
-    const { data: bookingsData,  isLoading, isError } = useGetBookingsQuery();
+    const { data: bookingsData, error, isLoading, isError } = useGetBookingsQuery();
     const [updateBooking] = useUpdateBookingMutation();
     const [deleteBooking] = useDeleteBookingMutation();
-    console.log(bookingsData)
+
+    const [currentPage, setCurrentPage] = useState(1);
+    const recordsPerPage = 10;
 
     const handleDelete = async (bookingId: number) => {
         await deleteBooking(bookingId);
@@ -25,8 +28,11 @@ const BookingTable: React.FC = () => {
 
     const handleUpdate = async (booking: TBooking) => {
         await updateBooking(booking);
-        toast.success(`Booking with id ${booking.id} updated successfully`);
+        toast.success(`Booking with id ${booking.bookingId} updated successfully`);
     };
+
+    const totalPages = bookingsData ? Math.ceil(bookingsData.length / recordsPerPage) : 0;
+    const paginatedData = bookingsData ? bookingsData.slice((currentPage - 1) * recordsPerPage, currentPage * recordsPerPage) : [];
 
     return (
         <>
@@ -40,77 +46,54 @@ const BookingTable: React.FC = () => {
                     },
                 }}
             />
-            <div className="user-table-container">
-                <h1 className='title'>Booking Data</h1>
+            <div className="booking-table-container">
+                <h1 className='title'>Bookings Data</h1>
 
-                <table className="user-table">
+                <table className="booking-table">
                     <thead>
                         <tr>
-                            <th>ID</th>
-                            <th>User ID</th>
-                            <th>Car ID</th>
-                            <th>Start Date</th>
-                            <th>End Date</th>
+                            <th>Booking Date</th>
+                            <th>Return Date</th>
                             <th>Status</th>
+                            <th>Total Amount</th>
                             <th>Options</th>
                         </tr>
                     </thead>
                     <tbody>
                         {isLoading ? (
-                            <tr><td colSpan={7}>Loading...</td></tr>
+                            <tr><td colSpan={5}>Loading...</td></tr>
                         ) : isError ? (
-                            <tr><td colSpan={7}>Error loading data</td></tr>
+                            <tr><td colSpan={5}>Error loading data</td></tr>
                         ) : (
-                            bookingsData && bookingsData.map((booking: TBooking) => (
-                                <tr key={booking.id}>
-                                    <td>{booking.id}</td>
+                            paginatedData && paginatedData.map((booking: TBooking) => (
+                                <tr key={booking.bookingId}>
+                                    <td>{new Date(booking.bookingDate).toLocaleDateString()}</td>
+                                    <td>{new Date(booking.returnDate).toLocaleDateString()}</td>
                                     <td>
-                                        <input 
-                                            type="number" 
-                                            value={booking.userId} 
-                                            onChange={(e) => handleUpdate({ ...booking, userId: Number(e.target.value) })} 
-                                        />
+                                        <input type="text" value={booking.bookingStatus} onChange={(e) => handleUpdate({ ...booking, bookingStatus: e.target.value })} />
                                     </td>
                                     <td>
-                                        <input 
-                                            type="number" 
-                                            value={booking.carId} 
-                                            onChange={(e) => handleUpdate({ ...booking, carId: Number(e.target.value) })} 
-                                        />
-                                    </td>
-                                    <td>
-                                        <input 
-                                            type="text" 
-                                            value={booking.startDate} 
-                                            onChange={(e) => handleUpdate({ ...booking, startDate: e.target.value })} 
-                                        />
-                                    </td>
-                                    <td>
-                                        <input 
-                                            type="text" 
-                                            value={booking.endDate} 
-                                            onChange={(e) => handleUpdate({ ...booking, endDate: e.target.value })} 
-                                        />
-                                    </td>
-                                    <td>
-                                        <input 
-                                            type="text" 
-                                            value={booking.status} 
-                                            onChange={(e) => handleUpdate({ ...booking, status: e.target.value })} 
-                                        />
+                                        <input type="text" value={booking.totalAmount} onChange={(e) => handleUpdate({ ...booking, totalAmount: e.target.value })} />
                                     </td>
                                     <td className='options'>
                                         <button className='btn btn-info' onClick={() => handleUpdate(booking)}>Update</button>
-                                        <button className='btn btn-warning' onClick={() => handleDelete(booking.id)}>Delete</button>
+                                        <button className='btn btn-warning' onClick={() => handleDelete(booking.bookingId)}>Delete</button>
                                     </td>
                                 </tr>
                             ))
                         )}
                     </tbody>
                     <tfoot>
-                        <tr><td colSpan={7}>{bookingsData ? `${bookingsData.length} records` : '0 records'}</td></tr>
+                        <tr><td colSpan={5}>{bookingsData ? `${bookingsData.length} records` : '0 records'}</td></tr>
                     </tfoot>
                 </table>
+                <div className="pagination">
+                    {Array.from({ length: totalPages }, (_, i) => i + 1).map(page => (
+                        <button key={page} className={`page-btn ${page === currentPage ? 'active' : ''}`} onClick={() => setCurrentPage(page)}>
+                            {page}
+                        </button>
+                    ))}
+                </div>
             </div>
         </>
     );

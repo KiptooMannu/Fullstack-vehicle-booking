@@ -7,6 +7,7 @@ import Dashboard from './pages/Darshboard'
 import MainLayout from './layout/MainLayout'
 import User from './pages/Users'
 import Vehicles from './pages/Vehicles'
+import Bookings from './pages/Bookings'
 
 function Darshboard() {
     return (
@@ -14,7 +15,7 @@ function Darshboard() {
             <Routes>
                 <Route path="/" element={<MainLayout />}>
                     <Route index element={<Dashboard />} />
-                    <Route path="bookings" element={<Blank />} />
+                    <Route path="bookings" element={<Bookings />} />
                     <Route path="vehicles" element={<Vehicles />} />
                     <Route path="customers" element={<User />} />
                     <Route path="settings" element={<Blank />} />
