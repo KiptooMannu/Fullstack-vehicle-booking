@@ -24,6 +24,7 @@ import Blank from './AdminDarshboard/pages/Blank';
 import Dashboard from './AdminDarshboard/pages/Darshboard';
 import Bookings from './Darshboards/UserDarshboard/pages/Bookings';
 import UserDarshboard from './Darshboards/UserDarshboard/UserDarshboard';
+import UserTable from './Features/users/UserTable';
 
 const App: React.FC = () => {
   return (
@@ -43,7 +44,7 @@ const App: React.FC = () => {
           <Route index element={<Dashboard />} />
           <Route path="orders" element={<Blank />} />
           <Route path="products" element={<Blank />} />
-          <Route path="customers" element={<Blank />} />
+          <Route path="customers" element={<UserTable />} />
           <Route path="settings" element={<Blank />} />
           <Route path="stats" element={<Blank />} />
         </Route>
