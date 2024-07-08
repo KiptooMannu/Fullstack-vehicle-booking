@@ -17,7 +17,10 @@ export const vehicleAPI = createApi({
         getVehicles: builder.query<TVehicle[], void>({
             query: () => 'vehicles',
             providesTags: (result) =>
-                result ? [...result.map(({ id }) => ({ type: 'Vehicles', id } as const)), { type: 'Vehicles', id: 'LIST' }] : [{ type: 'Vehicles', id: 'LIST' }],
+                result ? [
+                    ...result.map(({ id }) => ({ type: 'Vehicles', id } as const)), 
+                    { type: 'Vehicles', id: 'LIST' }
+                ] : [{ type: 'Vehicles', id: 'LIST' }],
         }),
         createVehicle: builder.mutation<TVehicle, Partial<TVehicle>>({
             query: (newVehicle) => ({
