@@ -2,10 +2,10 @@
 import "./bookings.scss";
 
 // import carData from "../../assets/dummy-data/booking-cars.js";
-import carItem from "../../AdminDarshboard/components/cars/CarItem";
-import carData from "../assets/dummy-data/booking-cars"
+import CarItem from "../../AdminDarshboard/components/cars/carItem";
+import carData from "../../assets/dummy-data/booking-cars"
 
-const Bookings = () => {
+const Vehicle = () => {
   return (
     <div className="bookings">
       <div className="booking__wrapper">
@@ -39,4 +39,4 @@ const Bookings = () => {
   );
 };
 
-export default Bookings;
+export default Vehicle;
