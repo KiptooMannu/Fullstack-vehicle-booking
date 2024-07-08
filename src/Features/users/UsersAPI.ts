@@ -11,7 +11,7 @@ interface TUser {
 // Define the API slice
 export const usersAPI = createApi({
     reducerPath: 'usersAPI',
-    baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:8000/api' }),
+    baseQuery: fetchBaseQuery({ baseUrl: 'car-rental-backend-1.onrender.com/api' }),
     endpoints: (builder) => ({
         getUsers: builder.query<TUser[], void> ({ query: () => 'users',
             providesTags: ['getUsers'],
@@ -46,4 +46,4 @@ export const usersAPI = createApi({
 });
 
 // Export the auto-generated hooks
-export const { useGetUsersQuery, useCreateUserMutation, useUpdateUserMutation, useDeleteUserMutation } = usersAPI;
+export const { useGetUsersQuery, useCreateUserMutation, useUpdateUserMutation, useDeleteUserMutation }: any = usersAPI;

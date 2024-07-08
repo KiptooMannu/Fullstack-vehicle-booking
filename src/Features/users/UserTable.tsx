@@ -14,6 +14,7 @@ interface TUser {
 
 const UserTable: React.FC = () => {
     const { data: usersData, error, isLoading, isError } = useGetUsersQuery();
+    console.log(usersData);
     const [createUser] = useCreateUserMutation();
     const [updateUser] = useUpdateUserMutation();
     const [deleteUser] = useDeleteUserMutation();
@@ -78,7 +79,7 @@ const UserTable: React.FC = () => {
                         ) : (
                             usersData && usersData.map((user, index) => (
                                 <tr key={index}>
-                                    <th>{user.id}</th>
+                                    <td>{user.id}</td>
                                     <td>
                                         <input type="text" value={user.fullname} onChange={(e) => handleUpdate({ ...user, fullname: e.target.value })} />
                                     </td>
