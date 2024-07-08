@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+
 import { useGetUsersQuery, useUpdateUserMutation, useDeleteUserMutation } from './UsersAPI';
 import { Toaster, toast } from 'sonner';
 import './UserTable.scss';
@@ -62,7 +62,7 @@ const UserTable: React.FC = () => {
                         ) : isError ? (
                             <tr><td colSpan={6}>Error loading data</td></tr>
                         ) : (
-                            usersData && usersData.map((user) => (
+                            usersData && usersData.map((user: TUser) => (
                                 <tr key={user.userId}>
                                     <td>{user.userId}</td>
                                     <td>
