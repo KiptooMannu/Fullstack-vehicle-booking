@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useGetBookingsQuery, useUpdateBookingMutation, useDeleteBookingMutation } from './bookingAPI';
 import { Toaster, toast } from 'sonner';
-import './BookingTable.scss';
+import './BookingsTable.scss';
 
 interface TBooking {
     bookingId: number;
@@ -14,7 +14,7 @@ interface TBooking {
 }
 
 const BookingTable: React.FC = () => {
-    const { data: bookingsData, error, isLoading, isError } = useGetBookingsQuery();
+    const { data: bookingsData,  isLoading, isError } = useGetBookingsQuery();
     const [updateBooking] = useUpdateBookingMutation();
     const [deleteBooking] = useDeleteBookingMutation();
 
