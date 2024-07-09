@@ -6,7 +6,7 @@ import Dashboard from './pages/Darshboard';
 import MainLayout from './layout/MainLayout';
 import Bookings from './pages/Bookings';
 import CarList from './components/UserCars/Car';
-import CarDetails from './components/UserCars/CarDetails';
+// import CarDetails from './components/UserCars/CarDetails';
 
 function UserDarshboard() {
     return (
@@ -14,8 +14,8 @@ function UserDarshboard() {
             <Route path="/" element={<MainLayout />}>
                 <Route index element={<Dashboard />} />
                 <Route path="bookings" element={<CarList />}>
-                    <Route index element={<CarList />} />
-                    <Route path="vehicle/:id" element={<CarDetails />} />
+                    {/* <Route index element={<CarDetails />} />
+                    <Route path="/:id" element={<CarDetails />} /> */}
                 </Route>
                 <Route path="Available Cars" element={<Bookings />} />
                 <Route path="customers" element={<Bookings />} />

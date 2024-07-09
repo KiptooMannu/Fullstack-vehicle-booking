@@ -1,15 +1,15 @@
 // src/components/UserCars/Car.tsx
 
-import React from 'react';
+import React, { useState } from 'react';
 import { useGetVehiclesQuery } from '../../../../Features/vehicles/vehicleAPI';
 import { TVehicle } from '../../../../Features/vehicles/vehicleAPI';
 import { Bars } from 'react-loader-spinner';
-import { useNavigate } from 'react-router-dom';
+import CarDetails from './CarDetails';
 import styles from './Carlist.module.scss';
 
 const CarList: React.FC = () => {
   const { data: vehicles, error, isLoading } = useGetVehiclesQuery();
-  const navigate = useNavigate();
+  const [selectedVehicle, setSelectedVehicle] = useState<TVehicle | null>(null);
 
   if (isLoading) {
     return (
@@ -26,31 +26,37 @@ const CarList: React.FC = () => {
 
   return (
     <div className={styles.carListContainer}>
-      <h2>Available Vehicles</h2>
-      {vehicles && vehicles.length > 0 ? (
-        <ul className={styles.carList}>
-          {vehicles.map((vehicle: TVehicle) => (
-            <li key={vehicle.vehicleId} className={styles.carItem}>
-              <img 
-                src="https://via.placeholder.com/150" 
-                alt={`${vehicle.specifications.manufacturer} ${vehicle.specifications.model}`} 
-                className={styles.carImage} 
-              />
-              <h3>{vehicle.specifications.manufacturer} {vehicle.specifications.model}</h3>
-              <p>Year: {vehicle.specifications.year}</p>
-              <p>Rent per Hour: ${vehicle.rentalRate}</p>
-              <p>{vehicle.availability ? 'Available' : 'Not Available'}</p>
-              <button 
-                className={styles.detailsButton} 
-                onClick={() => navigate(`/users/bookings/vehicle/${vehicle.vehicleId}`)}
-              >
-                View Details
-              </button>
-            </li>
-          ))}
-        </ul>
+      {selectedVehicle ? (
+        <CarDetails vehicle={selectedVehicle} onBack={() => setSelectedVehicle(null)} />
       ) : (
-        <p>No vehicles available</p>
+        <>
+          <h2>Available Vehicles</h2>
+          {vehicles && vehicles.length > 0 ? (
+            <ul className={styles.carList}>
+              {vehicles.map((vehicle: TVehicle) => (
+                <li key={vehicle.vehicleId} className={styles.carItem}>
+                  <img
+                    src="https://via.placeholder.com/150"
+                    alt={`${vehicle.specifications.manufacturer} ${vehicle.specifications.model}`}
+                    className={styles.carImage}
+                  />
+                  <h3>{vehicle.specifications.manufacturer} {vehicle.specifications.model}</h3>
+                  <p>Year: {vehicle.specifications.year}</p>
+                  <p>Rent per Hour: ${vehicle.rentalRate}</p>
+                  <p>{vehicle.availability ? 'Available' : 'Not Available'}</p>
+                  <button
+                    className={styles.detailsButton}
+                    onClick={() => setSelectedVehicle(vehicle)}
+                  >
+                    View Details
+                  </button>
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <p>No vehicles available</p>
+          )}
+        </>
       )}
     </div>
   );

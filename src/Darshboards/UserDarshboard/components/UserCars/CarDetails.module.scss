@@ -1,0 +1,64 @@
+// src/components/UserCars/CarDetails.module.scss
+
+.carDetailsContainer {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.backButton {
+    align-self: flex-start;
+    margin-bottom: 20px;
+    padding: 10px 20px;
+    background-color: #4fa94d;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.detailsContainer {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    max-width: 1200px;
+    align-items: flex-start;
+}
+
+.details {
+    flex: 1;
+    padding: 20px;
+}
+
+.details h2 {
+    margin-bottom: 20px;
+}
+
+.details p {
+    margin: 10px 0;
+}
+
+.imageContainer {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.carImage {
+    max-width: 100%;
+    height: auto;
+    border-radius: 10px;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+    .detailsContainer {
+        flex-direction: column;
+    }
+
+    .imageContainer {
+        margin-top: 20px;
+    }
+}
