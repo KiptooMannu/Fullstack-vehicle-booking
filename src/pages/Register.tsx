@@ -2,10 +2,11 @@
 
 import React from 'react';
 import { useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';  // Import useNavigate hook
 import styles from '../styles/forms/Register.module.scss';
 import { Navbar } from '../components';
 import { Toaster, toast } from 'sonner';
-import { useCreateUserMutation } from '../Features/users/UsersAPI';
+import { useRegisterUserMutation } from '../Features/login/loginAPI';
 
 type FormValues = {
   fullName: string;
@@ -17,15 +18,24 @@ type FormValues = {
 
 const Register: React.FC = () => {
   const { register, handleSubmit, formState: { errors } } = useForm<FormValues>();
-  const [createUser] = useCreateUserMutation();
+  const [registerUser] = useRegisterUserMutation();
+  const navigate = useNavigate();  // Initialize useNavigate
 
   const onSubmit = async (data: FormValues) => {
+    console.log("Submitting data:", data);  // Add this line to log the data
+
     try {
-      await createUser(data).unwrap();
+      await registerUser(data).unwrap();
       toast.success('User registered successfully');
+      navigate('/login');  // Navigate to login page after successful registration
     } catch (error: any) {
+      console.error("Error registering user:", error);  // Log the error for debugging
       if (error.status === 400) {
-        toast.error('Email has been used. Please try another one.');
+        if (error.data?.message === "Email has been used") {
+          toast.error('Email has been used. Please try another one.');
+        } else {
+          toast.error('Email has been used. Please try another one');
+        }
       } else {
         toast.error('Error registering user');
       }
