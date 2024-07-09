@@ -2,63 +2,154 @@
 
 .carDetailsContainer {
     padding: 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 1200px;
+    margin: auto;
+    font-family: 'Roboto', sans-serif;
 }
 
 .backButton {
-    align-self: flex-start;
-    margin-bottom: 20px;
-    padding: 10px 20px;
-    background-color: #4fa94d;
+    background-color: #007bff;
     color: white;
     border: none;
-    cursor: pointer;
+    padding: 10px 20px;
     border-radius: 5px;
+    cursor: pointer;
+    margin-bottom: 20px;
+    transition: background-color 0.3s ease;
+
+    &:hover {
+        background-color: #0056b3;
+    }
 }
 
 .detailsContainer {
     display: flex;
     flex-direction: row;
-    width: 100%;
-    max-width: 1200px;
     align-items: flex-start;
+    gap: 20px;
+}
+
+.infoContainer {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
 }
 
 .details {
-    flex: 1;
+    background-color: white;
     padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+
+    h2 {
+        font-size: 2rem;
+        margin-bottom: 10px;
+        color: #333;
+    }
 }
 
-.details h2 {
-    margin-bottom: 20px;
-}
+.specifications {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
 
-.details p {
-    margin: 10px 0;
+    div {
+        font-size: 1rem;
+        color: #666;
+
+        strong {
+            color: #333;
+        }
+    }
 }
 
 .imageContainer {
     flex: 1;
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     display: flex;
     justify-content: center;
     align-items: center;
+
+    .carImage {
+        width: 100%;
+        height: auto;
+        border-radius: 10px;
+        object-fit: cover; // Ensures the image covers the container without distortion
+    }
 }
 
-.carImage {
-    max-width: 100%;
-    height: auto;
+.bookingContainer {
+    background-color: white;
+    padding: 20px;
     border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+
+    h3 {
+        font-size: 1.5rem;
+        margin-bottom: 20px;
+        color: #333;
+    }
+
+    .datePickerContainer {
+        margin-bottom: 20px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+
+        label {
+            font-size: 1rem;
+            margin-bottom: 5px;
+            display: flex;
+            align-items: center;
+            color: #333;
+            gap: 5px;
+        }
+
+        .datePicker {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+    }
+
+    .totalAmount {
+        font-size: 1.2rem;
+        margin-bottom: 20px;
+        color: #333;
+
+        strong {
+            color: #007bff;
+        }
+    }
+
+    .bookButton {
+        background-color: #28a745;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        width: 100%;
+
+        &:hover {
+            background-color: #218838;
+        }
+    }
 }
 
-/* Responsive styles */
-@media (max-width: 768px) {
-    .detailsContainer {
-        flex-direction: column;
-    }
-
-    .imageContainer {
-        margin-top: 20px;
-    }
+.calendarIcon {
+    width: 20px;
+    height: 20px;
+    color: #007bff;
 }

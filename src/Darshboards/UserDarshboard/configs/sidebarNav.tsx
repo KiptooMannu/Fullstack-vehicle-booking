@@ -9,13 +9,13 @@ const sidebarNav = [
         link: '/users/bookings', 
         section: 'bookings', 
         icon: <i className='bx bx-receipt'></i>,
-        text: 'Bookings'
+        text: 'My Bookings'
     },
     {
-        link: '/users/products',
-        section: 'products',
+        link: '/users/vehicles',
+        section: 'vehicles',
         icon: <i className='bx bx-cube'></i>,
-        text: 'Products'
+        text: 'Explore Vehicles'
     },
     {
         link: '/users/customers',

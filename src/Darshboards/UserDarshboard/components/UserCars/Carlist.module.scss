@@ -1,4 +1,9 @@
-// src/components/CarList.module.scss
+.carListContainer {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
 
 .spinnerContainer {
     display: flex;
@@ -8,56 +13,69 @@
     height: 100vh;
 }
 
-.carListContainer {
-    padding: 20px;
+.error {
+    color: red;
 }
 
 .carList {
-    list-style: none;
-    padding: 0;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
-.carItem {
-    width: 300px;
-    /* Adjust width as needed */
-    height: 400px;
-    /* Adjust height as needed */
+.carCard {
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    margin-bottom: 20px;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 10px;
+    transition: transform 0.3s;
+
+    &:hover {
+        transform: translateY(-10px);
+    }
 }
 
 .carImage {
     width: 100%;
-    height: auto;
-    max-height: 200px;
-    /* Adjust the max-height of the image as needed */
+    height: 150px;
     object-fit: cover;
-    margin-bottom: 10px;
 }
 
-.error {
-    color: red;
-    text-align: center;
-    margin-top: 20px;
-}
+.carContent {
+    padding: 15px;
 
-@media (max-width: 768px) {
-    .carItem {
-        width: calc(50% - 20px);
-        /* Adjust based on your layout needs */
+    h3 {
+        font-size: 1.2em;
+        margin: 0 0 10px;
+    }
+
+    p {
+        margin: 5px 0;
+        font-size: 0.9em;
+    }
+
+    .detailsButton {
+        background: #4fa94d;
+        color: #fff;
+        border: none;
+        padding: 10px;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background 0.3s;
+
+        &:hover {
+            background: #3e8e41;
+        }
     }
 }
 
-@media (max-width: 480px) {
-    .carItem {
-        width: calc(100% - 20px);
+@media (max-width: 768px) {
+    .carList {
+        grid-template-columns: 1fr;
     }
 }

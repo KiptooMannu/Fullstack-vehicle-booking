@@ -1,5 +1,3 @@
-// src/components/UserCars/Car.tsx
-
 import React, { useState } from 'react';
 import { useGetVehiclesQuery } from '../../../../Features/vehicles/vehicleAPI';
 import { TVehicle } from '../../../../Features/vehicles/vehicleAPI';
@@ -32,27 +30,29 @@ const CarList: React.FC = () => {
         <>
           <h2>Available Vehicles</h2>
           {vehicles && vehicles.length > 0 ? (
-            <ul className={styles.carList}>
+            <div className={styles.carList}>
               {vehicles.map((vehicle: TVehicle) => (
-                <li key={vehicle.vehicleId} className={styles.carItem}>
+                <div key={vehicle.vehicleId} className={styles.carCard}>
                   <img
                     src="https://via.placeholder.com/150"
                     alt={`${vehicle.specifications.manufacturer} ${vehicle.specifications.model}`}
                     className={styles.carImage}
                   />
-                  <h3>{vehicle.specifications.manufacturer} {vehicle.specifications.model}</h3>
-                  <p>Year: {vehicle.specifications.year}</p>
-                  <p>Rent per Hour: ${vehicle.rentalRate}</p>
-                  <p>{vehicle.availability ? 'Available' : 'Not Available'}</p>
-                  <button
-                    className={styles.detailsButton}
-                    onClick={() => setSelectedVehicle(vehicle)}
-                  >
-                    View Details
-                  </button>
-                </li>
+                  <div className={styles.carContent}>
+                    <h3>{vehicle.specifications.manufacturer} {vehicle.specifications.model}</h3>
+                    <p>Year: {vehicle.specifications.year}</p>
+                    <p>Rent per Hour: ${vehicle.rentalRate}</p>
+                    <p>{vehicle.availability ? 'Available' : 'Not Available'}</p>
+                    <button
+                      className={styles.detailsButton}
+                      onClick={() => setSelectedVehicle(vehicle)}
+                    >
+                      View Details
+                    </button>
+                  </div>
+                </div>
               ))}
-            </ul>
+            </div>
           ) : (
             <p>No vehicles available</p>
           )}

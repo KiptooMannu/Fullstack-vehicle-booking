@@ -7,6 +7,7 @@ export interface TVehicle {
   vehicleId: number;
   rentalRate: string;
   availability: boolean;
+  image:string;
   specifications: {
     color: string;
     engineCapacity: string;
