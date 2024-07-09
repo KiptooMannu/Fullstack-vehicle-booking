@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
-interface TTransaction {
+export interface TTransaction {
     id: number;
     userId: number;
     amount: string;

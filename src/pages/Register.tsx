@@ -21,11 +21,14 @@ const Register: React.FC = () => {
 
   const onSubmit = async (data: FormValues) => {
     try {
-      console.log(data)
       await createUser(data).unwrap();
       toast.success('User registered successfully');
-    } catch (error) {
-      toast.error('Error registering user');
+    } catch (error: any) {
+      if (error.status === 400) {
+        toast.error('Email has been used. Please try another one.');
+      } else {
+        toast.error('Error registering user');
+      }
     }
   };
 

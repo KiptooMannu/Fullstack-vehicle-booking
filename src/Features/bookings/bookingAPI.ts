@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
-interface TBooking {
+export  interface TBooking {
     id: number;
     userId: number;
     carId: number;
@@ -15,7 +15,7 @@ export const bookingAPI = createApi({
     baseQuery: fetchBaseQuery({ baseUrl: 'https://car-rental-backend-1.onrender.com/api' }),
     tagTypes: ['Bookings'],
     endpoints: (builder) => ({
-        getBookings: builder.query<TBooking[], void>({ 
+        getBookings:   builder.query<TBooking[], void>({ 
             query: () => 'bookings',
             providesTags: (result) => 
                 result ? [...result.map(({ id }) => ({ type: 'Bookings', id } as const)), { type: 'Bookings', id: 'LIST' }] : [{ type: 'Bookings', id: 'LIST' }],

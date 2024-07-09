@@ -3,7 +3,7 @@ import { useGetBookingsQuery, useUpdateBookingMutation, useDeleteBookingMutation
 import { Toaster, toast } from 'sonner';
 import './BookingsTable.scss';
 
-interface TBooking {
+export interface TBooking {
     bookingId: number;
     bookingDate: string;
     returnDate: string;

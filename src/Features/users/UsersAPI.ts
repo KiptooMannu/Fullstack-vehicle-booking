@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
-interface TUser {
+export interface TUser {
     id: number;
     fullname: string;
     email: string;

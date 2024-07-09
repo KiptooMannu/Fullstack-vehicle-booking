@@ -1,20 +1,20 @@
-import { configureStore, combineReducers } from '@reduxjs/toolkit';
-import { persistStore, persistReducer } from 'redux-persist';
+import { configureStore, combineReducers, EnhancedStore } from '@reduxjs/toolkit';
+import { persistStore, persistReducer, PersistedState } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 import { loginAPI } from '../Features/login/loginAPI';
-import { usersAPI } from '../Features/users/UsersAPI';
-import { vehicleAPI } from '../Features/vehicles/vehicleAPI';
+import { usersAPI} from '../Features/users/UsersAPI';
+import { vehicleAPI} from '../Features/vehicles/vehicleAPI';
 import { bookingAPI } from '../Features/bookings/bookingAPI';
 import { transactionsAPI } from '../Features/Transactions/transactionsAPI';
 import { fleetManagementAPI } from '../Features/Fleet/fleetManagementAPI';
 
-//auth persist config
+// auth persist config
 const persistConfig = {
   key: 'auth',
   storage,
-}
+};
 
-//combine all reducers
+// combine all reducers
 const rootReducer = combineReducers({
   [loginAPI.reducerPath]: loginAPI.reducer,
   [usersAPI.reducerPath]: usersAPI.reducer,
@@ -24,14 +24,30 @@ const rootReducer = combineReducers({
   [fleetManagementAPI.reducerPath]: fleetManagementAPI.reducer,
 });
 
-//apply pesist Reducer to only counter reducer
+// apply persist reducer to the rootReducer
 const persistedReducer = persistReducer(persistConfig, rootReducer);
-// store
-export const store = configureStore({
+
+// configure store
+export const store: EnhancedStore<{
+  loginAPI: ReturnType<typeof loginAPI.reducer>;
+  usersAPI: ReturnType<typeof usersAPI.reducer>;
+  vehicleAPI: ReturnType<typeof vehicleAPI.reducer>;
+  bookingAPI: ReturnType<typeof bookingAPI.reducer>;
+  transactionsAPI: ReturnType<typeof transactionsAPI.reducer>;
+  fleetManagementAPI: ReturnType<typeof fleetManagementAPI.reducer>;
+} & PersistedState> = configureStore({
   reducer: persistedReducer,
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(loginAPI.middleware).concat(usersAPI.middleware)
-    .concat(vehicleAPI.middleware).concat(bookingAPI.middleware).concat(transactionsAPI.middleware)
+    getDefaultMiddleware({
+      serializableCheck: {
+        ignoredActions: ['persist/PERSIST', 'persist/REHYDRATE'],
+      },
+    })
+    .concat(loginAPI.middleware)
+    .concat(usersAPI.middleware)
+    .concat(vehicleAPI.middleware)
+    .concat(bookingAPI.middleware)
+    .concat(transactionsAPI.middleware)
     .concat(fleetManagementAPI.middleware),
 });
 

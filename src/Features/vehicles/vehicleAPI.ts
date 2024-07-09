@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
-interface TVehicle {
+export interface TVehicle {
     id: number;
     model: string;
     make: string;

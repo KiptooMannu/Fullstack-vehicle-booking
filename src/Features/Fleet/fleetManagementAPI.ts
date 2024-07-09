@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
-interface TFleetManagement {
+export interface TFleetManagement {
     fleetId: number;
     vehicleId: number;
     acquisitionDate: string;
