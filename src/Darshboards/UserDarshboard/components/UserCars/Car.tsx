@@ -1,19 +1,15 @@
 // src/components/CarList.tsx
 
 import React from 'react';
-import { useGetVehiclesQuery, TVehicle } from '../../../../Features/vehicles/vehicleAPI';
+import { useGetVehiclesQuery } from '../../../../Features/vehicles/vehicleAPI';
+import { TVehicle } from '../../../../Features/vehicles/vehicleAPI';
 import { Bars } from 'react-loader-spinner';
-import { useHistory } from 'react-router-dom'; // Import useHistory from react-router-dom
+import { useNavigate } from 'react-router-dom';
 import styles from './Carlist.module.scss';
 
 const CarList: React.FC = () => {
-  const history = useHistory(); // Initialize useHistory
-
   const { data: vehicles, error, isLoading } = useGetVehiclesQuery();
-
-  const navigateToCarDetails = (id: number) => {
-    history.push(`/car/${id}`); // Navigate to car details page with car id
-  };
+  const navigate = useNavigate();
 
   if (isLoading) {
     return (
@@ -35,10 +31,21 @@ const CarList: React.FC = () => {
         <ul className={styles.carList}>
           {vehicles.map((vehicle: TVehicle) => (
             <li key={vehicle.id} className={styles.carItem}>
-              <h3>{vehicle.make} {vehicle.model}</h3>
-              <p>Year: {vehicle.year}</p>
-              <p>Rent per Hour: ${vehicle.rentPerHour}</p>
-              <button onClick={() => navigateToCarDetails(vehicle.id)}>View Details</button>
+              <img 
+                src="https://via.placeholder.com/150" 
+                alt={`${vehicle.specifications.manufacturer} ${vehicle.specifications.model}`} 
+                className={styles.carImage} 
+              />
+              <h3>{vehicle.specifications.manufacturer} {vehicle.specifications.model}</h3>
+              <p>Year: {vehicle.specifications.year}</p>
+              <p>Rent per Hour: ${vehicle.rentalRate}</p>
+              <p>{vehicle.availability ? 'Available' : 'Not Available'}</p>
+              <button 
+                className={styles.detailsButton} 
+                onClick={() => navigate(`/vehicle/${vehicle.id}`)}
+              >
+                View Details
+              </button>
             </li>
           ))}
         </ul>
