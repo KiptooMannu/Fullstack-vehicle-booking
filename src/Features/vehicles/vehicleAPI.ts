@@ -1,12 +1,24 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
+// src/Features/vehicles/vehicleAPI.ts
+
 export interface TVehicle {
-    id: number;
+  id: number;
+  rentalRate: string;
+  availability: boolean;
+  specifications: {
+    color: string;
+    engineCapacity: string;
+    features: string;
+    fuelType: string;
+    seatingCapacity: number;
+    manufacturer: string;
     model: string;
-    make: string;
+    transmission: string;
     year: number;
-    rentPerHour: number;
+  };
 }
+
 
 // Define the API slice
 export const vehicleAPI = createApi({

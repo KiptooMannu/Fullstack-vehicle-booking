@@ -6,6 +6,7 @@ import {  Routes, Route } from 'react-router-dom'
 import Dashboard from './pages/Darshboard'
 import MainLayout from './layout/MainLayout'
 import Bookings from './pages/Bookings'
+import CarList from './components/UserCars/Car'
 
 function UserDarshboard() {
     return (
@@ -13,7 +14,7 @@ function UserDarshboard() {
             <Routes>
                 <Route path="/" element={<MainLayout />}>
                     <Route index element={<Dashboard />} />
-                    <Route path="bookings" element={<Bookings />} />
+                    <Route path="bookings" element={<CarList />} />
                     <Route path="Available Cars" element={<Bookings />} />
                     <Route path="customers" element={<Bookings />} />
                     <Route path="settings" element={<Bookings />} />

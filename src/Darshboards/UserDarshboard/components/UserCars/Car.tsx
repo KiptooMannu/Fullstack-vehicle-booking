@@ -1,13 +1,19 @@
 // src/components/CarList.tsx
 
 import React from 'react';
-import { useGetVehiclesQuery } from '../../../../Features/vehicles/vehicleAPI';
-import { TVehicle } from '../../../../Features/vehicles/vehicleAPI';
+import { useGetVehiclesQuery, TVehicle } from '../../../../Features/vehicles/vehicleAPI';
 import { Bars } from 'react-loader-spinner';
-import styles from '../styles/CarList.module.scss';
+import { useHistory } from 'react-router-dom'; // Import useHistory from react-router-dom
+import styles from './Carlist.module.scss';
 
 const CarList: React.FC = () => {
+  const history = useHistory(); // Initialize useHistory
+
   const { data: vehicles, error, isLoading } = useGetVehiclesQuery();
+
+  const navigateToCarDetails = (id: number) => {
+    history.push(`/car/${id}`); // Navigate to car details page with car id
+  };
 
   if (isLoading) {
     return (
@@ -32,6 +38,7 @@ const CarList: React.FC = () => {
               <h3>{vehicle.make} {vehicle.model}</h3>
               <p>Year: {vehicle.year}</p>
               <p>Rent per Hour: ${vehicle.rentPerHour}</p>
+              <button onClick={() => navigateToCarDetails(vehicle.id)}>View Details</button>
             </li>
           ))}
         </ul>
