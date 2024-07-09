@@ -1,4 +1,4 @@
-// src/components/CarList.tsx
+// src/components/UserCars/Car.tsx
 
 import React from 'react';
 import { useGetVehiclesQuery } from '../../../../Features/vehicles/vehicleAPI';
@@ -30,7 +30,7 @@ const CarList: React.FC = () => {
       {vehicles && vehicles.length > 0 ? (
         <ul className={styles.carList}>
           {vehicles.map((vehicle: TVehicle) => (
-            <li key={vehicle.id} className={styles.carItem}>
+            <li key={vehicle.vehicleId} className={styles.carItem}>
               <img 
                 src="https://via.placeholder.com/150" 
                 alt={`${vehicle.specifications.manufacturer} ${vehicle.specifications.model}`} 
@@ -42,7 +42,7 @@ const CarList: React.FC = () => {
               <p>{vehicle.availability ? 'Available' : 'Not Available'}</p>
               <button 
                 className={styles.detailsButton} 
-                onClick={() => navigate(`/vehicle/${vehicle.id}`)}
+                onClick={() => navigate(`/users/bookings/vehicle/${vehicle.vehicleId}`)}
               >
                 View Details
               </button>
