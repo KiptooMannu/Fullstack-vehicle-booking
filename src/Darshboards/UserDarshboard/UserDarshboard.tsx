@@ -13,8 +13,8 @@ function UserDarshboard() {
             <Routes>
                 <Route path="/" element={<MainLayout />}>
                     <Route index element={<Dashboard />} />
-                    <Route path="orders" element={<Bookings />} />
-                    <Route path="products" element={<Bookings />} />
+                    <Route path="bookings" element={<Bookings />} />
+                    <Route path="Available Cars" element={<Bookings />} />
                     <Route path="customers" element={<Bookings />} />
                     <Route path="settings" element={<Bookings />} />
                     <Route path="stats" element={<Bookings />} />
