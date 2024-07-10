@@ -3,8 +3,9 @@ import { TVehicle } from '../../../../Features/vehicles/vehicleAPI';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import styles from './CarDetails.module.scss';
-import { CalendarIcon } from '@heroicons/react/24/outline'; // Importing icons from Heroicons
-import { useCreateBookingMutation } from '../../../../Features/bookings/bookingAPI'; // Import the hook
+import { CalendarIcon } from '@heroicons/react/24/outline';
+import { useCreateBookingMutation } from '../../../../Features/bookings/bookingAPI';
+import { toast, Toaster } from 'sonner';
 
 interface CarDetailsProps {
   vehicle: TVehicle;
@@ -15,7 +16,7 @@ const CarDetails: React.FC<CarDetailsProps> = ({ vehicle, onBack }) => {
   const [startDate, setStartDate] = useState<Date | null>(null);
   const [endDate, setEndDate] = useState<Date | null>(null);
   const [totalAmount, setTotalAmount] = useState<number>(0);
-  const [createBooking] = useCreateBookingMutation(); // Use the mutation hook
+  const [createBooking] = useCreateBookingMutation();
 
   const handleStartDateChange = (date: Date | null) => {
     setStartDate(date);
@@ -36,21 +37,23 @@ const CarDetails: React.FC<CarDetailsProps> = ({ vehicle, onBack }) => {
   };
 
   const handleBooking = async () => {
+    const user = JSON.parse(localStorage.getItem('user') || '{}');
+    const userId = user.userId || 0;
+
     const bookingData = {
-      userId: parseInt(localStorage.getItem('userId') || '0', 10), // Assume user ID is stored in localStorage
-      vehicleId: vehicle.id, // Assuming `id` is a property of TVehicle
-      branchId: 3, // Placeholder, change as needed
+      userId,
+      vehicleId: vehicle.vehicleId,
+      branchId: 3,
       bookingDate: startDate?.toISOString() || '',
       returnDate: endDate?.toISOString() || '',
       totalAmount: totalAmount,
     };
 
     try {
-      console.log(bookingData)
       await createBooking(bookingData).unwrap();
-      alert('Booking successful!');
+      toast.success('Booking successful!');
     } catch (error) {
-      alert('Booking failed: ' );
+      toast.error('Booking failed.');
     }
   };
 
@@ -58,6 +61,7 @@ const CarDetails: React.FC<CarDetailsProps> = ({ vehicle, onBack }) => {
 
   return (
     <div className={styles.carDetailsContainer}>
+      <Toaster position="top-right"  />
       <button className={styles.backButton} onClick={onBack}>Back to List</button>
       <div className={styles.detailsContainer}>
         <div className={styles.infoContainer}>
