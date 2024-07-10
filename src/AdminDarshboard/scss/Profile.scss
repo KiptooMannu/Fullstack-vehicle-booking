@@ -1,114 +1,137 @@
 .settings {
-    margin-top: 100px;
-    padding: 0px 30px;
-    padding-bottom: 50px;
+    background-color: #f9f9f9;
+    padding: 30px;
+    border-radius: 10px;
+    max-width: 100%;
+    margin: 0 auto;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .settings__wrapper {
-    padding: 20px;
-    border-radius: 5px;
-    background: var(--primary-color);
+    display: flex;
+    flex-direction: column;
 }
 
 .settings__title {
-    color: var(--heading-color);
-    font-weight: 500;
-    margin-bottom: 2rem;
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 20px;
+    color: #333;
 }
 
 .settings__top {
     display: flex;
-    align-items: center;
-    column-gap: 2.7rem;
-    margin-bottom: 1.5rem;
-}
-
-.setting__btn {
-    border: none;
-    border: none;
-    padding: 7px 25px;
-    background: transparent;
-    border-radius: 5px;
-    color: var(--heading-color);
-    font-size: 1rem;
-    cursor: pointer;
-}
-
-.active__btn {
-    background: #b7ffe913;
-}
-
-.profile__title {
-    color: var(--heading-color);
-    font-weight: 500;
-    margin-bottom: 5px;
-}
-
-.profile__desc {
-    color: var(--small-text-color);
-    margin-bottom: 2rem;
-}
-
-label {
-    color: var(--heading-color);
-    margin-bottom: 5px;
-    font-size: 0.9rem;
-}
-
-.form__group div {
-    display: flex;
-    flex-direction: column;
-    width: 47%;
-}
-
-.form__group {
-    display: flex;
-    align-items: center;
     justify-content: space-between;
-    column-gap: 2rem;
-    margin-bottom: 2rem;
+    margin-bottom: 30px;
+
+    .setting__btn {
+        background: #e0e0e0;
+        border: none;
+        padding: 10px 15px;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+
+        &:hover {
+            background: #d4d4d4;
+        }
+
+        &.active__btn {
+            background: #007bff;
+            color: #fff;
+        }
+    }
 }
 
-.form__group div input {
-    width: 100%;
-    padding: 12px 20px;
-    border-radius: 5px;
-    background: transparent;
-    border: 1px solid #b7ffe913;
-    color: var(--heading-color);
-    font-size: 1rem;
-}
+.details__form {
+    background: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 
-.form__group div input::placeholder {
-    color: var(--small-text-color);
-    font-size: 0.9rem;
-}
+    .profile__title {
+        font-size: 20px;
+        font-weight: 500;
+        margin-bottom: 10px;
+        color: #007bff;
+    }
 
-.form__group div input:focus {
-    outline: none;
-}
+    .profile__desc {
+        font-size: 14px;
+        margin-bottom: 20px;
+        color: #666;
+    }
 
-.profile-img__desc {
-    color: var(--small-text-color);
-    margin-bottom: 10px;
-}
+    .form__group {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 20px;
 
-.profile__img-btns {
-    display: flex;
-    flex-direction: row !important;
-    column-gap: 2.7rem;
-}
+        div {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            margin-right: 20px;
 
-.dlt__btn,
-.update__btn {
-    border: none;
-    outline: none;
-    background: transparent;
-    color: #ddd;
-    font-size: 0.9rem;
-    cursor: pointer;
-}
+            &:last-child {
+                margin-right: 0;
+            }
 
-.update__btn {
-    color: var(--secondary-color);
+            label {
+                font-size: 14px;
+                margin-bottom: 5px;
+                color: #333;
+            }
+
+            input[type='text'],
+            input[type='email'],
+            input[type='number'],
+            input[type='date'],
+            input[type='file'] {
+                padding: 10px;
+                border: 1px solid #ddd;
+                border-radius: 5px;
+                font-size: 14px;
+                color: #333;
+            }
+
+            input[type='file'] {
+                padding: 5px;
+            }
+        }
+    }
+
+    .profile-img__desc {
+        font-size: 12px;
+        margin-bottom: 10px;
+        color: #999;
+    }
+
+    .profile__img-btns {
+        display: flex;
+        justify-content: space-between;
+
+        .dlt__btn,
+        .update__btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+
+            &:hover {
+                opacity: 0.9;
+            }
+        }
+
+        .dlt__btn {
+            background: #dc3545;
+            color: #fff;
+        }
+
+        .update__btn {
+            background: #007bff;
+            color: #fff;
+        }
+    }
 }

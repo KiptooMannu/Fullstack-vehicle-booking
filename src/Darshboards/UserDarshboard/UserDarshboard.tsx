@@ -8,6 +8,7 @@ import Bookings from './pages/Bookings';
 import CarList from './components/UserCars/Car';
 import MyBookings from './pages/Mybookings';
 import TransactionsTable from './pages/UserPayments';
+import Profile from '../../AdminDarshboard/pages/Profile';
 // import CarDetails from './components/UserCars/CarDetails';
 
 function UserDarshboard() {
@@ -18,8 +19,8 @@ function UserDarshboard() {
                 <Route path="vehicles" element={<CarList />}/>
                 <Route path="bookings" element={<MyBookings />} />
                 <Route path="transactions" element={<TransactionsTable />} />
-                <Route path="settings" element={<Bookings />} />
-                <Route path="stats" element={<Bookings />} />
+                <Route path="profile" element={<Profile />} />
+                <Route path="tickets" element={<Bookings />} />
             </Route>
         </Routes>
     );
