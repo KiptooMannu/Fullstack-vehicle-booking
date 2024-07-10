@@ -1,0 +1,37 @@
+.transactionsContainer {
+    padding: 20px;
+    background-color: #f8f8f8;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.transactionsTable {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0 auto;
+}
+
+.transactionsTable th,
+.transactionsTable td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: center;
+}
+
+.transactionsTable th {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.transactionRow:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+.transactionRow:hover {
+    background-color: #ddd;
+}
