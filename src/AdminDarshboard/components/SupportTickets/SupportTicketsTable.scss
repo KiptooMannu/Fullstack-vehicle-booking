@@ -1,0 +1,41 @@
+.ticket-table-container {
+    padding: 20px;
+}
+
+.ticket-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+.ticket-table th,
+.ticket-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+.ticket-table th {
+    background-color: #f2f2f2;
+}
+
+.ticket-table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.ticket-table tr:hover {
+    background-color: #ddd;
+}
+
+.ticket-table button {
+    padding: 5px 10px;
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.ticket-table button:hover {
+    background-color: #45a049;
+}

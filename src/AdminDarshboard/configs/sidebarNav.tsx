@@ -36,10 +36,10 @@ const sidebarNav = [
         text: 'Fleet Management'
     },
     {
-        link: '/admin/profile',
-        section: 'profile',
+        link: '/admin/support',
+        section: 'support',
         icon: <i className='bx bx-cog'></i>,
-        text: 'Profile'
+        text: 'Support Tickets'
     }
     ,
     {

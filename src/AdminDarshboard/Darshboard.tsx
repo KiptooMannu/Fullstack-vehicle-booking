@@ -11,6 +11,7 @@ import Bookings from './pages/Bookings'
 import Transactions from './pages/Transactions'
 import FleetManagementTable from '../Features/Fleet/FleetTable'
 import Profile from './pages/Profile'
+import SupportTicketsTable from './components/SupportTickets/TicketsTable'
 
 function Darshboard() {
     return (
@@ -24,6 +25,7 @@ function Darshboard() {
                     <Route path="profile" element={<Profile />} />
                     <Route path='fleet-management' element={<FleetManagementTable />}/>
                     <Route path="transactions" element={<Transactions />} />
+                    <Route path="support" element={<SupportTicketsTable />} />
                 </Route>
             </Routes>
         // </BrowserRouter>

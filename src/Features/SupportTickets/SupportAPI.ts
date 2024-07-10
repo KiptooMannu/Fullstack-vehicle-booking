@@ -15,7 +15,7 @@ export interface TSupportTicket {
 // Define the API slice for support tickets
 export const supportTicketAPI = createApi({
   reducerPath: 'supportTicketAPI',
-  baseQuery: fetchBaseQuery({ baseUrl: 'https://car-rental-backend-1.onrender.com/api   ' }),
+  baseQuery: fetchBaseQuery({ baseUrl: 'https://car-rental-backend-1.onrender.com/api' }),
   tagTypes: ['SupportTickets'],
   endpoints: (builder) => ({
     getSupportTickets: builder.query<TSupportTicket[], void>({
