@@ -4,13 +4,16 @@ import styles from '../scss/TransactionsTable.module.scss';
 
 const TransactionsTable: React.FC = () => {
   const bookingIds = JSON.parse(localStorage.getItem('bookingIds') || '[]');
-  const { data: transactions, error, isLoading } = useGetTransactionsQuery(); // Fetch all transactions
+  const { data: transactions, error, isLoading } = useGetTransactionsQuery(undefined, {
+    pollingInterval: 5000,
+  });
 
-  // Filter transactions to only include those that match the booking IDs in local storage
-  const filteredTransactions = transactions?.filter(transaction => bookingIds.includes(transaction.id));
+  const filteredTransactions = transactions?.filter((transaction: TTransaction) =>
+    bookingIds.includes(transaction.bookingId)
+  );
 
   return (
-    <div className={styles.transactionsContainer}>
+    <div className={styles.transactionsTableContainer}>
       <h2>My Transactions</h2>
       {isLoading && <p>Loading...</p>}
       {error && <p>Error loading transactions.</p>}
@@ -20,6 +23,7 @@ const TransactionsTable: React.FC = () => {
           <thead>
             <tr>
               <th>Transaction ID</th>
+              <th>Booking ID</th>
               <th>Amount</th>
               <th>Transaction Date</th>
               <th>Status</th>
@@ -27,8 +31,9 @@ const TransactionsTable: React.FC = () => {
           </thead>
           <tbody>
             {filteredTransactions.map((transaction: TTransaction) => (
-              <tr key={transaction.id} className={styles.transactionRow}>
+              <tr key={transaction.id}>
                 <td>{transaction.id}</td>
+                <td>{transaction.bookingId}</td>
                 <td>${transaction.amount}</td>
                 <td>{new Date(transaction.transactionDate).toLocaleString()}</td>
                 <td>{transaction.status}</td>

@@ -24,16 +24,16 @@ const sidebarNav = [
         text: 'My Transactions'
     },
     {
-        link: '/users/profile',
-        section: 'profile',
-        icon: <i className='bx bx-cog'></i>,
-        text: 'Profile'
-    },
-    {
         link: '/users/stats',
         section: 'stats',
         icon: <i className='bx bx-chart'></i>,
         text: 'Stats'
+    },
+    {
+        link: '/users/profile',
+        section: 'profile',
+        icon: <i className='bx bx-cog'></i>,
+        text: 'Profile'
     }
 ];
 
