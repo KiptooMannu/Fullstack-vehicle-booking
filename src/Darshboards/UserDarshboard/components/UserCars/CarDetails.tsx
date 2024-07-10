@@ -1,11 +1,10 @@
-// src/components/UserCars/CarDetails.tsx
-
 import React, { useState } from 'react';
 import { TVehicle } from '../../../../Features/vehicles/vehicleAPI';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import styles from './CarDetails.module.scss';
 import { CalendarIcon } from '@heroicons/react/24/outline'; // Importing icons from Heroicons
+import { useCreateBookingMutation } from '../../../../Features/bookings/bookingAPI'; // Import the hook
 
 interface CarDetailsProps {
   vehicle: TVehicle;
@@ -16,6 +15,7 @@ const CarDetails: React.FC<CarDetailsProps> = ({ vehicle, onBack }) => {
   const [startDate, setStartDate] = useState<Date | null>(null);
   const [endDate, setEndDate] = useState<Date | null>(null);
   const [totalAmount, setTotalAmount] = useState<number>(0);
+  const [createBooking] = useCreateBookingMutation(); // Use the mutation hook
 
   const handleStartDateChange = (date: Date | null) => {
     setStartDate(date);
@@ -35,7 +35,7 @@ const CarDetails: React.FC<CarDetailsProps> = ({ vehicle, onBack }) => {
     }
   };
 
-  const handleBooking = () => {
+  const handleBooking = async () => {
     const bookingData = {
       userId: parseInt(localStorage.getItem('userId') || '0', 10), // Assume user ID is stored in localStorage
       vehicleId: vehicle.id, // Assuming `id` is a property of TVehicle
@@ -45,8 +45,13 @@ const CarDetails: React.FC<CarDetailsProps> = ({ vehicle, onBack }) => {
       totalAmount: totalAmount,
     };
 
-    // Send bookingData to the API
-    // Your API call here
+    try {
+      console.log(bookingData)
+      await createBooking(bookingData).unwrap();
+      alert('Booking successful!');
+    } catch (error) {
+      alert('Booking failed: ' );
+    }
   };
 
   const today = new Date();

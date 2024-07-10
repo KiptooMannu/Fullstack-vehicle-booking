@@ -18,16 +18,16 @@ const sidebarNav = [
         text: 'Explore Vehicles'
     },
     {
-        link: '/users/customers',
-        section: 'customers',
+        link: '/users/transactions',
+        section: 'transactions',
         icon: <i className='bx bx-user'></i>,
-        text: 'Customers'
+        text: 'My Transactions'
     },
     {
-        link: '/users/settings',
-        section: 'settings',
+        link: '/users/profile',
+        section: 'profile',
         icon: <i className='bx bx-cog'></i>,
-        text: 'Settings'
+        text: 'Profile'
     },
     {
         link: '/users/stats',

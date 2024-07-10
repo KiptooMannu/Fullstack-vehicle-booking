@@ -15,7 +15,7 @@ function UserDarshboard() {
                 <Route index element={<Dashboard />} />
                 <Route path="vehicles" element={<CarList />}/>
                 <Route path="bookings" element={<Bookings />} />
-                <Route path="customers" element={<Bookings />} />
+                <Route path="transactions" element={<Bookings />} />
                 <Route path="settings" element={<Bookings />} />
                 <Route path="stats" element={<Bookings />} />
             </Route>

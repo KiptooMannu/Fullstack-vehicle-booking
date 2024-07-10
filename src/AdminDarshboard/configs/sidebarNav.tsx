@@ -41,6 +41,13 @@ const sidebarNav = [
         icon: <i className='bx bx-cog'></i>,
         text: 'Profile'
     }
+    ,
+    {
+        link: '/admin/profile',
+        section: 'profile',
+        icon: <i className='bx bx-cog'></i>,
+        text: 'Profile'
+    }
 ]
 
 export default sidebarNav
