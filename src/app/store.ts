@@ -51,7 +51,7 @@ export const store: EnhancedStore<{
     .concat(bookingAPI.middleware)
     .concat(transactionsAPI.middleware)
     .concat(fleetManagementAPI.middleware)
-    .concat(transactionsAPI.middleware),
+    .concat(supportTicketAPI.middleware),
 });
 
 export const persistedStore = persistStore(store);

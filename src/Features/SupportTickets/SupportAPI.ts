@@ -8,8 +8,8 @@ export interface TSupportTicket {
   description: string;
   status: string;
   priority: string;
-  createdAt: Date;
-  updatedAt: Date;
+  createdAt: string;
+  updatedAt: string;
 }
 
 // Define the API slice for support tickets

@@ -1,5 +1,5 @@
 import React from 'react';
-import { useGetSupportTicketsQuery , useUpdateSupportTicketMutation } from '../../../Features/SupportTickets/SupportAPI';
+import { useGetSupportTicketsQuery , useUpdateSupportTicketMutation, TSupportTicket } from '../../../Features/SupportTickets/SupportAPI';
 import './SupportTicketsTable.scss'; // Assuming you have some CSS for styling
 
 const SupportTicketsTable: React.FC = () => {
@@ -40,7 +40,7 @@ const SupportTicketsTable: React.FC = () => {
           </tr>
         </thead>
         <tbody>
-          {tickets && tickets.map((ticket) => (
+          {tickets && tickets.map((ticket :TSupportTicket) => (
             <tr key={ticket.ticketId}>
               <td>{ticket.ticketId}</td>
               <td>{ticket.userId}</td>
