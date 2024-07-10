@@ -33,10 +33,9 @@ export const bookingAPI = createApi({
       providesTags: (result) =>
         result ? [...result.map(({ bookingId }) => ({ type: 'Bookings', bookingId } as const)), { type: 'Bookings', id: 'LIST' }] : [{ type: 'Bookings', id: 'LIST' }],
     }),
-    getUserBookings: builder.query<TBooking[], number>({
-      query: (userId) => `bookings/user/${userId}`,
-      providesTags: (result) =>
-        result ? [...result.map(({ bookingId }) => ({ type: 'Bookings', bookingId } as const)), { type: 'Bookings', id: 'LIST' }] : [{ type: 'Bookings', id: 'LIST' }],
+    getBookingById: builder.query<TBooking, number>({
+      query: (bookingId) => `bookings/${bookingId}`,
+      providesTags: (result, error, bookingId) => [{ type: 'Bookings', bookingId }],
     }),
     createBooking: builder.mutation<TBooking, Partial<TBooking>>({
       query: (newBooking) => ({
@@ -67,7 +66,7 @@ export const bookingAPI = createApi({
 // Export the auto-generated hooks
 export const {
   useGetBookingsQuery,
-  useGetUserBookingsQuery, // New hook for fetching user bookings
+  useGetBookingByIdQuery,
   useCreateBookingMutation,
   useUpdateBookingMutation,
   useDeleteBookingMutation

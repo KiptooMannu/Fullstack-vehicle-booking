@@ -1,39 +1,59 @@
 .myBookingsContainer {
     padding: 20px;
-    max-width: 100%;
+    background-color: #f8f8f8;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.bookingTable {
+    width: 100%;
+    border-collapse: collapse;
     margin: 0 auto;
-    background-color: #f9f9f9;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
 
-    h2 {
-        margin-bottom: 20px;
-        font-size: 1.5em;
-        text-align: center;
-    }
+.bookingTable th,
+.bookingTable td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: center;
+}
 
-    p {
-        text-align: center;
-        font-size: 1.2em;
-    }
+.bookingTable th {
+    background-color: #4CAF50;
+    color: white;
+}
 
-    .bookingList {
-        list-style: none;
-        padding: 0;
+.bookingRow:nth-child(even) {
+    background-color: #f2f2f2;
+}
 
-        .bookingItem {
-            padding: 15px;
-            margin-bottom: 10px;
-            background-color: #fff;
-            border-radius: 8px;
-            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-            display: flex;
-            flex-direction: column;
-            gap: 5px;
+.bookingRow:hover {
+    background-color: #ddd;
+}
 
-            div {
-                font-size: 1em;
-            }
-        }
-    }
+.bookingRow button {
+    margin: 0 5px;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.bookingRow button:hover {
+    opacity: 0.8;
+}
+
+.bookingRow button:first-child {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.bookingRow button:last-child {
+    background-color: #f44336;
+    color: white;
 }
