@@ -23,9 +23,10 @@ function Login() {
             console.log(response);
 
             // Persist the response to local storage
-            localStorage.setItem('user', JSON.stringify(response.user));
+            localStorage.setItem('user', JSON.stringify(response));
+            localStorage.setItem('token', JSON.stringify(response.token));
 
-            const userRole = response.user.role;
+            const userRole = response.username;
             if (userRole === 'admin') {
                 navigate('/admin');
             } else if (userRole === 'user') {

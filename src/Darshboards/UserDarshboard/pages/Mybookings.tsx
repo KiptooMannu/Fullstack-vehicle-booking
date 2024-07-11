@@ -57,7 +57,7 @@ const MyBookings: React.FC = () => {
                 <td>${booking.totalAmount}</td>
                 <td>{booking.bookingStatus}</td>
                 <td>
-                  <button onClick={() => handleUpdateBooking(booking.bookingId)}>Update</button>
+                  <button onClick={() => handleUpdateBooking(booking.bookingId)}>Make Payment</button>
                   <button onClick={() => handleDeleteBooking(booking.bookingId)}>Cancel Boooking</button>
                 </td>
               </tr>

@@ -1,5 +1,6 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
+// Define the interface for fleet management
 export interface TFleetManagement {
     fleetId: number;
     vehicleId: number;
@@ -10,16 +11,30 @@ export interface TFleetManagement {
     status: string;
 }
 
-// Define the API slice
+// Define the API slice with token header
 export const fleetManagementAPI = createApi({
     reducerPath: 'fleetManagementAPI',
-    baseQuery: fetchBaseQuery({ baseUrl: 'https://car-rental-backend-1.onrender.com/api' }),
+    baseQuery: fetchBaseQuery({
+        baseUrl: 'https://car-rental-backend-1.onrender.com/api',
+        prepareHeaders: (headers) => {
+            const token = localStorage.getItem('token');
+            if (token) {
+                headers.set('authorization', `Bearer ${token}`);
+            }
+            return headers;
+        },
+    }),
     tagTypes: ['FleetManagement'],  // Define your tags here
     endpoints: (builder) => ({
         getFleetManagement: builder.query<TFleetManagement[], void>({
             query: () => 'fleet-management',
-            providesTags: (result) => 
-                result ? [...result.map(({ fleetId }) => ({ type: 'FleetManagement', fleetId } as const)), { type: 'FleetManagement', id: 'LIST' }] : [{ type: 'FleetManagement', id: 'LIST' }],
+            providesTags: (result) =>
+                result
+                    ? [
+                          ...result.map(({ fleetId }) => ({ type: 'FleetManagement', fleetId } as const)),
+                          { type: 'FleetManagement', id: 'LIST' },
+                      ]
+                    : [{ type: 'FleetManagement', id: 'LIST' }],
         }),
         createFleetManagement: builder.mutation<TFleetManagement, Partial<TFleetManagement>>({
             query: (newFleetManagement) => ({
@@ -53,4 +68,4 @@ export const {
     useCreateFleetManagementMutation, 
     useUpdateFleetManagementMutation, 
     useDeleteFleetManagementMutation 
-}: any = fleetManagementAPI;
+}:any = fleetManagementAPI;
