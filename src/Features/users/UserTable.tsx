@@ -12,7 +12,7 @@ interface TUser {
 }
 
 const UserTable: React.FC = () => {
-    const { data: usersData, error, isLoading, isError } = useGetUsersQuery();
+    const { data: usersData, isLoading, isError } = useGetUsersQuery();
     const [updateUser] = useUpdateUserMutation();
     const [deleteUser] = useDeleteUserMutation();
 
@@ -25,10 +25,6 @@ const UserTable: React.FC = () => {
         await updateUser(user);
         toast.success(`User with id ${user.userId} updated successfully`);
     };
-
-    // Log data and error for debugging
-    console.log('usersData:', usersData);
-    console.log('error:', error);
 
     return (
         <>

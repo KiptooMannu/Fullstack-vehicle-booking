@@ -8,7 +8,7 @@ export interface logInUser {
 
 export interface LoginResponse {
   id: string;
-  username: string;
+  user:{}
   email: string;
   token: string;
 }

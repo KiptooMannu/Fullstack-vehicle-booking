@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import { useLoginUserMutation } from '../Features/login/loginAPI';
 import { useNavigate } from 'react-router-dom';
 import styles from '../styles/forms/Login.module.scss';
-import { LoginResponse } from '../Features/login/loginAPI'; // Import the LoginResponse type
+// import { LoginResponse } from '../Features/login/loginAPI'; // Import the LoginResponse type
 import { Navbar } from "../components";
 
 type FormValues = {
@@ -19,14 +19,16 @@ function Login() {
     const onSubmit = async (data: FormValues) => {
         try {
             console.log(data);
-            const response = await loginUser(data).unwrap() as LoginResponse;
+            const response = await loginUser(data).unwrap() ;
             console.log(response);
 
             // Persist the response to local storage
             localStorage.setItem('user', JSON.stringify(response));
             localStorage.setItem('token', JSON.stringify(response.token));
+            
+            console.log(response.token);
 
-            const userRole = response.username;
+            const userRole = response.user.role;
             if (userRole === 'admin') {
                 navigate('/admin');
             } else if (userRole === 'user') {
