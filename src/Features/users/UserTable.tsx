@@ -1,4 +1,4 @@
-
+import React, { useState } from 'react';
 import { useGetUsersQuery, useUpdateUserMutation, useDeleteUserMutation } from './UsersAPI';
 import { Toaster, toast } from 'sonner';
 import './UserTable.scss';
@@ -16,6 +16,9 @@ const UserTable: React.FC = () => {
     const [updateUser] = useUpdateUserMutation();
     const [deleteUser] = useDeleteUserMutation();
 
+    const [currentPage, setCurrentPage] = useState(1);
+    const recordsPerPage = 10;
+
     const handleDelete = async (userId: number) => {
         await deleteUser(userId);
         toast.success(`User with id ${userId} deleted successfully`);
@@ -25,6 +28,9 @@ const UserTable: React.FC = () => {
         await updateUser(user);
         toast.success(`User with id ${user.userId} updated successfully`);
     };
+
+    const totalPages = usersData ? Math.ceil(usersData.length / recordsPerPage) : 0;
+    const paginatedData = usersData ? usersData.slice((currentPage - 1) * recordsPerPage, currentPage * recordsPerPage) : [];
 
     return (
         <>
@@ -58,7 +64,7 @@ const UserTable: React.FC = () => {
                         ) : isError ? (
                             <tr><td colSpan={6}>Error loading data</td></tr>
                         ) : (
-                            usersData && usersData.map((user: TUser) => (
+                            paginatedData.map((user: TUser) => (
                                 <tr key={user.userId}>
                                     <td>{user.userId}</td>
                                     <td>
@@ -85,6 +91,13 @@ const UserTable: React.FC = () => {
                         <tr><td colSpan={6}>{usersData ? `${usersData.length} records` : '0 records'}</td></tr>
                     </tfoot>
                 </table>
+                <div className="pagination">
+                    {Array.from({ length: totalPages }, (_, i) => i + 1).map(page => (
+                        <button key={page} className={`page-btn ${page === currentPage ? 'active' : ''}`} onClick={() => setCurrentPage(page)}>
+                            {page}
+                        </button>
+                    ))}
+                </div>
             </div>
         </>
     );

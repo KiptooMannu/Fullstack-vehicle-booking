@@ -6,12 +6,13 @@ import {  Routes, Route } from 'react-router-dom'
 import Dashboard from './pages/Darshboard'
 import MainLayout from './layout/MainLayout'
 import User from './pages/Users'
-import Vehicles from './pages/Vehicles'
+// import Vehicles from './pages/Vehicles'
 import Bookings from './pages/Bookings'
 import Transactions from './pages/Transactions'
 import FleetManagementTable from '../Features/Fleet/FleetTable'
 import Profile from './pages/Profile'
 import SupportTicketsTable from './components/SupportTickets/TicketsTable'
+import CarList from './components/cars/carItem'
 
 function Darshboard() {
     return (
@@ -20,7 +21,7 @@ function Darshboard() {
                 <Route path="/" element={<MainLayout />}>
                     <Route index element={<Dashboard />} />
                     <Route path="bookings" element={<Bookings />} />
-                    <Route path="vehicles" element={<Vehicles />} />
+                    <Route path="vehicles" element={<CarList />} />
                     <Route path="customers" element={<User />} />
                     <Route path="profile" element={<Profile />} />
                     <Route path='fleet-management' element={<FleetManagementTable />}/>
