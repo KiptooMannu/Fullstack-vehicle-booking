@@ -19,8 +19,9 @@ export const fleetManagementAPI = createApi({
         prepareHeaders: (headers) => {
             const token = localStorage.getItem('token');
             if (token) {
-                headers.set('authorization', `Bearer ${token}`);
+                headers.set('Authorization', `${token.replace(/"/g, '')}`);
             }
+            console.log(headers)
             return headers;
         },
     }),

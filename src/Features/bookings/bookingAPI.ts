@@ -25,7 +25,16 @@ export interface TBooking {
 // Define the API slice
 export const bookingAPI = createApi({
   reducerPath: 'bookingAPI',
-  baseQuery: fetchBaseQuery({ baseUrl: 'https://car-rental-backend-1.onrender.com/api' }),
+  baseQuery: fetchBaseQuery({ baseUrl: 'https://car-rental-backend-1.onrender.com/api',
+    prepareHeaders: (headers) => {
+            const token = localStorage.getItem('token');
+            if (token) {
+                headers.set('Authorization', `${token.replace(/"/g, '')}`);
+            }
+            console.log(headers)
+            return headers;
+        },
+   }),
   tagTypes: ['Bookings'],
   endpoints: (builder) => ({
     getBookings: builder.query<TBooking[], void>({

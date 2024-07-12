@@ -23,12 +23,12 @@ function Profile() {
             <div className="form__group">
               <div>
                 <label>Live in</label>
-                <input type="text" placeholder="Sylhet, Bangladesh" />
+                <input type="text" placeholder="Nairobi, Kenya" />
               </div>
 
               <div>
                 <label>Street</label>
-                <input type="text" placeholder="SYL 3108" />
+                <input type="text" placeholder="Nrb 3108" />
               </div>
             </div>
 
@@ -40,7 +40,7 @@ function Profile() {
 
               <div>
                 <label>Phone Number</label>
-                <input type="number" placeholder="+880 17*******" />
+                <input type="number" placeholder="+254 77*******" />
               </div>
             </div>
 
