@@ -4,11 +4,12 @@ import './scss/App.scss';
 import { Routes, Route } from 'react-router-dom';
 import Dashboard from './pages/Darshboard';
 import MainLayout from './layout/MainLayout';
-import Bookings from './pages/Bookings';
+// import Bookings from './pages/Bookings';
 import CarList from './components/UserCars/Car';
 import MyBookings from './pages/Mybookings';
 import TransactionsTable from './pages/UserPayments';
 import Profile from '../../AdminDarshboard/pages/Profile';
+import UserSupportTickets from './pages/Bookings';
 // import CarDetails from './components/UserCars/CarDetails';
 
 function UserDarshboard() {
@@ -20,7 +21,7 @@ function UserDarshboard() {
                 <Route path="bookings" element={<MyBookings />} />
                 <Route path="transactions" element={<TransactionsTable />} />
                 <Route path="profile" element={<Profile />} />
-                <Route path="tickets" element={<Bookings />} />
+                <Route path="tickets" element={<UserSupportTickets />} />
             </Route>
         </Routes>
     );
