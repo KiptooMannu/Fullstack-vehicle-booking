@@ -19,14 +19,38 @@ const UserTable: React.FC = () => {
     const [currentPage, setCurrentPage] = useState(1);
     const recordsPerPage = 10;
 
+    const [editMode, setEditMode] = useState<number | null>(null);
+    const [updatedUser, setUpdatedUser] = useState<TUser | null>(null);
+
     const handleDelete = async (userId: number) => {
         await deleteUser(userId);
         toast.success(`User with id ${userId} deleted successfully`);
     };
 
-    const handleUpdate = async (user: TUser) => {
-        await updateUser(user);
-        toast.success(`User with id ${user.userId} updated successfully`);
+    const handleEdit = (user: TUser) => {
+        setEditMode(user.userId);
+        setUpdatedUser(user);
+    };
+
+    const handleCancel = () => {
+        setEditMode(null);
+        setUpdatedUser(null);
+    };
+
+    const handleUpdate = async () => {
+        if (updatedUser) {
+            await updateUser(updatedUser);
+            toast.success(`User with id ${updatedUser.userId} updated successfully`);
+            setEditMode(null);
+            setUpdatedUser(null);
+        }
+    };
+
+    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        if (updatedUser) {
+            const { name, value } = e.target;
+            setUpdatedUser({ ...updatedUser, [name]: value });
+        }
     };
 
     const totalPages = usersData ? Math.ceil(usersData.length / recordsPerPage) : 0;
@@ -68,20 +92,65 @@ const UserTable: React.FC = () => {
                                 <tr key={user.userId}>
                                     <td>{user.userId}</td>
                                     <td>
-                                        <input type="text" value={user.fullName} onChange={(e) => handleUpdate({ ...user, fullName: e.target.value })} />
+                                        {editMode === user.userId ? (
+                                            <input
+                                                type="text"
+                                                name="fullName"
+                                                value={updatedUser?.fullName || ''}
+                                                onChange={handleInputChange}
+                                            />
+                                        ) : (
+                                            user.fullName
+                                        )}
                                     </td>
                                     <td>
-                                        <input type="text" value={user.email} onChange={(e) => handleUpdate({ ...user, email: e.target.value })} />
+                                        {editMode === user.userId ? (
+                                            <input
+                                                type="text"
+                                                name="email"
+                                                value={updatedUser?.email || ''}
+                                                onChange={handleInputChange}
+                                            />
+                                        ) : (
+                                            user.email
+                                        )}
                                     </td>
                                     <td>
-                                        <input type="text" value={user.contactPhone} onChange={(e) => handleUpdate({ ...user, contactPhone: e.target.value })} />
+                                        {editMode === user.userId ? (
+                                            <input
+                                                type="text"
+                                                name="contactPhone"
+                                                value={updatedUser?.contactPhone || ''}
+                                                onChange={handleInputChange}
+                                            />
+                                        ) : (
+                                            user.contactPhone
+                                        )}
                                     </td>
                                     <td>
-                                        <input type="text" value={user.address} onChange={(e) => handleUpdate({ ...user, address: e.target.value })} />
+                                        {editMode === user.userId ? (
+                                            <input
+                                                type="text"
+                                                name="address"
+                                                value={updatedUser?.address || ''}
+                                                onChange={handleInputChange}
+                                            />
+                                        ) : (
+                                            user.address
+                                        )}
                                     </td>
                                     <td className='options'>
-                                        <button className='btn btn-info' onClick={() => handleUpdate(user)}>Update</button>
-                                        <button className='btn btn-warning' onClick={() => handleDelete(user.userId)}>Delete</button>
+                                        {editMode === user.userId ? (
+                                            <>
+                                                <button className='btn btn-success' onClick={handleUpdate}>Save</button>
+                                                <button className='btn btn-secondary' onClick={handleCancel}>Cancel</button>
+                                            </>
+                                        ) : (
+                                            <>
+                                                <button className='btn btn-info' onClick={() => handleEdit(user)}>Edit</button>
+                                                <button className='btn btn-warning' onClick={() => handleDelete(user.userId)}>Delete</button>
+                                            </>
+                                        )}
                                     </td>
                                 </tr>
                             ))

@@ -16,12 +16,15 @@ interface TFleetManagement {
 }
 
 const FleetManagementTable: React.FC = () => {
-    const { data: fleetManagementData,  isLoading, isError } = useGetFleetManagementQuery();
+    const { data: fleetManagementData, isLoading, isError } = useGetFleetManagementQuery();
     const [updateFleetManagement] = useUpdateFleetManagementMutation();
     const [deleteFleetManagement] = useDeleteFleetManagementMutation();
 
     const [currentPage, setCurrentPage] = useState(1);
     const recordsPerPage = 10;
+
+    // State to hold the current editable fleet item
+    const [editableFleet, setEditableFleet] = useState<TFleetManagement | null>(null);
 
     const handleDelete = async (fleetId: number) => {
         await deleteFleetManagement(fleetId);
@@ -31,6 +34,18 @@ const FleetManagementTable: React.FC = () => {
     const handleUpdate = async (fleet: TFleetManagement) => {
         await updateFleetManagement(fleet);
         toast.success(`Fleet Management record with id ${fleet.fleetId} updated successfully`);
+        setEditableFleet(null); // Reset editable fleet state after update
+    };
+
+    const handleEditClick = (fleet: TFleetManagement) => {
+        setEditableFleet(fleet); // Set the fleet item to be edited
+    };
+
+    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>, key: keyof TFleetManagement) => {
+        if (editableFleet) {
+            const updatedFleet: TFleetManagement = { ...editableFleet, [key]: e.target.value };
+            setEditableFleet(updatedFleet);
+        }
     };
 
     const totalPages = fleetManagementData ? Math.ceil(fleetManagementData.length / recordsPerPage) : 0;
@@ -74,19 +89,58 @@ const FleetManagementTable: React.FC = () => {
                                     <td>{fleet.vehicleId}</td>
                                     <td>{new Date(fleet.acquisitionDate).toLocaleDateString()}</td>
                                     <td>
-                                        <input type="text" value={fleet.depreciationRate} onChange={(e) => handleUpdate({ ...fleet, depreciationRate: e.target.value })} />
+                                        {editableFleet?.fleetId === fleet.fleetId ? (
+                                            <input
+                                                type="text"
+                                                value={editableFleet.depreciationRate}
+                                                onChange={(e) => handleInputChange(e, 'depreciationRate')}
+                                            />
+                                        ) : (
+                                            fleet.depreciationRate
+                                        )}
                                     </td>
                                     <td>
-                                        <input type="text" value={fleet.currentValue} onChange={(e) => handleUpdate({ ...fleet, currentValue: e.target.value })} />
+                                        {editableFleet?.fleetId === fleet.fleetId ? (
+                                            <input
+                                                type="text"
+                                                value={editableFleet.currentValue}
+                                                onChange={(e) => handleInputChange(e, 'currentValue')}
+                                            />
+                                        ) : (
+                                            fleet.currentValue
+                                        )}
                                     </td>
                                     <td>
-                                        <input type="text" value={fleet.maintenanceCost} onChange={(e) => handleUpdate({ ...fleet, maintenanceCost: e.target.value })} />
+                                        {editableFleet?.fleetId === fleet.fleetId ? (
+                                            <input
+                                                type="text"
+                                                value={editableFleet.maintenanceCost}
+                                                onChange={(e) => handleInputChange(e, 'maintenanceCost')}
+                                            />
+                                        ) : (
+                                            fleet.maintenanceCost
+                                        )}
                                     </td>
                                     <td>
-                                        <input type="text" value={fleet.status} onChange={(e) => handleUpdate({ ...fleet, status: e.target.value })} />
+                                        {editableFleet?.fleetId === fleet.fleetId ? (
+                                            <input
+                                                type="text"
+                                                value={editableFleet.status}
+                                                onChange={(e) => handleInputChange(e, 'status')}
+                                            />
+                                        ) : (
+                                            fleet.status
+                                        )}
                                     </td>
                                     <td className='options'>
-                                        <button className='btn btn-info' onClick={() => handleUpdate(fleet)}>Update</button>
+                                        {editableFleet?.fleetId === fleet.fleetId ? (
+                                            <>
+                                                <button className='btn btn-success' onClick={() => handleUpdate(editableFleet)}>Save</button>
+                                                <button className='btn btn-secondary' onClick={() => setEditableFleet(null)}>Cancel</button>
+                                            </>
+                                        ) : (
+                                            <button className='btn btn-info' onClick={() => handleEditClick(fleet)}>Edit</button>
+                                        )}
                                         <button className='btn btn-warning' onClick={() => handleDelete(fleet.fleetId)}>Delete</button>
                                     </td>
                                 </tr>

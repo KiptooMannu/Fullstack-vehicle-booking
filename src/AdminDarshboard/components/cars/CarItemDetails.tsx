@@ -29,7 +29,6 @@ const CarDetails: React.FC<CarDetailsProps> = ({ vehicle, onBack }) => {
 
   const handleUpdate = async () => {
     try {
-      console.log(updatedVehicle)
       await updateVehicle(updatedVehicle).unwrap();
       toast.success('Vehicle updated successfully');
       setIsEditing(false);

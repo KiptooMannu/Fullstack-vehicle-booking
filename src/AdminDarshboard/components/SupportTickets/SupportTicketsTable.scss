@@ -1,41 +1,81 @@
 .ticket-table-container {
-    padding: 20px;
-}
+    margin: 20px;
+    font-family: Arial, sans-serif;
 
-.ticket-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-bottom: 20px;
-}
+    h2 {
+        font-size: 1.5rem;
+        margin-bottom: 10px;
+    }
 
-.ticket-table th,
-.ticket-table td {
-    border: 1px solid #ddd;
-    padding: 8px;
-    text-align: left;
-}
+    .ticket-table {
+        width: 100%;
+        border-collapse: collapse;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+        overflow: hidden;
+        /* Ensure border-radius doesn't get overridden by box-shadow */
 
-.ticket-table th {
-    background-color: #f2f2f2;
-}
+        thead {
+            background-color: #007bff;
+            /* Blue background color for headers */
+            border-bottom: 2px solid #ddd;
 
-.ticket-table tr:nth-child(even) {
-    background-color: #f9f9f9;
-}
+            th {
+                padding: 12px;
+                text-align: left;
+                font-weight: bold;
+                color: #fff;
+                /* White text color for headers */
+            }
+        }
 
-.ticket-table tr:hover {
-    background-color: #ddd;
-}
+        tbody {
+            tr {
+                &:nth-child(even) {
+                    background-color: #f9f9f9;
+                }
 
-.ticket-table button {
-    padding: 5px 10px;
-    background-color: #4caf50;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-}
+                td {
+                    padding: 10px;
+                    border-bottom: 1px solid #ddd;
+                    vertical-align: middle;
+                    /* Align content vertically center */
 
-.ticket-table button:hover {
-    background-color: #45a049;
+                    &:last-child {
+                        text-align: center;
+                    }
+                }
+            }
+        }
+
+        tr {
+
+            td,
+            th {
+                border-left: 1px solid #ddd;
+                /* Vertical borders */
+                border-right: 1px solid #ddd;
+                /* Vertical borders */
+            }
+        }
+
+        button {
+            padding: 8px 12px;
+            border: none;
+            background-color: #007bff;
+            color: #fff;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: background-color 0.3s ease;
+
+            &:hover {
+                background-color: #0056b3;
+            }
+        }
+
+        .resolved {
+            color: green;
+            font-weight: bold;
+        }
+    }
 }

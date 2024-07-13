@@ -14,21 +14,44 @@ export interface TBooking {
 }
 
 const BookingTable: React.FC = () => {
-    const { data: bookingsData,  isLoading, isError } = useGetBookingsQuery();
+    const { data: bookingsData, isLoading, isError } = useGetBookingsQuery();
     const [updateBooking] = useUpdateBookingMutation();
     const [deleteBooking] = useDeleteBookingMutation();
 
     const [currentPage, setCurrentPage] = useState(1);
     const recordsPerPage = 10;
+    const [editMode, setEditMode] = useState<number | null>(null);
+    const [updatedBooking, setUpdatedBooking] = useState<TBooking | null>(null);
 
     const handleDelete = async (bookingId: number) => {
         await deleteBooking(bookingId);
         toast.success(`Booking with id ${bookingId} deleted successfully`);
     };
 
-    const handleUpdate = async (booking: TBooking) => {
-        await updateBooking(booking);
-        toast.success(`Booking with id ${booking.bookingId} updated successfully`);
+    const handleEdit = (booking: TBooking) => {
+        setEditMode(booking.bookingId);
+        setUpdatedBooking(booking);
+    };
+
+    const handleCancel = () => {
+        setEditMode(null);
+        setUpdatedBooking(null);
+    };
+
+    const handleUpdate = async () => {
+        if (updatedBooking) {
+            await updateBooking(updatedBooking);
+            toast.success(`Booking with id ${updatedBooking.bookingId} updated successfully`);
+            setEditMode(null);
+            setUpdatedBooking(null);
+        }
+    };
+
+    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        if (updatedBooking) {
+            const { name, value } = e.target;
+            setUpdatedBooking({ ...updatedBooking, [name]: value });
+        }
     };
 
     const totalPages = bookingsData ? Math.ceil(bookingsData.length / recordsPerPage) : 0;
@@ -48,7 +71,6 @@ const BookingTable: React.FC = () => {
             />
             <div className="booking-table-container">
                 <h1 className='title'>Bookings Data</h1>
-
                 <table className="booking-table">
                     <thead>
                         <tr>
@@ -70,14 +92,41 @@ const BookingTable: React.FC = () => {
                                     <td>{new Date(booking.bookingDate).toLocaleDateString()}</td>
                                     <td>{new Date(booking.returnDate).toLocaleDateString()}</td>
                                     <td>
-                                        <input type="text" value={booking.bookingStatus} onChange={(e) => handleUpdate({ ...booking, bookingStatus: e.target.value })} />
+                                        {editMode === booking.bookingId ? (
+                                            <input
+                                                type="text"
+                                                name="bookingStatus"
+                                                value={updatedBooking?.bookingStatus || ''}
+                                                onChange={handleInputChange}
+                                            />
+                                        ) : (
+                                            booking.bookingStatus
+                                        )}
                                     </td>
                                     <td>
-                                        <input type="text" value={booking.totalAmount} onChange={(e) => handleUpdate({ ...booking, totalAmount: e.target.value })} />
+                                        {editMode === booking.bookingId ? (
+                                            <input
+                                                type="text"
+                                                name="totalAmount"
+                                                value={updatedBooking?.totalAmount || ''}
+                                                onChange={handleInputChange}
+                                            />
+                                        ) : (
+                                            booking.totalAmount
+                                        )}
                                     </td>
                                     <td className='options'>
-                                        <button className='btn btn-info' onClick={() => handleUpdate(booking)}>Update</button>
-                                        <button className='btn btn-warning' onClick={() => handleDelete(booking.bookingId)}>Delete</button>
+                                        {editMode === booking.bookingId ? (
+                                            <>
+                                                <button className='btn btn-success' onClick={handleUpdate}>Save</button>
+                                                <button className='btn btn-secondary' onClick={handleCancel}>Cancel</button>
+                                            </>
+                                        ) : (
+                                            <>
+                                                <button className='btn btn-info' onClick={() => handleEdit(booking)}>Edit</button>
+                                                <button className='btn btn-warning' onClick={() => handleDelete(booking.bookingId)}>Delete</button>
+                                            </>
+                                        )}
                                     </td>
                                 </tr>
                             ))

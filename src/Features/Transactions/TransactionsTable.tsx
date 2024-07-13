@@ -23,14 +23,38 @@ const TransactionTable: React.FC = () => {
     const [currentPage, setCurrentPage] = useState(1);
     const recordsPerPage = 10;
 
+    const [editMode, setEditMode] = useState<number | null>(null);
+    const [updatedTransaction, setUpdatedTransaction] = useState<TTransaction | null>(null);
+
     const handleDelete = async (paymentId: number) => {
         await deleteTransaction(paymentId);
         toast.success(`Transaction with id ${paymentId} deleted successfully`);
     };
 
-    const handleUpdate = async (transaction: TTransaction) => {
-        await updateTransaction(transaction);
-        toast.success(`Transaction with id ${transaction.paymentId} updated successfully`);
+    const handleEdit = (transaction: TTransaction) => {
+        setEditMode(transaction.paymentId);
+        setUpdatedTransaction(transaction);
+    };
+
+    const handleCancel = () => {
+        setEditMode(null);
+        setUpdatedTransaction(null);
+    };
+
+    const handleUpdate = async () => {
+        if (updatedTransaction) {
+            await updateTransaction(updatedTransaction);
+            toast.success(`Transaction with id ${updatedTransaction.paymentId} updated successfully`);
+            setEditMode(null);
+            setUpdatedTransaction(null);
+        }
+    };
+
+    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        if (updatedTransaction) {
+            const { name, value } = e.target;
+            setUpdatedTransaction({ ...updatedTransaction, [name]: value });
+        }
     };
 
     const totalPages = transactionsData ? Math.ceil(transactionsData.length / recordsPerPage) : 0;
@@ -73,15 +97,42 @@ const TransactionTable: React.FC = () => {
                                     <td>{new Date(transaction.paymentDate).toLocaleDateString()}</td>
                                     <td>{transaction.amount}</td>
                                     <td>
-                                        <input type="text" value={transaction.paymentStatus} onChange={(e) => handleUpdate({ ...transaction, paymentStatus: e.target.value })} />
+                                        {editMode === transaction.paymentId ? (
+                                            <input
+                                                type="text"
+                                                name="paymentStatus"
+                                                value={updatedTransaction?.paymentStatus || ''}
+                                                onChange={handleInputChange}
+                                            />
+                                        ) : (
+                                            transaction.paymentStatus
+                                        )}
                                     </td>
                                     <td>
-                                        <input type="text" value={transaction.paymentMethod || ''} onChange={(e) => handleUpdate({ ...transaction, paymentMethod: e.target.value })} />
+                                        {editMode === transaction.paymentId ? (
+                                            <input
+                                                type="text"
+                                                name="paymentMethod"
+                                                value={updatedTransaction?.paymentMethod || ''}
+                                                onChange={handleInputChange}
+                                            />
+                                        ) : (
+                                            transaction.paymentMethod
+                                        )}
                                     </td>
                                     <td>{transaction.transactionId}</td>
                                     <td className='options'>
-                                        <button className='btn btn-info' onClick={() => handleUpdate(transaction)}>Update</button>
-                                        <button className='btn btn-warning' onClick={() => handleDelete(transaction.paymentId)}>Delete</button>
+                                        {editMode === transaction.paymentId ? (
+                                            <>
+                                                <button className='btn btn-success' onClick={handleUpdate}>Save</button>
+                                                <button className='btn btn-secondary' onClick={handleCancel}>Cancel</button>
+                                            </>
+                                        ) : (
+                                            <>
+                                                <button className='btn btn-info' onClick={() => handleEdit(transaction)}>Edit</button>
+                                                <button className='btn btn-warning' onClick={() => handleDelete(transaction.paymentId)}>Delete</button>
+                                            </>
+                                        )}
                                     </td>
                                 </tr>
                             ))
