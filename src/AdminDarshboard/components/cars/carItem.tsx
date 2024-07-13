@@ -1,13 +1,32 @@
 import React, { useState } from 'react';
-import { useGetVehiclesQuery } from '../../../Features/vehicles/vehicleAPI';
+import { useGetVehiclesQuery, useDeleteVehicleMutation } from '../../../Features/vehicles/vehicleAPI';
 import { TVehicle } from '../../../Features/vehicles/vehicleAPI';
 import { Bars } from 'react-loader-spinner';
 import CarItemDetails from './CarItemDetails';
 import styles from './CarItem.module.scss';
 
-const CarList: React.FC = () => {
+const AdminCarList: React.FC = () => {
   const { data: vehicles, error, isLoading } = useGetVehiclesQuery();
+  const [deleteVehicle] = useDeleteVehicleMutation();
   const [selectedVehicle, setSelectedVehicle] = useState<TVehicle | null>(null);
+
+  const handleDelete = async (vehicleId: number) => {
+    if (window.confirm('Are you sure you want to delete this vehicle?')) {
+      try {
+        await deleteVehicle(vehicleId).unwrap();
+        alert('Vehicle deleted successfully');
+      } catch (error) {
+        console.error('Failed to delete vehicle', error);
+        alert('Failed to delete vehicle');
+      }
+    }
+  };
+
+  const handleUpdate = (vehicle: TVehicle) => {
+    // Add logic to handle updating the vehicle
+    // This could be a navigation to an update page or a modal form
+    alert(`Update vehicle with ID: ${vehicle.vehicleId}`);
+  };
 
   if (isLoading) {
     return (
@@ -28,7 +47,7 @@ const CarList: React.FC = () => {
         <CarItemDetails vehicle={selectedVehicle} onBack={() => setSelectedVehicle(null)} />
       ) : (
         <>
-          <h2>Available Vehicles</h2>
+          <h2>Manage Vehicles</h2>
           {vehicles && vehicles.length > 0 ? (
             <div className={styles.carList}>
               {vehicles.map((vehicle: TVehicle) => (
@@ -49,6 +68,18 @@ const CarList: React.FC = () => {
                     >
                       View Details
                     </button>
+                    <button
+                      className={styles.updateButton}
+                      onClick={() => handleUpdate(vehicle)}
+                    >
+                      Update
+                    </button>
+                    <button
+                      className={styles.deleteButton}
+                      onClick={() => handleDelete(vehicle.vehicleId)}
+                    >
+                      Delete
+                    </button>
                   </div>
                 </div>
               ))}
@@ -62,4 +93,4 @@ const CarList: React.FC = () => {
   );
 };
 
-export default CarList;
+export default AdminCarList;

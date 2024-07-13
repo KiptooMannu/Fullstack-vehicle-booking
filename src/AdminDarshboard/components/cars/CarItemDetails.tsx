@@ -1,10 +1,7 @@
 import React, { useState } from 'react';
 import { TVehicle } from '../../../Features/vehicles/vehicleAPI';
-import DatePicker from 'react-datepicker';
-import 'react-datepicker/dist/react-datepicker.css';
 import styles from './CarItemDetails.module.scss';
-import { CalendarIcon } from '@heroicons/react/24/outline';
-import { useCreateBookingMutation } from '../../../Features/bookings/bookingAPI';
+import { useUpdateVehicleMutation, useDeleteVehicleMutation, useGetVehiclesQuery } from '../../../Features/vehicles/vehicleAPI';
 import { toast, Toaster } from 'sonner';
 
 interface CarDetailsProps {
@@ -13,122 +10,219 @@ interface CarDetailsProps {
 }
 
 const CarDetails: React.FC<CarDetailsProps> = ({ vehicle, onBack }) => {
-  const [startDate, setStartDate] = useState<Date | null>(null);
-  const [endDate, setEndDate] = useState<Date | null>(null);
-  const [totalAmount, setTotalAmount] = useState<number>(0);
-  const [createBooking] = useCreateBookingMutation();
+  const [updatedVehicle, setUpdatedVehicle] = useState(vehicle);
+  const [isEditing, setIsEditing] = useState(false);
+  const [updateVehicle] = useUpdateVehicleMutation();
+  const [deleteVehicle] = useDeleteVehicleMutation();
+  const { refetch } = useGetVehiclesQuery();
 
-  const handleStartDateChange = (date: Date | null) => {
-    setStartDate(date);
-    calculateTotalAmount(date, endDate);
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setUpdatedVehicle((prevState) => ({
+      ...prevState,
+      specifications: {
+        ...prevState.specifications,
+        [name]: value,
+      },
+    }));
   };
 
-  const handleEndDateChange = (date: Date | null) => {
-    setEndDate(date);
-    calculateTotalAmount(startDate, date);
-  };
-
-  const calculateTotalAmount = (start: Date | null, end: Date | null) => {
-    if (start && end) {
-      const hours = (end.getTime() - start.getTime()) / (1000 * 60 * 60);
-      const rate = parseFloat(vehicle.rentalRate);
-      setTotalAmount(hours * rate);
-    }
-  };
-
-  const handleBooking = async () => {
-    const user = JSON.parse(localStorage.getItem('user') || '{}');
-    const userId = user.userId || 0;
-
-    const bookingData = {
-      userId,
-      vehicleId: vehicle.vehicleId,
-      branchId: 3,
-      bookingDate: startDate?.toISOString() || '',
-      returnDate: endDate?.toISOString() || '',
-      totalAmount: totalAmount,
-    };
-
+  const handleUpdate = async () => {
     try {
-      await createBooking(bookingData).unwrap();
-      toast.success('Booking successful!');
+      console.log(updatedVehicle)
+      await updateVehicle(updatedVehicle).unwrap();
+      toast.success('Vehicle updated successfully');
+      setIsEditing(false);
+      refetch();
     } catch (error) {
-      toast.error('Booking failed.');
+      console.error('Failed to update vehicle', error);
+      toast.error('Failed to update vehicle');
     }
   };
 
-  const today = new Date();
+  const handleDelete = async (vehicleId: number) => {
+    if (window.confirm('Are you sure you want to delete this vehicle?')) {
+      try {
+        await deleteVehicle(vehicleId).unwrap();
+        toast.success('Vehicle deleted successfully');
+        onBack();
+        refetch();
+      } catch (error) {
+        console.error('Failed to delete vehicle', error);
+        toast.error('Failed to delete vehicle');
+      }
+    }
+  };
+
+  const toggleEditMode = () => {
+    setIsEditing(!isEditing);
+  };
 
   return (
     <div className={styles.carDetailsContainer}>
-      <Toaster position="top-right"  />
+      <Toaster position="top-right" />
       <button className={styles.backButton} onClick={onBack}>Back to List</button>
       <div className={styles.detailsContainer}>
         <div className={styles.infoContainer}>
           <div className={styles.details}>
             <h2>{vehicle.specifications.manufacturer} {vehicle.specifications.model}</h2>
             <div className={styles.specifications}>
-              <div><strong>Year:</strong> {vehicle.specifications.year}</div>
-              <div><strong>Color:</strong> {vehicle.specifications.color}</div>
-              <div><strong>Engine Capacity:</strong> {vehicle.specifications.engineCapacity}</div>
-              <div><strong>Features:</strong> {vehicle.specifications.features}</div>
-              <div><strong>Fuel Type:</strong> {vehicle.specifications.fuelType}</div>
-              <div><strong>Seating Capacity:</strong> {vehicle.specifications.seatingCapacity}</div>
-              <div><strong>Transmission:</strong> {vehicle.specifications.transmission}</div>
-              <div><strong>Rent per Hour:</strong> ${vehicle.rentalRate}</div>
-              <div><strong>Status:</strong> {vehicle.availability ? 'Available' : 'Not Available'}</div>
+              <div>
+                <strong>Year:</strong>
+                {isEditing ? (
+                  <input 
+                    type="text" 
+                    name="year" 
+                    value={updatedVehicle.specifications.year} 
+                    onChange={handleInputChange} 
+                  />
+                ) : (
+                  <span>{updatedVehicle.specifications.year}</span>
+                )}
+              </div>
+              <div>
+                <strong>Color:</strong>
+                {isEditing ? (
+                  <input 
+                    type="text" 
+                    name="color" 
+                    value={updatedVehicle.specifications.color} 
+                    onChange={handleInputChange} 
+                  />
+                ) : (
+                  <span>{updatedVehicle.specifications.color}</span>
+                )}
+              </div>
+              <div>
+                <strong>Engine Capacity:</strong>
+                {isEditing ? (
+                  <input 
+                    type="text" 
+                    name="engineCapacity" 
+                    value={updatedVehicle.specifications.engineCapacity} 
+                    onChange={handleInputChange} 
+                  />
+                ) : (
+                  <span>{updatedVehicle.specifications.engineCapacity}</span>
+                )}
+              </div>
+              <div>
+                <strong>Features:</strong>
+                {isEditing ? (
+                  <input 
+                    type="text" 
+                    name="features" 
+                    value={updatedVehicle.specifications.features} 
+                    onChange={handleInputChange} 
+                  />
+                ) : (
+                  <span>{updatedVehicle.specifications.features}</span>
+                )}
+              </div>
+              <div>
+                <strong>Fuel Type:</strong>
+                {isEditing ? (
+                  <input 
+                    type="text" 
+                    name="fuelType" 
+                    value={updatedVehicle.specifications.fuelType} 
+                    onChange={handleInputChange} 
+                  />
+                ) : (
+                  <span>{updatedVehicle.specifications.fuelType}</span>
+                )}
+              </div>
+              <div>
+                <strong>Seating Capacity:</strong>
+                {isEditing ? (
+                  <input 
+                    type="text" 
+                    name="seatingCapacity" 
+                    value={updatedVehicle.specifications.seatingCapacity} 
+                    onChange={handleInputChange} 
+                  />
+                ) : (
+                  <span>{updatedVehicle.specifications.seatingCapacity}</span>
+                )}
+              </div>
+              <div>
+                <strong>Transmission:</strong>
+                {isEditing ? (
+                  <input 
+                    type="text" 
+                    name="transmission" 
+                    value={updatedVehicle.specifications.transmission} 
+                    onChange={handleInputChange} 
+                  />
+                ) : (
+                  <span>{updatedVehicle.specifications.transmission}</span>
+                )}
+              </div>
+              <div>
+                <strong>Rent per Hour:</strong>
+                {isEditing ? (
+                  <input 
+                    type="text" 
+                    name="rentalRate" 
+                    value={updatedVehicle.rentalRate} 
+                    onChange={(e) => setUpdatedVehicle({ ...updatedVehicle, rentalRate: e.target.value })} 
+                  />
+                ) : (
+                  <span>{updatedVehicle.rentalRate}</span>
+                )}
+              </div>
+              <div>
+                <strong>Status:</strong>
+                {isEditing ? (
+                  <input 
+                    type="checkbox" 
+                    checked={updatedVehicle.availability} 
+                    onChange={(e) => setUpdatedVehicle({ ...updatedVehicle, availability: e.target.checked })} 
+                  />
+                ) : (
+                  <span>{updatedVehicle.availability ? 'Available' : 'Not Available'}</span>
+                )}
+              </div>
             </div>
           </div>
-          {vehicle.availability && (
-            <div className={styles.bookingContainer}>
-              <h3>Book this Vehicle</h3>
-              <div className={styles.datePickerContainer}>
-                <label>
-                  <CalendarIcon className={styles.calendarIcon} />
-                  Start Date:
-                </label>
-                <DatePicker 
-                  selected={startDate} 
-                  onChange={handleStartDateChange} 
-                  showTimeSelect
-                  dateFormat="Pp"
-                  minDate={today}
-                  className={styles.datePicker}
-                />
-              </div>
-              <div className={styles.datePickerContainer}>
-                <label>
-                  <CalendarIcon className={styles.calendarIcon} />
-                  End Date:
-                </label>
-                <DatePicker 
-                  selected={endDate} 
-                  onChange={handleEndDateChange} 
-                  showTimeSelect
-                  dateFormat="Pp"
-                  minDate={today}
-                  className={styles.datePicker}
-                />
-              </div>
-              <p className={styles.totalAmount}><strong>Total Amount:</strong> ${totalAmount.toFixed(2)}</p>
-              <button onClick={handleBooking} className={styles.bookButton}>Book Now</button>
-            </div>
-          )}
+          <div className={styles.adminActions}>
+            {isEditing ? (
+              <>
+                <button
+                  className={styles.updateButton}
+                  onClick={handleUpdate}
+                >
+                  Save Changes
+                </button>
+                <button
+                  className={styles.cancelButton}
+                  onClick={toggleEditMode}
+                >
+                  Cancel
+                </button>
+              </>
+            ) : (
+              <button
+                className={styles.editButton}
+                onClick={toggleEditMode}
+              >
+                Edit Vehicle
+              </button>
+            )}
+            <button
+              className={styles.deleteButton}
+              onClick={() => handleDelete(vehicle.vehicleId)}
+            >
+              Delete Vehicle
+            </button>
+          </div>
         </div>
         <div className={styles.imageContainer}>
-          {vehicle.availability ? (
-            <img 
-              src={vehicle.image || "https://via.placeholder.com/1200x800"} 
-              alt={`${vehicle.specifications.manufacturer} ${vehicle.specifications.model}`} 
-              className={styles.carImage} 
-            />
-          ) : (
-            <img 
-              src="https://via.placeholder.com/1200x800?text=Not+Available" 
-              alt="Not Available" 
-              className={styles.carImage} 
-            />
-          )}
+          <img 
+            src={vehicle.image || "https://via.placeholder.com/1200x800"} 
+            alt={`${vehicle.specifications.manufacturer} ${vehicle.specifications.model}`} 
+            className={styles.carImage} 
+          />
         </div>
       </div>
     </div>
