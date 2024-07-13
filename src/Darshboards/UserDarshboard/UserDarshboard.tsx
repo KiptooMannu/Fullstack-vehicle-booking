@@ -9,7 +9,7 @@ import CarList from './components/UserCars/Car';
 import MyBookings from './pages/Mybookings';
 import TransactionsTable from './pages/UserPayments';
 import Profile from '../../AdminDarshboard/pages/Profile';
-import UserSupportTickets from './pages/Bookings';
+import UserSupportTickets from './pages/UserSupportTickets';
 // import CarDetails from './components/UserCars/CarDetails';
 
 function UserDarshboard() {

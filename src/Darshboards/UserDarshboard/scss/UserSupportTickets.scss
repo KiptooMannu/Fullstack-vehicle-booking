@@ -1,0 +1,80 @@
+.support-tickets {
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.support-tickets h2 {
+    margin-bottom: 20px;
+}
+
+.support-tickets button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    margin-bottom: 20px;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.support-tickets button:hover {
+    background-color: #0056b3;
+}
+
+.create-ticket-form.hidden {
+    display: none;
+}
+
+.create-ticket-form form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.create-ticket-form label {
+    font-weight: bold;
+}
+
+.create-ticket-form input,
+.create-ticket-form textarea {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.create-ticket-form button {
+    background-color: #2859a7;
+    color: #fff;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.create-ticket-form button:hover {
+    background-color: #218838;
+}
+
+.tickets-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.tickets-table th,
+.tickets-table td {
+    border: 1px solid #ccc;
+    padding: 10px;
+    text-align: left;
+}
+
+.tickets-table th {
+    background-color: #f1f1f1;
+}
+
+.tickets-table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}

@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { TSupportTicket, useGetSupportTicketsByUserIdQuery, useCreateSupportTicketMutation } from '../../../Features/SupportTickets/SupportAPI';
-import './UserSupportTickets.scss'; // Import your styles here
+import '../scss/UserSupportTickets.scss'; // Import your styles here
 
 const supportTicketSchema = z.object({
   subject: z.string().min(1, 'Subject is required'),
