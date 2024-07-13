@@ -3,7 +3,7 @@ const colors = {
     red: '#DB190C',
     purple: '#8624DB',
     white: '#fff',
-    orange: '#FF9066'
+    orange: 'blue'
 }
 
 export default colors;

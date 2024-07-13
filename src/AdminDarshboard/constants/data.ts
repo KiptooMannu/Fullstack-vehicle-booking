@@ -16,8 +16,8 @@ const data = {
             percent: 84
         },
         {
-            title: 'Orders',
-            subtitle: 'Total orders today',
+            title: 'Booking',
+            subtitle: 'Total bookings today',
             value: '3000',
             percent: 49
         },
