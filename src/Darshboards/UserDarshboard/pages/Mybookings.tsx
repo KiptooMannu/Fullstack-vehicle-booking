@@ -4,13 +4,13 @@ import {
   useUpdateBookingMutation, 
   useDeleteBookingMutation, 
   TBooking 
-} from '../../../Features/bookings/bookingAPI'; // Adjust import path as needed
+} from '../../../Features/bookings/bookingAPI';
 import styles from '../scss/MyBookings.module.scss';
 
 const MyBookings: React.FC = () => {
-  const userId = parseInt(localStorage.getItem('userId') || '0', 10);
-  const { data: bookings, error, isLoading } = useGetBookingsQuery(userId); // Pass the user ID
-
+  const user = JSON.parse(localStorage.getItem('user') || '{}');
+  const userId = user.user.userId;
+  const { data: bookings, error, isLoading } = useGetBookingsQuery();
   const [updateBooking] = useUpdateBookingMutation();
   const [deleteBooking] = useDeleteBookingMutation();
 
@@ -26,13 +26,15 @@ const MyBookings: React.FC = () => {
     deleteBooking(bookingId);
   };
 
+  const userBookings = bookings?.filter((booking: TBooking) => booking.userId === userId);
+
   return (
     <div className={styles.myBookingsContainer}>
       <h2>My Bookings</h2>
       {isLoading && <p>Loading...</p>}
       {error && <p>Error loading bookings.</p>}
-      {!isLoading && !error && bookings?.length === 0 && <p>No bookings found.</p>}
-      {!isLoading && !error && bookings && (
+      {!isLoading && !error && userBookings?.length === 0 && <p>No bookings found.</p>}
+      {!isLoading && !error && userBookings && (
         <table className={styles.bookingTable}>
           <thead>
             <tr>
@@ -47,7 +49,7 @@ const MyBookings: React.FC = () => {
             </tr>
           </thead>
           <tbody>
-            {bookings.map((booking: TBooking) => (
+            {userBookings.map((booking: TBooking) => (
               <tr key={booking.bookingId} className={styles.bookingRow}>
                 <td>{booking.bookingId}</td>
                 <td>{booking.vehicle?.specifications?.model || 'Unknown'}</td>
@@ -58,7 +60,7 @@ const MyBookings: React.FC = () => {
                 <td>{booking.bookingStatus}</td>
                 <td>
                   <button onClick={() => handleUpdateBooking(booking.bookingId)}>Make Payment</button>
-                  <button onClick={() => handleDeleteBooking(booking.bookingId)}>Cancel Boooking</button>
+                  <button onClick={() => handleDeleteBooking(booking.bookingId)}>Cancel Booking</button>
                 </td>
               </tr>
             ))}

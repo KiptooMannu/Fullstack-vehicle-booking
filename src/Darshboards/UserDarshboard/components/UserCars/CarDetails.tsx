@@ -7,6 +7,7 @@ import { CalendarIcon } from '@heroicons/react/24/outline';
 import { useCreateBookingMutation } from '../../../../Features/bookings/bookingAPI';
 import { toast, Toaster } from 'sonner';
 import { TBranch, useGetBranchesQuery } from '../../../../Features/Branches/BranchesAPI';
+import { useNavigate } from 'react-router-dom';
 
 interface CarDetailsProps {
   vehicle: TVehicle;
@@ -20,6 +21,7 @@ const CarDetails: React.FC<CarDetailsProps> = ({ vehicle, onBack }) => {
   const [totalAmount, setTotalAmount] = useState<number>(0);
   const [selectedBranch, setSelectedBranch] = useState<number | null>(null);
   const [createBooking] = useCreateBookingMutation();
+  const navigate = useNavigate();
 
   const handleStartDateChange = (date: Date | null) => {
     setStartDate(date);
@@ -44,10 +46,8 @@ const CarDetails: React.FC<CarDetailsProps> = ({ vehicle, onBack }) => {
       toast.error('Please select a branch.');
       return;
     }
-console.log(selectedBranch)
 
     const user = JSON.parse(localStorage.getItem('user') || '{}');
-    // console.log(user.user.userId)
     const userId = user.user.userId;
 
     const bookingData = {
@@ -60,10 +60,9 @@ console.log(selectedBranch)
     };
 
     try {
-      console.log(bookingData)
       await createBooking(bookingData).unwrap();
-
       toast.success('Booking successful!');
+      navigate('/users/bookings'); // Redirect to My Bookings page
     } catch (error) {
       toast.error('Booking failed.');
     }
@@ -107,7 +106,7 @@ console.log(selectedBranch)
                     className={styles.dropdown}
                   >
                     <option value="" disabled>Select a branch</option>
-                    {branchesData.map((branch:TBranch) => (
+                    {branchesData.map((branch: TBranch) => (
                       <option key={branch.branchId} value={branch.branchId}>
                         {branch.name} - {branch.city}
                       </option>
