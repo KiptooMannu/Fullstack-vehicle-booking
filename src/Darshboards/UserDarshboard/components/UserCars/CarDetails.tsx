@@ -6,7 +6,7 @@ import styles from './CarDetails.module.scss';
 import { CalendarIcon } from '@heroicons/react/24/outline';
 import { useCreateBookingMutation } from '../../../../Features/bookings/bookingAPI';
 import { toast, Toaster } from 'sonner';
-import { useGetBranchesQuery } from '../../../../Features/Branches/BranchesAPI';
+import { TBranch, useGetBranchesQuery } from '../../../../Features/Branches/BranchesAPI';
 
 interface CarDetailsProps {
   vehicle: TVehicle;
@@ -44,9 +44,11 @@ const CarDetails: React.FC<CarDetailsProps> = ({ vehicle, onBack }) => {
       toast.error('Please select a branch.');
       return;
     }
+console.log(selectedBranch)
 
     const user = JSON.parse(localStorage.getItem('user') || '{}');
-    const userId = user.userId || 0;
+    // console.log(user.user.userId)
+    const userId = user.user.userId;
 
     const bookingData = {
       userId,
@@ -58,7 +60,9 @@ const CarDetails: React.FC<CarDetailsProps> = ({ vehicle, onBack }) => {
     };
 
     try {
+      console.log(bookingData)
       await createBooking(bookingData).unwrap();
+
       toast.success('Booking successful!');
     } catch (error) {
       toast.error('Booking failed.');
@@ -103,7 +107,7 @@ const CarDetails: React.FC<CarDetailsProps> = ({ vehicle, onBack }) => {
                     className={styles.dropdown}
                   >
                     <option value="" disabled>Select a branch</option>
-                    {branchesData.map((branch) => (
+                    {branchesData.map((branch:TBranch) => (
                       <option key={branch.branchId} value={branch.branchId}>
                         {branch.name} - {branch.city}
                       </option>
