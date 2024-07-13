@@ -1,8 +1,11 @@
 import images from "./images"
 
+const user = JSON.parse(localStorage.getItem('user') || '{}');
+    const userName = user.user.fullName;
 const data = {
     user: {
-        name: 'Kavatha',
+
+        name: userName,
         img: images.avt
     },
     summary: [
@@ -42,7 +45,7 @@ const data = {
     overall: [
         {
             value: '300K',
-            title: 'Orders'
+            title: 'Bookings'
         },
         {
             value: '9.876K',
@@ -50,7 +53,7 @@ const data = {
         },
         {
             value: '1.234K',
-            title: 'Products'
+            title: 'Vehicles'
         },
         {
             value: '$5678',
