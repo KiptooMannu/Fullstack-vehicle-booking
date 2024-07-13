@@ -6,6 +6,7 @@ import styles from './CarDetails.module.scss';
 import { CalendarIcon } from '@heroicons/react/24/outline';
 import { useCreateBookingMutation } from '../../../../Features/bookings/bookingAPI';
 import { toast, Toaster } from 'sonner';
+import { useGetBranchesQuery } from '../../../../Features/Branches/BranchesAPI';
 
 interface CarDetailsProps {
   vehicle: TVehicle;
@@ -13,9 +14,11 @@ interface CarDetailsProps {
 }
 
 const CarDetails: React.FC<CarDetailsProps> = ({ vehicle, onBack }) => {
+  const { data: branchesData, isLoading: isBranchesLoading, isError: isBranchesError } = useGetBranchesQuery();
   const [startDate, setStartDate] = useState<Date | null>(null);
   const [endDate, setEndDate] = useState<Date | null>(null);
   const [totalAmount, setTotalAmount] = useState<number>(0);
+  const [selectedBranch, setSelectedBranch] = useState<number | null>(null);
   const [createBooking] = useCreateBookingMutation();
 
   const handleStartDateChange = (date: Date | null) => {
@@ -37,13 +40,18 @@ const CarDetails: React.FC<CarDetailsProps> = ({ vehicle, onBack }) => {
   };
 
   const handleBooking = async () => {
+    if (!selectedBranch) {
+      toast.error('Please select a branch.');
+      return;
+    }
+
     const user = JSON.parse(localStorage.getItem('user') || '{}');
     const userId = user.userId || 0;
 
     const bookingData = {
       userId,
       vehicleId: vehicle.vehicleId,
-      branchId: 3,
+      branchId: selectedBranch,
       bookingDate: startDate?.toISOString() || '',
       returnDate: endDate?.toISOString() || '',
       totalAmount: totalAmount,
@@ -61,7 +69,7 @@ const CarDetails: React.FC<CarDetailsProps> = ({ vehicle, onBack }) => {
 
   return (
     <div className={styles.carDetailsContainer}>
-      <Toaster position="top-right"  />
+      <Toaster position="top-right" />
       <button className={styles.backButton} onClick={onBack}>Back to List</button>
       <div className={styles.detailsContainer}>
         <div className={styles.infoContainer}>
@@ -82,6 +90,27 @@ const CarDetails: React.FC<CarDetailsProps> = ({ vehicle, onBack }) => {
           {vehicle.availability && (
             <div className={styles.bookingContainer}>
               <h3>Book this Vehicle</h3>
+              <div className={styles.dropdownContainer}>
+                <label>Select Branch:</label>
+                {isBranchesLoading ? (
+                  <p>Loading branches...</p>
+                ) : isBranchesError ? (
+                  <p>Error loading branches</p>
+                ) : (
+                  <select
+                    value={selectedBranch || ''}
+                    onChange={(e) => setSelectedBranch(Number(e.target.value))}
+                    className={styles.dropdown}
+                  >
+                    <option value="" disabled>Select a branch</option>
+                    {branchesData.map((branch) => (
+                      <option key={branch.branchId} value={branch.branchId}>
+                        {branch.name} - {branch.city}
+                      </option>
+                    ))}
+                  </select>
+                )}
+              </div>
               <div className={styles.datePickerContainer}>
                 <label>
                   <CalendarIcon className={styles.calendarIcon} />

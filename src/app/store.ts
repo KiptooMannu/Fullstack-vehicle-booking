@@ -8,6 +8,7 @@ import { bookingAPI } from '../Features/bookings/bookingAPI';
 import { transactionsAPI } from '../Features/Transactions/transactionsAPI';
 import { fleetManagementAPI } from '../Features/Fleet/fleetManagementAPI';
 import { supportTicketAPI } from '../Features/SupportTickets/SupportAPI';
+import { branchesAPI } from '../Features/Branches/BranchesAPI';
 
 // auth persist config
 const persistConfig = {
@@ -24,6 +25,7 @@ const rootReducer = combineReducers({
   [transactionsAPI.reducerPath]: transactionsAPI.reducer,
   [fleetManagementAPI.reducerPath]: fleetManagementAPI.reducer,
   [supportTicketAPI.reducerPath]: supportTicketAPI.reducer,
+  [branchesAPI.reducerPath]: branchesAPI.reducer,
 });
 
 // apply persist reducer to the rootReducer
@@ -51,7 +53,8 @@ export const store: EnhancedStore<{
     .concat(bookingAPI.middleware)
     .concat(transactionsAPI.middleware)
     .concat(fleetManagementAPI.middleware)
-    .concat(supportTicketAPI.middleware),
+    .concat(supportTicketAPI.middleware)
+    .concat(branchesAPI.middleware),
 });
 
 export const persistedStore = persistStore(store);
