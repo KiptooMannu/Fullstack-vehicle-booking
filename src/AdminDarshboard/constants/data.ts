@@ -1,7 +1,7 @@
 import images from "./images"
 
 const user = JSON.parse(localStorage.getItem('user') || '{}');
-    const userName = user.user.fullName;
+    const userName = user.user.fullName ||'Kavatha';
 const data = {
     user: {
 
