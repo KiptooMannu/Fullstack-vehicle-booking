@@ -9,6 +9,7 @@ import { transactionsAPI } from '../Features/Transactions/transactionsAPI';
 import { fleetManagementAPI } from '../Features/Fleet/fleetManagementAPI';
 import { supportTicketAPI } from '../Features/SupportTickets/SupportAPI';
 import { branchesAPI } from '../Features/Branches/BranchesAPI';
+import { stripeAPI } from '../Features/stripe/stripeAPI';
 
 // auth persist config
 const persistConfig = {
@@ -26,6 +27,7 @@ const rootReducer = combineReducers({
   [fleetManagementAPI.reducerPath]: fleetManagementAPI.reducer,
   [supportTicketAPI.reducerPath]: supportTicketAPI.reducer,
   [branchesAPI.reducerPath]: branchesAPI.reducer,
+  [stripeAPI.reducerPath]: stripeAPI.reducer,
 });
 
 // apply persist reducer to the rootReducer
@@ -54,7 +56,8 @@ export const store: EnhancedStore<{
     .concat(transactionsAPI.middleware)
     .concat(fleetManagementAPI.middleware)
     .concat(supportTicketAPI.middleware)
-    .concat(branchesAPI.middleware),
+    .concat(branchesAPI.middleware)
+    .concat(stripeAPI.middleware),
 });
 
 export const persistedStore = persistStore(store);

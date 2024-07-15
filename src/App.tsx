@@ -25,6 +25,7 @@ import Dashboard from './AdminDarshboard/pages/Darshboard';
 import Bookings from './Darshboards/UserDarshboard/pages/UserSupportTickets';
 import UserDarshboard from './Darshboards/UserDarshboard/UserDarshboard';
 import UserTable from './Features/users/UserTable';
+import PaymentSuccess from './Darshboards/UserDarshboard/pages/PaymentSuccess';
 
 const App: React.FC = () => {
   return (
@@ -37,6 +38,7 @@ const App: React.FC = () => {
         <Route path='team' element={<Team />} />
         <Route path='contact' element={<Contact />} />
         <Route path='login' element={<Login />} />
+        <Route path="/booking-success" element={<PaymentSuccess/>} />
         <Route path='register' element={<Register />} />
 
         {/* Admin Routes */}
