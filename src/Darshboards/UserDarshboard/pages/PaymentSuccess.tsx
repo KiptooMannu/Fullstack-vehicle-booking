@@ -6,7 +6,7 @@ const PaymentSuccess: React.FC = () => {
 
   useEffect(() => {
     const timeout = setTimeout(() => {
-      navigate('/user/bookings'); // Redirect to the bookings page after a delay
+      navigate('/users/bookings'); // Redirect to the bookings page after a delay
     }, 2000); // 2 seconds delay
 
     return () => clearTimeout(timeout); // Clear timeout if the component unmounts

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { 
   useGetBookingsQuery, 
   useUpdateBookingMutation, 
-  useDeleteBookingMutation, 
+  // useDeleteBookingMutation, 
   TBooking 
 } from '../../../Features/bookings/bookingAPI';
 import { useCreateCheckoutSessionMutation } from '../../../Features/stripe/stripeAPI';
@@ -16,7 +16,7 @@ const MyBookings: React.FC = () => {
     pollingInterval: 1000 // Poll every 1000ms (1 second)
   });
   const [updateBooking] = useUpdateBookingMutation();
-  const [deleteBooking] = useDeleteBookingMutation();
+  // const [deleteBooking] = useDeleteBookingMutation();
   const [createCheckoutSession] = useCreateCheckoutSessionMutation();
   const [loadingBookingId, setLoadingBookingId] = useState<number | null>(null);
 
