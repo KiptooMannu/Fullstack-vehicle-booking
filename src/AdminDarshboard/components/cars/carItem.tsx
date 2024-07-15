@@ -4,6 +4,17 @@ import { TVehicle } from '../../../Features/vehicles/vehicleAPI';
 import { Bars } from 'react-loader-spinner';
 import CarItemDetails from './CarItemDetails';
 import styles from './CarItem.module.scss';
+import ToyotaCamry from '../../images/cars/toyota-camry-hybrid.webp';
+import ToyotaHilux from '../images/cars/toyota-hilux.webp';
+import BmwX4 from '../images/cars/bmw-x4.webp';
+import BmwX5 from '../images/cars/bmw-x5.webp';
+import ChevroletOnix from '../images/cars/chevrolet-onix.webp';
+import ChevroletSpin from '../images/cars/chevrolet-spin.webp';
+import FiatMobi from '../images/cars/fiat-mobi.webp';
+import FiatUno from '../images/cars/fiat-uno.webp';
+import VolkswagenGolf from '../images/cars/volkswagen-golf.webp';
+import VolkswagenBeetle from '../images/cars/volkswagen-new-beetle.webp';
+
 
 const AdminCarList: React.FC = () => {
   const { data: vehicles, error, isLoading } = useGetVehiclesQuery();
