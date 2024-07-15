@@ -6,10 +6,11 @@ import { toast, Toaster } from 'sonner';
 
 interface CarDetailsProps {
   vehicle: TVehicle;
+  image: string;
   onBack: () => void;
 }
 
-const CarDetails: React.FC<CarDetailsProps> = ({ vehicle, onBack }) => {
+const CarDetails: React.FC<CarDetailsProps> = ({ vehicle, image, onBack }) => {
   const [updatedVehicle, setUpdatedVehicle] = useState(vehicle);
   const [isEditing, setIsEditing] = useState(false);
   const [updateVehicle] = useUpdateVehicleMutation();
@@ -218,7 +219,7 @@ const CarDetails: React.FC<CarDetailsProps> = ({ vehicle, onBack }) => {
         </div>
         <div className={styles.imageContainer}>
           <img 
-            src={vehicle.image || "https://via.placeholder.com/1200x800"} 
+            src={image || "https://via.placeholder.com/1200x800"} 
             alt={`${vehicle.specifications.manufacturer} ${vehicle.specifications.model}`} 
             className={styles.carImage} 
           />
