@@ -18,15 +18,15 @@ function Login() {
 
     const onSubmit = async (data: FormValues) => {
         try {
-            console.log(data);
+            // console.log(data);
             const response = await loginUser(data).unwrap();
-            console.log(response);
+            // console.log(response);
 
             // Persist the response to local storage
             localStorage.setItem('user', JSON.stringify(response));
             localStorage.setItem('token', JSON.stringify(response.token));
             
-            console.log(response.token);
+            // console.log(response.token);
 
             const userRole = response.user.role;
             if (userRole === 'admin') {

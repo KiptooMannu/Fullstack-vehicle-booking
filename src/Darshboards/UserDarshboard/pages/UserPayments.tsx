@@ -1,16 +1,27 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useGetTransactionsQuery, TTransaction } from '../../../Features/Transactions/transactionsAPI'; // Adjust import path as needed
 import styles from '../scss/TransactionsTable.module.scss';
+import { TBooking } from '../../../Features/bookings/bookingAPI';
 
 const TransactionsTable: React.FC = () => {
-  const bookingIds = JSON.parse(localStorage.getItem('bookingIds') || '[]');
+
   const { data: transactions, error, isLoading } = useGetTransactionsQuery(undefined, {
     pollingInterval: 5000,
   });
 
-  const filteredTransactions = transactions?.filter((transaction: TTransaction) =>
-    bookingIds.includes(transaction.bookingId)
-  );
+  const [filteredTransactions, setFilteredTransactions] = useState<TTransaction[]>([]);
+
+   useEffect(() => {
+    if (transactions) {
+      const storedBookings = JSON.parse(localStorage.getItem('bookings') || '[]');
+      // console.log(storedBookings);
+      const bookingIds = storedBookings.map((booking: TBooking) => booking.bookingId);
+      console.log(bookingIds);
+      const filtered = transactions.filter((transaction: TTransaction) => bookingIds.includes(transaction.bookingId));
+      setFilteredTransactions(filtered);
+      console.log(filtered);
+    }
+  }, [transactions]);
 
   return (
     <div className={styles.transactionsTableContainer}>
@@ -32,11 +43,11 @@ const TransactionsTable: React.FC = () => {
           <tbody>
             {filteredTransactions.map((transaction: TTransaction) => (
               <tr key={transaction.id}>
-                <td>{transaction.id}</td>
+                <td>{transaction.paymentId}</td>
                 <td>{transaction.bookingId}</td>
                 <td>${transaction.amount}</td>
-                <td>{new Date(transaction.transactionDate).toLocaleString()}</td>
-                <td>{transaction.status}</td>
+                <td>{new Date(transaction.paymentDate).toLocaleString()}</td>
+                <td>{transaction.paymentStatus}</td>
               </tr>
             ))}
           </tbody>

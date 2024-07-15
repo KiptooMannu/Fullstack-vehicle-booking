@@ -11,10 +11,11 @@ import { useNavigate } from 'react-router-dom';
 
 interface CarDetailsProps {
   vehicle: TVehicle;
+  image: string; // Add image property
   onBack: () => void;
 }
 
-const CarDetails: React.FC<CarDetailsProps> = ({ vehicle, onBack }) => {
+const CarDetails: React.FC<CarDetailsProps> = ({ vehicle, image, onBack }) => {
   const { data: branchesData, isLoading: isBranchesLoading, isError: isBranchesError } = useGetBranchesQuery();
   const [startDate, setStartDate] = useState<Date | null>(null);
   const [endDate, setEndDate] = useState<Date | null>(null);
@@ -150,7 +151,7 @@ const CarDetails: React.FC<CarDetailsProps> = ({ vehicle, onBack }) => {
         <div className={styles.imageContainer}>
           {vehicle.availability ? (
             <img 
-              src={vehicle.image || "https://via.placeholder.com/1200x800"} 
+              src={image || "https://via.placeholder.com/1200x800"} 
               alt={`${vehicle.specifications.manufacturer} ${vehicle.specifications.model}`} 
               className={styles.carImage} 
             />

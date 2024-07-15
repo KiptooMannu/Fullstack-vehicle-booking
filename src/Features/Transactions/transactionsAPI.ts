@@ -2,10 +2,12 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 export interface TTransaction {
     id: number;
+    paymentId: number;
+    paymentStatus: string;
     bookingId: number;
     userId: number;
     amount: string;
-    transactionDate: string;
+    paymentDate: string;
     status: string;
 }
 
