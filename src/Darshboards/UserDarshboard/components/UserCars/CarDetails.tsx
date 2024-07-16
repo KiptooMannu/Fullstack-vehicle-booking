@@ -37,7 +37,7 @@ const CarDetails: React.FC<CarDetailsProps> = ({ vehicle, image, onBack }) => {
   const calculateTotalAmount = (start: Date | null, end: Date | null) => {
     if (start && end) {
       const hours = (end.getTime() - start.getTime()) / (1000 * 60 * 60);
-      const rate = parseFloat(vehicle.rentalRate);
+      const rate = parseInt(vehicle.rentalRate);
       setTotalAmount(hours * rate);
     }
   };

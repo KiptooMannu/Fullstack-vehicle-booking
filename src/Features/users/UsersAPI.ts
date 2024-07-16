@@ -7,6 +7,7 @@ export interface TUser {
     email: string;
     phone: string;
     address: string;
+    role: string;
 }
 
 // Define the API slice

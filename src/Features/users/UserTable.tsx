@@ -42,8 +42,8 @@ const UserTable: React.FC = () => {
 
     const handleUpdate = async () => {
         if (updatedUser) {
-            const { fullName, contactPhone, address } = updatedUser;
-            const userUpdateData = { fullName, contactPhone, address };
+            const { fullName, contactPhone, address , userId, email} = updatedUser;
+            const userUpdateData = { fullName, contactPhone, address ,email, userId };
 
             await updateUser(userUpdateData);
             toast.success(`User with id ${updatedUser.userId} updated successfully`);
