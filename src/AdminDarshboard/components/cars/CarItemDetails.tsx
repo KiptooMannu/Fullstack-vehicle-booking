@@ -31,12 +31,18 @@ const CarDetails: React.FC<CarDetailsProps> = ({ vehicle, image, onBack }) => {
   const handleUpdate = async () => {
     try {
       await updateVehicle(updatedVehicle).unwrap();
-      toast.success('Vehicle updated successfully');
+      toast.success('Vehicle updated successfully',{
+        style: { background: 'white', color: 'green' },
+        position: 'top-right'
+      });
       setIsEditing(false);
       refetch();
     } catch (error) {
       console.error('Failed to update vehicle', error);
-      toast.error('Failed to update vehicle');
+      toast.error('Failed to update vehicle',{
+        style: { background: 'red', color: 'white' },
+        position: 'top-right'
+      });
     }
   };
 

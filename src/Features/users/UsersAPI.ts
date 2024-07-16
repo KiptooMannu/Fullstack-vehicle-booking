@@ -2,6 +2,7 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 export interface TUser {
     id: number;
+    userId: number;
     fullname: string;
     email: string;
     phone: string;
@@ -43,12 +44,12 @@ export const usersAPI = createApi({
             invalidatesTags: [{ type: 'Users', id: 'LIST' }],
         }),
         updateUser: builder.mutation<TUser, Partial<TUser>>({
-            query: ({ id, ...rest }) => ({
-                url: `users/${id}`,
+            query: ({ userId, ...rest }) => ({
+                url: `users/${userId}`,
                 method: 'PUT',
                 body: rest,
             }),
-            invalidatesTags: (result, error, { id }) => [{ type: 'Users', id }],
+            invalidatesTags: [{ type: 'Users'}],
         }),
         deleteUser: builder.mutation<{ success: boolean; id: number }, number>({
             query: (id) => ({

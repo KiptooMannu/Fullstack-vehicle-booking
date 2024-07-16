@@ -1,7 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
-// src/Features/vehicles/vehicleAPI.ts
-
 export interface TVehicle {
   id: number;
   vehicleId: number;
@@ -28,14 +26,13 @@ export const vehicleAPI = createApi({
     baseUrl: 'https://car-rental-backend-1.onrender.com/api',
     prepareHeaders: (headers) => {
       const token = localStorage.getItem('token');
-      console.log('tokin' , token);
       if (token) {
         headers.set('Authorization', `${token.replace(/"/g, '')}`);
       }
       return headers;
     },
   }),
-  tagTypes: ['Vehicles'],  // Define your tags here
+  tagTypes: ['Vehicles'],
   endpoints: (builder) => ({
     getVehicles: builder.query<TVehicle[], void>({
       query: () => 'vehicles',
@@ -56,12 +53,12 @@ export const vehicleAPI = createApi({
       invalidatesTags: [{ type: 'Vehicles', id: 'LIST' }],
     }),
     updateVehicle: builder.mutation<TVehicle, Partial<TVehicle>>({
-      query: ({ id, ...rest }) => ({
-        url: `vehicles/${id}`,
+      query: ({ vehicleId, ...rest }) => ({
+        url: `vehicles/${vehicleId}`,
         method: 'PUT',
         body: rest,
       }),
-      invalidatesTags: (result, error, { id }) => [{ type: 'Vehicles', id }],
+      invalidatesTags: (result, error, { vehicleId }) => [{ type: 'Vehicles', id: vehicleId }],
     }),
     deleteVehicle: builder.mutation<{ success: boolean; id: number }, number>({
       query: (id) => ({
@@ -73,7 +70,6 @@ export const vehicleAPI = createApi({
   }),
 });
 
-// Export the auto-generated hooks
 export const {
   useGetVehiclesQuery,
   useCreateVehicleMutation,

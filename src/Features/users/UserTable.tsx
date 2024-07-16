@@ -9,6 +9,9 @@ interface TUser {
     email: string;
     contactPhone: string;
     address: string;
+    role: string;
+    createdAt: string;
+    updatedAt: string;
 }
 
 const UserTable: React.FC = () => {
@@ -39,7 +42,10 @@ const UserTable: React.FC = () => {
 
     const handleUpdate = async () => {
         if (updatedUser) {
-            await updateUser(updatedUser);
+            const { fullName, contactPhone, address } = updatedUser;
+            const userUpdateData = { fullName, contactPhone, address };
+
+            await updateUser(userUpdateData);
             toast.success(`User with id ${updatedUser.userId} updated successfully`);
             setEditMode(null);
             setUpdatedUser(null);
@@ -70,7 +76,6 @@ const UserTable: React.FC = () => {
             />
             <div className="user-table-container">
                 <h1 className='title'>Users Data</h1>
-
                 <table className="user-table">
                     <thead>
                         <tr>
@@ -103,18 +108,7 @@ const UserTable: React.FC = () => {
                                             user.fullName
                                         )}
                                     </td>
-                                    <td>
-                                        {editMode === user.userId ? (
-                                            <input
-                                                type="text"
-                                                name="email"
-                                                value={updatedUser?.email || ''}
-                                                onChange={handleInputChange}
-                                            />
-                                        ) : (
-                                            user.email
-                                        )}
-                                    </td>
+                                    <td>{user.email}</td>
                                     <td>
                                         {editMode === user.userId ? (
                                             <input
