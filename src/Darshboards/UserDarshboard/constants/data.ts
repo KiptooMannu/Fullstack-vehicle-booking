@@ -1,16 +1,16 @@
 import images from "./images"
-// const user = JSON.parse(localStorage.getItem('user') || '{}');
-//     const userName = user.user.fullName;
+const user = JSON.parse(localStorage.getItem('user') || '{}');
+    const userName = user.user.fullName;
 
 const data = {
     user: {
-        name: 'Kavatha',
+        name: userName,
         img: images.avt
     },
     summary: [
         {
-            title: 'Sales',
-            subtitle: 'Total sales today',
+            title: 'Bookings',
+            subtitle: 'Total Bookings today',
             value: '$1.000',
             percent: 70
         },
@@ -21,7 +21,7 @@ const data = {
             percent: 49
         },
         {
-            title: 'Revenue',
+            title: 'Total Spent',
             subtitle: 'Total revenue today',
             value: '$678',
             percent: 38
@@ -43,20 +43,20 @@ const data = {
     },
     overall: [
         {
-            value: '300K',
-            title: 'Orders'
+            value: '30',
+            title: 'Bookings'
         },
         {
-            value: '9.876K',
-            title: 'Customers'
+            value: '900+',
+            title: 'Cars Available'
         },
         {
             value: '1.234K',
-            title: 'Products'
+            title: 'Pending Payments'
         },
         {
             value: '$5678',
-            title: 'Revenue'
+            title: 'Balance'
         }
     ],
     revenueByChannel: [
