@@ -3,7 +3,6 @@ import { useGetVehiclesQuery, useCreateVehicleMutation } from '../../../Features
 import { TVehicle } from '../../../Features/vehicles/vehicleAPI';
 import { Bars } from 'react-loader-spinner';
 import { toast, Toaster } from 'sonner';
-// import 'sonner/dist/sonner.css';
 import CarItemDetails from './CarItemDetails';
 import styles from './CarItem.module.scss';
 import ToyotaCamry from '../../../images/cars/toyota-camry-hybrid.webp';
@@ -121,51 +120,57 @@ const AdminCarList: React.FC = () => {
           </button>
           {isFormOpen && (
             <form className={styles.newCarForm} onSubmit={handleSubmit}>
-              <div className={styles.formGroup}>
-                <label>Manufacturer</label>
-                <input type="text" name="manufacturer" value={newCar.manufacturer} onChange={handleInputChange} required />
+              <div className={styles.formSection}>
+                <div className={styles.formGroup}>
+                  <label>Manufacturer</label>
+                  <input type="text" name="manufacturer" value={newCar.manufacturer} onChange={handleInputChange} required />
+                </div>
+                <div className={styles.formGroup}>
+                  <label>Model</label>
+                  <input type="text" name="model" value={newCar.model} onChange={handleInputChange} required />
+                </div>
+                <div className={styles.formGroup}>
+                  <label>Year</label>
+                  <input type="number" name="year" value={newCar.year} onChange={handleInputChange} required />
+                </div>
+                <div className={styles.formGroup}>
+                  <label>Fuel Type</label>
+                  <input type="text" name="fuelType" value={newCar.fuelType} onChange={handleInputChange} required />
+                </div>
+                <div className={styles.formGroup}>
+                  <label>Engine Capacity</label>
+                  <input type="text" name="engineCapacity" value={newCar.engineCapacity} onChange={handleInputChange} required />
+                </div>
+                <div className={styles.formGroup}>
+                  <label>Transmission</label>
+                  <input type="text" name="transmission" value={newCar.transmission} onChange={handleInputChange} required />
+                </div>
               </div>
-              <div className={styles.formGroup}>
-                <label>Model</label>
-                <input type="text" name="model" value={newCar.model} onChange={handleInputChange} required />
+              <div className={styles.formSection}>
+                <div className={styles.formGroup}>
+                  <label>Seating Capacity</label>
+                  <input type="number" name="seatingCapacity" value={newCar.seatingCapacity} onChange={handleInputChange} required />
+                </div>
+                <div className={styles.formGroup}>
+                  <label>Color</label>
+                  <input type="text" name="color" value={newCar.color} onChange={handleInputChange} required />
+                </div>
+                <div className={styles.formGroup}>
+                  <label>Features</label>
+                  <textarea name="features" value={newCar.features} onChange={handleInputChange} required></textarea>
+                </div>
+                <div className={styles.formGroup}>
+                  <label>Rental Rate</label>
+                  <input type="number" name="rentalRate" value={newCar.rentalRate} onChange={handleInputChange} required />
+                </div>
+                <div className={styles.formGroup}>
+                  <label>Availability</label>
+                  <input type="checkbox" name="availability" checked={newCar.availability} onChange={handleInputChange} />
+                </div>
+                <div className={styles.submitSection}>
+                  <button type="submit" className={styles.submitButton}>Add Car</button>
+                </div>
               </div>
-              <div className={styles.formGroup}>
-                <label>Year</label>
-                <input type="number" name="year" value={newCar.year} onChange={handleInputChange} required />
-              </div>
-              <div className={styles.formGroup}>
-                <label>Fuel Type</label>
-                <input type="text" name="fuelType" value={newCar.fuelType} onChange={handleInputChange} required />
-              </div>
-              <div className={styles.formGroup}>
-                <label>Engine Capacity</label>
-                <input type="text" name="engineCapacity" value={newCar.engineCapacity} onChange={handleInputChange} required />
-              </div>
-              <div className={styles.formGroup}>
-                <label>Transmission</label>
-                <input type="text" name="transmission" value={newCar.transmission} onChange={handleInputChange} required />
-              </div>
-              <div className={styles.formGroup}>
-                <label>Seating Capacity</label>
-                <input type="number" name="seatingCapacity" value={newCar.seatingCapacity} onChange={handleInputChange} required />
-              </div>
-              <div className={styles.formGroup}>
-                <label>Color</label>
-                <input type="text" name="color" value={newCar.color} onChange={handleInputChange} required />
-              </div>
-              <div className={styles.formGroup}>
-                <label>Features</label>
-                <textarea name="features" value={newCar.features} onChange={handleInputChange} required></textarea>
-              </div>
-              <div className={styles.formGroup}>
-                <label>Rental Rate</label>
-                <input type="number" name="rentalRate" value={newCar.rentalRate} onChange={handleInputChange} required />
-              </div>
-              <div className={styles.formGroup}>
-                <label>Availability</label>
-                <input type="checkbox" name="availability" checked={newCar.availability} onChange={handleInputChange} />
-              </div>
-              <button type="submit" className={styles.submitButton}>Add Car</button>
             </form>
           )}
           {vehicles && vehicles.length > 0 ? (
