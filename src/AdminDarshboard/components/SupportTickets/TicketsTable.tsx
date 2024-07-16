@@ -7,7 +7,7 @@ const SupportTicketsTable: React.FC = () => {
   const [updateSupportTicket] = useUpdateSupportTicketMutation();
 
   const handleResolve = async (ticket: TSupportTicket) => {
-    const { ticketId, userId, subject, description, status } = ticket;
+    const { ticketId, userId, subject, description } = ticket;
     const updatedTicket = { ticketId, userId, subject, description, status: 'resolved' };
     await updateSupportTicket(updatedTicket);
   };

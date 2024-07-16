@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { 
   useGetBookingsQuery, 
   useUpdateBookingMutation, 
-  // useDeleteBookingMutation, 
   TBooking 
 } from '../../../Features/bookings/bookingAPI';
 import { useCreateCheckoutSessionMutation } from '../../../Features/stripe/stripeAPI';
@@ -16,7 +15,6 @@ const MyBookings: React.FC = () => {
     pollingInterval: 2000 // Poll every 1000ms (1 second)
   });
   const [updateBooking] = useUpdateBookingMutation();
-  // const [deleteBooking] = useDeleteBookingMutation();
   const [createCheckoutSession] = useCreateCheckoutSessionMutation();
   const [loadingBookingId, setLoadingBookingId] = useState<number | null>(null);
 
@@ -25,7 +23,20 @@ const MyBookings: React.FC = () => {
     try {
       const { data } = await createCheckoutSession({ bookingId: booking.bookingId, amount: Number(booking.totalAmount) });
       if (data?.checkoutUrl) {
-        window.location.href = data.checkoutUrl; // Redirect to the checkout URL
+        // Redirect to the checkout URL
+        window.location.href = data.checkoutUrl;
+
+        // Polling for payment confirmation (example with a simple setTimeout, can be replaced with better logic)
+        // setTimeout(async () => {
+          try {
+            await updateBooking({ ...booking, bookingStatus: 'Confirmed' }).unwrap();
+            toast.success('Payment successful and booking confirmed!', { style: { background: 'green', color: 'white' }, position: 'top-right' });
+          } catch (error) {
+            console.error('Error updating booking status:', error);
+            toast.error('Error updating booking status', { style: { background: 'red', color: 'white' }, position: 'top-right' });
+          }
+        // / Adjust the timeout duration based on your needs
+
       } else {
         console.error('No checkout URL returned from the server');
         toast.error('No checkout URL returned from the server', { style: { background: 'red', color: 'white' }, position: 'top-right' });

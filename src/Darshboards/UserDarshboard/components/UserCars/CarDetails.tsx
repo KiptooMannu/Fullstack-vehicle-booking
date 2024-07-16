@@ -38,7 +38,7 @@ const CarDetails: React.FC<CarDetailsProps> = ({ vehicle, image, onBack }) => {
     if (start && end) {
       const hours = (end.getTime() - start.getTime()) / (1000 * 60 * 60);
       const rate = parseInt(vehicle.rentalRate);
-      setTotalAmount(hours * rate);
+      setTotalAmount(parseFloat((hours * rate).toFixed(2)));
     }
   };
 
@@ -62,10 +62,10 @@ const CarDetails: React.FC<CarDetailsProps> = ({ vehicle, image, onBack }) => {
 
     try {
       await createBooking(bookingData).unwrap();
-      toast.success('Booking successful!');
+      toast.success('Booking successful!',{ style: { background: 'green', color: 'white' }});
       navigate('/users/bookings'); // Redirect to My Bookings page
     } catch (error) {
-      toast.error('Booking failed.');
+      toast.error('Booking failed.',{ style: { background: 'red', color: 'white' }});
     }
   };
 
