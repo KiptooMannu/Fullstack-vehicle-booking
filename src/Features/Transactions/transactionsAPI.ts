@@ -40,8 +40,8 @@ export const transactionsAPI = createApi({
             invalidatesTags: [{ type: 'Transactions', id: 'LIST' }],
         }),
         updateTransaction: builder.mutation<TTransaction, Partial<TTransaction>>({
-            query: ({ id, ...rest }) => ({
-                url: `payments/${id}`,
+            query: ({ paymentId, ...rest }) => ({
+                url: `payments/${paymentId}`,
                 method: 'PUT',
                 body: rest,
             }),

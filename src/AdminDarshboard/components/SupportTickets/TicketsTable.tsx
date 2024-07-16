@@ -1,13 +1,15 @@
 import React from 'react';
-import { useGetSupportTicketsQuery , useUpdateSupportTicketMutation, TSupportTicket } from '../../../Features/SupportTickets/SupportAPI';
+import { useGetSupportTicketsQuery, useUpdateSupportTicketMutation, TSupportTicket } from '../../../Features/SupportTickets/SupportAPI';
 import './SupportTicketsTable.scss'; // Assuming you have some CSS for styling
 
 const SupportTicketsTable: React.FC = () => {
   const { data: tickets, error, isLoading } = useGetSupportTicketsQuery();
   const [updateSupportTicket] = useUpdateSupportTicketMutation();
 
-  const handleResolve = async (ticketId: number) => {
-    await updateSupportTicket({ ticketId, status: 'resolved' });
+  const handleResolve = async (ticket: TSupportTicket) => {
+    const { ticketId, userId, subject, description, status } = ticket;
+    const updatedTicket = { ticketId, userId, subject, description, status: 'resolved' };
+    await updateSupportTicket(updatedTicket);
   };
 
   const formatDate = (dateString: string) => {
@@ -40,7 +42,7 @@ const SupportTicketsTable: React.FC = () => {
           </tr>
         </thead>
         <tbody>
-          {tickets && tickets.map((ticket :TSupportTicket) => (
+          {tickets && tickets.map((ticket: TSupportTicket) => (
             <tr key={ticket.ticketId}>
               <td>{ticket.ticketId}</td>
               <td>{ticket.userId}</td>
@@ -52,7 +54,7 @@ const SupportTicketsTable: React.FC = () => {
               <td>{formatDate(ticket.updatedAt)}</td>
               <td>
                 {ticket.status === 'pending' ? (
-                  <button onClick={() => handleResolve(ticket.ticketId)}>Resolve</button>
+                  <button onClick={() => handleResolve(ticket)}>Resolve</button>
                 ) : (
                   'Resolved'
                 )}

@@ -6,7 +6,7 @@ import './TransactionsTable.scss';
 interface TTransaction {
     paymentId: number;
     bookingId: number;
-    amount: string;
+    amount: number;
     paymentStatus: string;
     paymentDate: string;
     paymentMethod: string | null;
@@ -43,8 +43,11 @@ const TransactionTable: React.FC = () => {
 
     const handleUpdate = async () => {
         if (updatedTransaction) {
-            await updateTransaction(updatedTransaction);
-            toast.success(`Transaction with id ${updatedTransaction.paymentId} updated successfully`);
+            const { paymentId, bookingId, amount, paymentStatus, paymentDate, paymentMethod, transactionId } = updatedTransaction;
+            const transactionUpdateData = { paymentId, bookingId, amount: Number(amount), paymentStatus, paymentDate, paymentMethod, transactionId };
+
+            await updateTransaction(transactionUpdateData);
+            toast.success(`Transaction with id ${paymentId} updated successfully`);
             setEditMode(null);
             setUpdatedTransaction(null);
         }
@@ -53,7 +56,7 @@ const TransactionTable: React.FC = () => {
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         if (updatedTransaction) {
             const { name, value } = e.target;
-            setUpdatedTransaction({ ...updatedTransaction, [name]: value });
+            setUpdatedTransaction({ ...updatedTransaction, [name]: name === "amount" ? Number(value) : value });
         }
     };
 
@@ -95,7 +98,18 @@ const TransactionTable: React.FC = () => {
                             paginatedData && paginatedData.map((transaction: TTransaction) => (
                                 <tr key={transaction.paymentId}>
                                     <td>{new Date(transaction.paymentDate).toLocaleDateString()}</td>
-                                    <td>{transaction.amount}</td>
+                                    <td>
+                                        {editMode === transaction.paymentId ? (
+                                            <input
+                                                type="number"
+                                                name="amount"
+                                                value={updatedTransaction?.amount || 0}
+                                                onChange={handleInputChange}
+                                            />
+                                        ) : (
+                                            transaction.amount
+                                        )}
+                                    </td>
                                     <td>
                                         {editMode === transaction.paymentId ? (
                                             <input
