@@ -3,6 +3,7 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 export interface TBranch {
   branchId: number;
   name: string;
+  contactPhone: number;
   address: string;
   city: string;
   state: string;
