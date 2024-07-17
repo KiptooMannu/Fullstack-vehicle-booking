@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, ReactNode } from 'react';
+import React, { useState, useEffect, useRef, ReactNode } from 'react';
 
 let cloudinary: any;
 
@@ -11,14 +11,9 @@ const UploadWidget: React.FC<UploadWidgetProps> = ({ children, onUpload }) => {
   const widget = useRef<any>();
 
   useEffect(() => {
-    // Store the Cloudinary window instance to a ref when the page renders
     if (!cloudinary) {
       cloudinary = (window as any).cloudinary;
     }
-
-    // To help improve load time of the widget on first instance, use requestIdleCallback
-    // to trigger widget creation. If requestIdleCallback isn't supported, fall back to
-    // setTimeout: https://caniuse.com/requestidlecallback
 
     function onIdle() {
       if (!widget.current) {
@@ -32,22 +27,11 @@ const UploadWidget: React.FC<UploadWidgetProps> = ({ children, onUpload }) => {
       widget.current?.destroy();
       widget.current = undefined;
     };
-    // eslint-disable-next-line
   }, []);
 
-  /**
-   * createWidget
-   * @description Creates a new instance of the Cloudinary widget and stores in a ref
-   */
-
   function createWidget() {
-    // Providing only a Cloud Name along with an Upload Preset allows you to use the
-    // widget without requiring an API Key or Secret. This however allows for
-    // "unsigned" uploads which may allow for more usage than intended. Read more
-    // about unsigned uploads at: https://cloudinary.com/documentation/upload_images#unsigned_upload
-
     const cloudName = 'dlqbpndde';
-    const uploadPreset ='daniel';
+    const uploadPreset = 'daniel';
 
     if (!cloudName || !uploadPreset) {
       console.warn(`Kindly ensure you have the cloudName and UploadPreset 
@@ -55,28 +39,19 @@ const UploadWidget: React.FC<UploadWidgetProps> = ({ children, onUpload }) => {
     }
 
     const options = {
-      cloudName, // Ex: mycloudname
-      uploadPreset, // Ex: myuploadpreset
+      cloudName,
+      uploadPreset,
     };
 
     return cloudinary?.createUploadWidget(
       options,
       function (error: any, result: any) {
-        // The callback is a bit more chatty than failed or success so
-        // only trigger when one of those are the case. You can additionally
-        // create a separate handler such as onEvent and trigger it on
-        // ever occurrence
         if ((error || result.event === 'success') && typeof onUpload === 'function') {
           onUpload(error, result, widget);
         }
       }
     );
   }
-
-  /**
-   * open
-   * @description When triggered, uses the current widget instance to open the upload modal
-   */
 
   function open() {
     if (!widget.current) {
@@ -88,4 +63,57 @@ const UploadWidget: React.FC<UploadWidgetProps> = ({ children, onUpload }) => {
   return <>{children({ cloudinary, widget, open })}</>;
 };
 
-export default UploadWidget;
+const Upload: React.FC = () => {
+  const [url, updateUrl] = useState<string | undefined>(undefined);
+  const [error, updateError] = useState<string | undefined>(undefined);
+
+  const handleOnUpload = (error: any, result: any, widget: any) => {
+    if (error) {
+      updateError(error.message);
+      widget.close({
+        quiet: true,
+      });
+      return;
+    }
+    updateUrl(result?.info?.secure_url);
+  };
+
+  return (
+    <main className="main">
+      <div className="container">
+        <h1 className="title">React &amp; Cloudinary Upload Widget</h1>
+      </div>
+
+      <div className="container">
+        <h2>Unsigned with Upload Preset</h2>
+        <UploadWidget onUpload={handleOnUpload}>
+          {({ open }) => {
+            const handleOnClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+              e.preventDefault();
+              open();
+            };
+            return <button onClick={handleOnClick}>Upload an Image</button>;
+          }}
+        </UploadWidget>
+
+        {error && <p>{error}</p>}
+
+        {url && (
+          <>
+            <p>
+              <img src={url} alt="Uploaded resource" />
+            </p>
+            <p>{url}</p>
+          </>
+        )}
+      </div>
+
+      <div className="container">
+        <h2>Resources</h2>
+        
+      </div>
+    </main>
+  );
+};
+
+export default Upload;
