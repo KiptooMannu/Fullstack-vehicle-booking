@@ -11,12 +11,13 @@ import { Toaster, toast } from 'sonner';
 const MyBookings: React.FC = () => {
   const user = JSON.parse(localStorage.getItem('user') || '{}');
   const userId = user.user.userId;
-  const { data: bookings, error, isLoading } = useGetBookingsQuery(undefined, {
-    pollingInterval: 200 // Poll every 1000ms (1 second)
+  const { data: bookings, error, isLoading, refetch } = useGetBookingsQuery(undefined, {
+    pollingInterval: 2000 // Poll every 2 seconds
   });
   const [updateBooking] = useUpdateBookingMutation();
   const [createCheckoutSession] = useCreateCheckoutSessionMutation();
   const [loadingBookingId, setLoadingBookingId] = useState<number | null>(null);
+  const [cancellingBookingId, setCancellingBookingId] = useState<number | null>(null);
 
   const handleUpdateBooking = async (booking: TBooking) => {
     setLoadingBookingId(booking.bookingId);
@@ -25,19 +26,15 @@ const MyBookings: React.FC = () => {
       if (data?.checkoutUrl) {
         // Redirect to the checkout URL
         window.location.href = data.checkoutUrl;
-        await updateBooking({ ...booking, bookingStatus: 'Confirmed' }).unwrap();
 
-        // Polling for payment confirmation (example with a simple setTimeout, can be replaced with better logic)
-        // setTimeout(async () => {
-          try {
-            await updateBooking({ ...booking, bookingStatus: 'Confirmed' }).unwrap();
-            toast.success('Payment successful and booking confirmed!', { style: { background: 'green', color: 'white' }, position: 'top-right' });
-          } catch (error) {
-            console.error('Error updating booking status:', error);
-            toast.error('Error updating booking status', { style: { background: 'red', color: 'white' }, position: 'top-right' });
+        // Polling to refetch the booking data until the payment status is updated
+        const interval = setInterval(async () => {
+          await refetch();
+          const updatedBooking = bookings?.find((b : any )=> b.bookingId === booking.bookingId);
+          if (updatedBooking?.bookingStatus === 'Confirmed') {
+            clearInterval(interval);
           }
-        // / Adjust the timeout duration based on your needs
-
+        }, 2000);
       } else {
         console.error('No checkout URL returned from the server');
         toast.error('No checkout URL returned from the server', { style: { background: 'red', color: 'white' }, position: 'top-right' });
@@ -51,18 +48,21 @@ const MyBookings: React.FC = () => {
   };
 
   const handleDeleteBooking = async (booking: TBooking) => {
+    setCancellingBookingId(booking.bookingId);
     try {
-      console.log({ ...booking, bookingStatus: 'Cancelled' });
-      await updateBooking({ ...booking, bookingStatus: 'Cancelled' }).unwrap();
+      await updateBooking({ ...booking, bookingStatus: 'canceled' }).unwrap();
       toast.success('Booking cancelled successfully', { style: { background: 'green', color: 'white' }, position: 'top-right' });
+      // Optimistically update the booking status in the UI
+      booking.bookingStatus = 'canceled';
     } catch (error) {
       console.error('Error cancelling booking:', error);
-      toast.error('Error cancelling booking', { style: { background: 'red', color: 'white' }, position: 'top-right' });
+      // toast.error('Error cancelling booking', { style: { background: 'red', color: 'white' }, position: 'top-right' });
+    } finally {
+      setCancellingBookingId(null);
     }
   };
 
   const userBookings = bookings?.filter((booking: TBooking) => booking.userId === userId);
-  console.log(userBookings);
 
   return (
     <div className={styles.myBookingsContainer}>
@@ -94,9 +94,9 @@ const MyBookings: React.FC = () => {
                 <td>{new Date(booking.bookingDate).toLocaleString()}</td>
                 <td>{new Date(booking.returnDate).toLocaleString()}</td>
                 <td>${booking.totalAmount}</td>
-                <td>{booking.bookingStatus}</td>
+                <td className={styles.lowercase}>{booking.bookingStatus}</td>
                 <td>
-                  {booking.bookingStatus !== 'Cancelled' && (
+                  {booking.bookingStatus !== 'canceled' && booking.bookingStatus !== 'confirmed' && (
                     <>
                       <button 
                         onClick={() => handleUpdateBooking(booking)} 
@@ -104,7 +104,12 @@ const MyBookings: React.FC = () => {
                       >
                         {loadingBookingId === booking.bookingId ? 'Processing...' : 'Pay Now'}
                       </button>
-                      <button onClick={() => handleDeleteBooking(booking)}>Cancel Booking</button>
+                      <button 
+                        onClick={() => handleDeleteBooking(booking)}
+                        disabled={cancellingBookingId === booking.bookingId}
+                      >
+                        {cancellingBookingId === booking.bookingId ? 'Cancelling...' : 'Cancel Booking'}
+                      </button>
                     </>
                   )}
                 </td>
