@@ -58,7 +58,7 @@ const UploadWidget: React.FC<UploadWidgetProps> = ({ onUpload }) => {
     widget.current && widget.current.open();
   }
 
-  return <button className="btn btn-primary" onClick={open}>Add</button>;
+  return <button className="btn btn-primary" onClick={open}>+</button>;
 };
 
 export default UploadWidget;

@@ -28,3 +28,51 @@
         }
     }
 }
+
+
+
+.user-info {
+    &__img {
+        position: relative;
+        display: inline-block;
+
+        img {
+            display: block;
+        }
+
+        &-overlay {
+            position: absolute;
+            bottom: 100;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+        }
+
+        &-button {
+            position: absolute;
+            bottom: 10px;
+            width: 40px;
+            height: 40px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        &-button:hover {
+            background-color: #0056b3;
+        }
+    }
+
+    &__name {
+        margin-top: 10px;
+    }
+}
