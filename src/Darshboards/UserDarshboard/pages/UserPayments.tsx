@@ -1,27 +1,23 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { useGetTransactionsQuery, TTransaction } from '../../../Features/Transactions/transactionsAPI'; // Adjust import path as needed
 import styles from '../scss/TransactionsTable.module.scss';
-import { TBooking } from '../../../Features/bookings/bookingAPI';
 
 const TransactionsTable: React.FC = () => {
+  // Retrieve the current user from local storage
+  const user = JSON.parse(localStorage.getItem('user') || '{}');
+  const userId = user.user.userId;
+  // console.log(userId);
 
+  // Fetch transactions from the API
   const { data: transactions, error, isLoading } = useGetTransactionsQuery(undefined, {
-    pollingInterval: 5000,
+    pollingInterval: 1000,
   });
 
-  const [filteredTransactions, setFilteredTransactions] = useState<TTransaction[]>([]);
-
-   useEffect(() => {
-    if (transactions) {
-      const storedBookings = JSON.parse(localStorage.getItem('bookings') || '[]');
-      // console.log(storedBookings);
-      const bookingIds = storedBookings.map((booking: TBooking) => booking.bookingId);
-      console.log(bookingIds);
-      const filtered = transactions.filter((transaction: TTransaction) => bookingIds.includes(transaction.bookingId));
-      setFilteredTransactions(filtered);
-      console.log(filtered);
-    }
-  }, [transactions]);
+  // Filter transactions based on the user ID
+  const filteredTransactions = transactions?.filter((transaction: TTransaction) => {
+    // console.log('User from',transaction.booking?.user?.userId)
+    return transaction.booking?.user?.userId === userId;
+  });
 
   return (
     <div className={styles.transactionsTableContainer}>
@@ -42,8 +38,8 @@ const TransactionsTable: React.FC = () => {
           </thead>
           <tbody>
             {filteredTransactions.map((transaction: TTransaction) => (
-              <tr key={transaction.id}>
-                <td>{transaction.paymentId}</td>
+              <tr key={transaction.paymentId}>
+                <td>{transaction.transactionId}</td>
                 <td>{transaction.bookingId}</td>
                 <td>${transaction.amount}</td>
                 <td>{new Date(transaction.paymentDate).toLocaleString()}</td>

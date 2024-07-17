@@ -2,14 +2,30 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 export interface TTransaction {
     id: number;
-    paymentId: number;
-    paymentStatus: string;
+  paymentId: number;
+  bookingId: number;
+  amount: string;
+  paymentStatus: string;
+  paymentDate: string;
+  paymentMethod: string;
+  transactionId: string;
+  createdAt: string;
+  updatedAt: string;
+  booking: {
     bookingId: number;
-    userId: number;
-    amount: string;
-    paymentDate: string;
-    status: string;
+    user: {
+      userId: number;
+      fullName: string;
+      email: string;
+      contactPhone: string;
+      address: string;
+      role: string;
+      createdAt: string;
+      updatedAt: string;
+    };
+  };
 }
+
 
 // Define the API slice
 export const transactionsAPI = createApi({

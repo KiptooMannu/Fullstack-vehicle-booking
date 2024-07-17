@@ -44,7 +44,7 @@ const CarDetails: React.FC<CarDetailsProps> = ({ vehicle, image, onBack }) => {
 
   const handleBooking = async () => {
     if (!selectedBranch) {
-      toast.error('Please select a branch.');
+      toast.error('Please select a branch.',{ style: { background: 'yellow', color: 'red' }, position: 'top-right' });
       return;
     }
 

@@ -12,7 +12,7 @@ const MyBookings: React.FC = () => {
   const user = JSON.parse(localStorage.getItem('user') || '{}');
   const userId = user.user.userId;
   const { data: bookings, error, isLoading } = useGetBookingsQuery(undefined, {
-    pollingInterval: 2000 // Poll every 1000ms (1 second)
+    pollingInterval: 200 // Poll every 1000ms (1 second)
   });
   const [updateBooking] = useUpdateBookingMutation();
   const [createCheckoutSession] = useCreateCheckoutSessionMutation();
@@ -25,6 +25,7 @@ const MyBookings: React.FC = () => {
       if (data?.checkoutUrl) {
         // Redirect to the checkout URL
         window.location.href = data.checkoutUrl;
+        await updateBooking({ ...booking, bookingStatus: 'Confirmed' }).unwrap();
 
         // Polling for payment confirmation (example with a simple setTimeout, can be replaced with better logic)
         // setTimeout(async () => {
@@ -61,6 +62,7 @@ const MyBookings: React.FC = () => {
   };
 
   const userBookings = bookings?.filter((booking: TBooking) => booking.userId === userId);
+  console.log(userBookings);
 
   return (
     <div className={styles.myBookingsContainer}>
