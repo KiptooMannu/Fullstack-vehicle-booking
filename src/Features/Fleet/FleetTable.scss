@@ -1,110 +1,146 @@
 .fleet-management-table-container {
+    margin: 20px;
     padding: 20px;
     background-color: #f9f9f9;
-    border-radius: 10px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
 
-    .title {
-        text-align: center;
-        margin-bottom: 20px;
-        font-size: 24px;
-        color: #333;
-    }
+h1.title {
+    text-align: center;
+    margin-bottom: 20px;
 }
 
 .fleet-management-table {
     width: 100%;
     border-collapse: collapse;
     margin-bottom: 20px;
-    border-radius: 10px;
-    overflow: hidden;
+}
 
-    th,
-    td {
-        text-align: left;
-        padding: 12px 15px;
-        border: 1px solid #ddd;
-    }
+.fleet-management-table th,
+.fleet-management-table td {
+    padding: 12px 15px;
+    text-align: left;
+}
 
-    th {
-        background-color: #007bff;
-        color: white;
-        font-weight: 600;
-    }
+.fleet-management-table th {
+    background-color: #007bff;
+    color: white;
+}
 
-    tbody tr:nth-child(odd) {
-        background-color: #f2f2f2;
-    }
+.fleet-management-table td {
+    border-bottom: 1px solid #ddd;
+}
 
-    tbody tr:nth-child(even) {
-        background-color: #e6e6e6;
-    }
+.fleet-management-table tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
 
-    td {
-        color: #333;
+.fleet-management-table tr:nth-child(odd) {
+    background-color: #fff;
+}
 
-        &:last-child {
-            text-align: center;
-        }
+.fleet-management-table tr:hover {
+    background-color: #ddd;
+}
 
-        input {
-            width: calc(100% - 20px);
-            padding: 5px;
-            margin: 0 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
-    }
+.fleet-form {
+    margin-bottom: 20px;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
 
-    .options {
-        display: flex;
-        justify-content: center;
-        gap: 10px;
+.fleet-form h2 {
+    margin-bottom: 15px;
+}
 
-        .btn {
-            padding: 5px 10px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s;
+.fleet-form input {
+    width: calc(100% - 20px);
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
 
-            &.btn-info {
-                background-color: #17a2b8;
-                color: white;
+.fleet-form button {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+    margin-right: 10px;
+}
 
-                &:hover {
-                    background-color: #138496;
-                }
-            }
+.fleet-form button:hover {
+    background-color: #0056b3;
+}
 
-            &.btn-warning {
-                background-color: #ffc107;
-                color: black;
+.fleet-form button:last-child {
+    background-color: #f44336;
+}
 
-                &:hover {
-                    background-color: #e0a800;
-                }
-            }
+.fleet-form button:last-child:hover {
+    background-color: #d32f2f;
+}
 
-            &.btn-success {
-                background-color: #28a745;
-                color: white;
+button.btn-primary,
+button.btn-success,
+button.btn-secondary,
+button.btn-warning,
+button.btn-info {
+    margin-bottom: 20px;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
 
-                &:hover {
-                    background-color: #218838;
-                }
-            }
+button.btn-primary {
+    background-color: #007bff;
+    color: white;
+}
 
-            &.btn-secondary {
-                background-color: #6c757d;
-                color: white;
+button.btn-primary:hover {
+    background-color: #0056b3;
+}
 
-                &:hover {
-                    background-color: #5a6268;
-                }
-            }
-        }
-    }
+button.btn-success {
+    background-color: #28a745;
+    color: white;
+}
+
+button.btn-success:hover {
+    background-color: #218838;
+}
+
+button.btn-secondary {
+    background-color: #6c757d;
+    color: white;
+}
+
+button.btn-secondary:hover {
+    background-color: #5a6268;
+}
+
+button.btn-warning {
+    background-color: #ffc107;
+    color: white;
+}
+
+button.btn-warning:hover {
+    background-color: #e0a800;
+}
+
+button.btn-info {
+    background-color: #17a2b8;
+    color: white;
+}
+
+button.btn-info:hover {
+    background-color: #138496;
 }
 
 .pagination {
@@ -116,34 +152,22 @@
         margin: 0 5px;
         padding: 10px 15px;
         border: none;
-        border-radius: 5px;
+        border-radius: 4px;
         background-color: #007bff;
         color: white;
         cursor: pointer;
-        transition: background-color 0.3s;
 
         &.active {
             background-color: #0056b3;
         }
 
-        &:hover:not(.active) {
+        &:hover {
             background-color: #0056b3;
         }
     }
 }
 
-.error-toast {
-    background-color: #ff6b6b !important;
-}
-
-.success-toast {
-    background-color: #51cf66 !important;
-}
-
-.warning-toast {
-    background-color: #ffd43b !important;
-}
-
-.info-toast {
-    background-color: #74c0fc !important;
+.options {
+    display: flex;
+    gap: 10px;
 }

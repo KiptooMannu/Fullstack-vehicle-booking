@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useGetFleetManagementQuery, useUpdateFleetManagementMutation, useDeleteFleetManagementMutation } from './fleetManagementAPI';
+import { useGetFleetManagementQuery, useCreateFleetManagementMutation, useUpdateFleetManagementMutation, useDeleteFleetManagementMutation } from './fleetManagementAPI';
 import { Toaster, toast } from 'sonner';
 import './FleetTable.scss';
 
@@ -7,9 +7,9 @@ interface TFleetManagement {
     fleetId: number;
     vehicleId: number;
     acquisitionDate: string;
-    depreciationRate: string;
-    currentValue: string;
-    maintenanceCost: string;
+    depreciationRate: number;
+    currentValue: number;
+    maintenanceCost: number;
     status: string;
     createdAt: string;
     updatedAt: string;
@@ -17,6 +17,7 @@ interface TFleetManagement {
 
 const FleetManagementTable: React.FC = () => {
     const { data: fleetManagementData, isLoading, isError } = useGetFleetManagementQuery();
+    const [createFleetManagement] = useCreateFleetManagementMutation();
     const [updateFleetManagement] = useUpdateFleetManagementMutation();
     const [deleteFleetManagement] = useDeleteFleetManagementMutation();
 
@@ -25,6 +26,8 @@ const FleetManagementTable: React.FC = () => {
 
     // State to hold the current editable fleet item
     const [editableFleet, setEditableFleet] = useState<TFleetManagement | null>(null);
+    // State to hold the new fleet item
+    const [newFleet, setNewFleet] = useState<Partial<TFleetManagement> | null>(null);
 
     const handleDelete = async (fleetId: number) => {
         try {
@@ -46,6 +49,26 @@ const FleetManagementTable: React.FC = () => {
         }
     };
 
+    const handleCreate = async () => {
+        if (newFleet) {
+            const formattedFleet = {
+                ...newFleet,
+                vehicleId: Number(newFleet.vehicleId),
+                acquisitionDate: new Date(newFleet.acquisitionDate || '').toISOString(),
+                depreciationRate: Number(newFleet.depreciationRate),
+                currentValue: Number(newFleet.currentValue),
+                maintenanceCost: Number(newFleet.maintenanceCost),
+            };
+            try {
+                await createFleetManagement(formattedFleet).unwrap();
+                toast.success('Fleet Management record created successfully');
+                setNewFleet(null); // Reset new fleet state after creation
+            } catch (error) {
+                toast.error('Error creating fleet management record');
+            }
+        }
+    };
+
     const handleEditClick = (fleet: TFleetManagement) => {
         setEditableFleet(fleet); // Set the fleet item to be edited
     };
@@ -54,6 +77,9 @@ const FleetManagementTable: React.FC = () => {
         if (editableFleet) {
             const updatedFleet: TFleetManagement = { ...editableFleet, [key]: e.target.value };
             setEditableFleet(updatedFleet);
+        } else if (newFleet) {
+            const updatedFleet: Partial<TFleetManagement> = { ...newFleet, [key]: e.target.value };
+            setNewFleet(updatedFleet);
         }
     };
 
@@ -74,6 +100,22 @@ const FleetManagementTable: React.FC = () => {
             />
             <div className="fleet-management-table-container">
                 <h1 className='title'>Fleet Management Data</h1>
+
+                <button className="btn btn-primary" onClick={() => setNewFleet({})}>Add New Fleet</button>
+
+                {newFleet && (
+                    <div className="fleet-form">
+                        <h2>Add New Fleet</h2>
+                        <input type="text" placeholder="Vehicle ID" value={newFleet.vehicleId || ''} onChange={(e) => handleInputChange(e, 'vehicleId')} />
+                        <input type="text" placeholder="Acquisition Date" value={newFleet.acquisitionDate || ''} onChange={(e) => handleInputChange(e, 'acquisitionDate')} />
+                        <input type="text" placeholder="Depreciation Rate" value={newFleet.depreciationRate || ''} onChange={(e) => handleInputChange(e, 'depreciationRate')} />
+                        <input type="text" placeholder="Current Value" value={newFleet.currentValue || ''} onChange={(e) => handleInputChange(e, 'currentValue')} />
+                        <input type="text" placeholder="Maintenance Cost" value={newFleet.maintenanceCost || ''} onChange={(e) => handleInputChange(e, 'maintenanceCost')} />
+                        <input type="text" placeholder="Status" value={newFleet.status || ''} onChange={(e) => handleInputChange(e, 'status')} />
+                        <button className="btn btn-success" onClick={handleCreate}>Create</button>
+                        <button className="btn btn-secondary" onClick={() => setNewFleet(null)}>Cancel</button>
+                    </div>
+                )}
 
                 <table className="fleet-management-table">
                     <thead>
