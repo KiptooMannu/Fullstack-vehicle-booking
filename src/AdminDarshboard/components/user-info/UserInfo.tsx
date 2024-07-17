@@ -22,11 +22,7 @@ const UserInfo: React.FC<UserInfoProps> = ({ user }) => {
     <div className='user-info'>
       <div className="user-info__img">
         <img src={userImage} alt={user.name} />
-        <Upload onUpload={handleOnUpload}>
-          {({ open }) => (
-            <button className="btn btn-primary" onClick={open}>Add</button>
-          )}
-        </Upload>
+        <Upload onUpload={handleOnUpload} />
       </div>
       <div className="user-info__name">
         <span>{user.name}</span>

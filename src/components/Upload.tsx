@@ -3,18 +3,11 @@ import UploadWidget from './UploadWidget';
 
 interface UploadProps {
   onUpload: (error: any, result: any) => void;
-  children: ({ open }: { open: () => void }) => React.ReactNode;
 }
 
-const Upload: React.FC<UploadProps> = ({ onUpload, children }) => {
+const Upload: React.FC<UploadProps> = ({ onUpload }) => {
   return (
-    <UploadWidget onUpload={onUpload}>
-      {({ open }) => (
-        <>
-          {children({ open })}
-        </>
-      )}
-    </UploadWidget>
+    <UploadWidget onUpload={onUpload} />
   );
 };
 

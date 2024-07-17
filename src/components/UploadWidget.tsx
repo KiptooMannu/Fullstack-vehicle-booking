@@ -1,13 +1,12 @@
-import React, { useState, useEffect, useRef, ReactNode } from 'react';
+import React, { useEffect, useRef } from 'react';
 
 let cloudinary: any;
 
 interface UploadWidgetProps {
-  children: ReactNode;
-  onUpload?: (error: any, result: any, widget: React.MutableRefObject<any>) => void;
+  onUpload: (error: any, result: any) => void;
 }
 
-const UploadWidget: React.FC<UploadWidgetProps> = ({ children, onUpload }) => {
+const UploadWidget: React.FC<UploadWidgetProps> = ({ onUpload }) => {
   const widget = useRef<any>();
 
   useEffect(() => {
@@ -46,7 +45,7 @@ const UploadWidget: React.FC<UploadWidgetProps> = ({ children, onUpload }) => {
       options,
       (error: any, result: any) => {
         if ((error || result.event === 'success') && typeof onUpload === 'function') {
-          onUpload(error, result, widget);
+          onUpload(error, result);
         }
       }
     );
@@ -59,12 +58,7 @@ const UploadWidget: React.FC<UploadWidgetProps> = ({ children, onUpload }) => {
     widget.current && widget.current.open();
   }
 
-  return (
-    <>
-      {children}
-      <button className="btn btn-primary" onClick={open}>Add</button>
-    </>
-  );
+  return <button className="btn btn-primary" onClick={open}>Add</button>;
 };
 
 export default UploadWidget;
