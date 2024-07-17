@@ -27,14 +27,23 @@ const FleetManagementTable: React.FC = () => {
     const [editableFleet, setEditableFleet] = useState<TFleetManagement | null>(null);
 
     const handleDelete = async (fleetId: number) => {
-        await deleteFleetManagement(fleetId);
-        toast.success(`Fleet Management record with id ${fleetId} deleted successfully`);
+        try {
+            await deleteFleetManagement(fleetId).unwrap();
+            toast.success(`Fleet Management record with id ${fleetId} deleted successfully`);
+        } catch (error) {
+            toast.error('Error deleting fleet management record');
+        }
     };
 
     const handleUpdate = async (fleet: TFleetManagement) => {
-        await updateFleetManagement(fleet);
-        toast.success(`Fleet Management record with id ${fleet.fleetId} updated successfully`);
-        setEditableFleet(null); // Reset editable fleet state after update
+        const { createdAt, updatedAt, acquisitionDate, ...updatePayload } = fleet;
+        try {
+            await updateFleetManagement(updatePayload).unwrap();
+            toast.success(`Fleet Management record with id ${fleet.fleetId} updated successfully`);
+            setEditableFleet(null); // Reset editable fleet state after update
+        } catch (error) {
+            toast.error('Error updating fleet management record');
+        }
     };
 
     const handleEditClick = (fleet: TFleetManagement) => {
