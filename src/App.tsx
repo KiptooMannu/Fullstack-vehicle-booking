@@ -26,6 +26,7 @@ import Bookings from './Darshboards/UserDarshboard/pages/UserSupportTickets';
 import UserDarshboard from './Darshboards/UserDarshboard/UserDarshboard';
 import UserTable from './Features/users/UserTable';
 import PaymentSuccess from './Darshboards/UserDarshboard/pages/PaymentSuccess';
+import PrivateRoute from './components/PrivateRoute';
 
 const App: React.FC = () => {
   return (
@@ -42,7 +43,7 @@ const App: React.FC = () => {
         <Route path='register' element={<Register />} />
 
         {/* Admin Routes */}
-        <Route path="admin/*" element={<Darshboard />}>
+        <Route path="admin/*" element={<PrivateRoute><Darshboard /></PrivateRoute>}>
           <Route index element={<Dashboard />} />
           <Route path="bookings" element={<Bookings />} />
           <Route path="vehicles" element={<Blank />} />
@@ -52,7 +53,7 @@ const App: React.FC = () => {
         </Route>
 
         {/* User Routes */}
-        <Route path="users/*" element={<UserDarshboard />}>
+        <Route path="users/*" element={<PrivateRoute><UserDarshboard /></PrivateRoute>}>
           <Route index element={<Dashboard />} />
           <Route path="bookings" element={<Bookings />} />
           <Route path="products" element={<Blank />} />

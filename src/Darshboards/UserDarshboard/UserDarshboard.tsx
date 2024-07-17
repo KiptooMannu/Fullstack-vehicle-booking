@@ -10,18 +10,19 @@ import MyBookings from './pages/Mybookings';
 import TransactionsTable from './pages/UserPayments';
 import Profile from '../../AdminDarshboard/pages/Profile';
 import UserSupportTickets from './pages/UserSupportTickets';
+import PrivateRoute from '../../components/PrivateRoute';
 // import CarDetails from './components/UserCars/CarDetails';
 
 function UserDarshboard() {
     return (
         <Routes>
-            <Route path="/" element={<MainLayout />}>
-                <Route index element={<Dashboard />} />
-                <Route path="vehicles" element={<CarList />}/>
-                <Route path="bookings" element={<MyBookings />} />
-                <Route path="transactions" element={<TransactionsTable />} />
-                <Route path="profile" element={<Profile />} />
-                <Route path="tickets" element={<UserSupportTickets />} />
+            <Route path="/" element={<PrivateRoute><MainLayout /></PrivateRoute>}>
+                <Route index element={<PrivateRoute><Dashboard /></PrivateRoute>} />
+                <Route path="vehicles" element={<PrivateRoute><CarList /></PrivateRoute>}/>
+                <Route path="bookings" element={<PrivateRoute><MyBookings /></PrivateRoute> }/>
+                <Route path="transactions" element={<PrivateRoute><TransactionsTable /></PrivateRoute>} />
+                <Route path="profile" element={<PrivateRoute><Profile /></PrivateRoute>} />
+                <Route path="tickets" element={<PrivateRoute><UserSupportTickets /></PrivateRoute>} />
             </Route>
         </Routes>
     );

@@ -1,11 +1,14 @@
-// src/components/PrivateRoute.tsx
-// import React from 'react';
-import { Navigate, Outlet } from 'react-router-dom';
+import React, { ReactNode } from 'react';
+import { Navigate } from 'react-router-dom';
 
-const PrivateRoute = () => {
+interface PrivateRouteProps {
+  children: ReactNode;
+}
+
+const PrivateRoute: React.FC<PrivateRouteProps> = ({ children }) => {
   const user = localStorage.getItem('user');
 
-  return user ? <Outlet /> : <Navigate to="/login" />;
+  return user ? <>{children}</> : <Navigate to="/login" />;
 };
 
 export default PrivateRoute;
