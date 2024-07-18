@@ -38,7 +38,7 @@ export const usersAPI = createApi({
         }),
         getUserById: builder.query<TUser, number>({
             query: (id) => `users/${id}`,
-            providesTags: (result, error, id) => [{ type: 'Users', id }],
+            providesTags: (_, __, id) => [{ type: 'Users', id }],
         }),
         createUser: builder.mutation<TUser, Partial<TUser>>({
             query: (newUser) => ({
@@ -61,7 +61,7 @@ export const usersAPI = createApi({
                 url: `users/${id}`,
                 method: 'DELETE',
             }),
-            invalidatesTags: (result, error, id) => [{ type: 'Users', id }],
+            invalidatesTags: (_, __, id) => [{ type: 'Users', id }],
         }),
     }),
 });
@@ -73,4 +73,4 @@ export const {
     useCreateUserMutation,
     useUpdateUserMutation,
     useDeleteUserMutation,
-}: any = usersAPI;
+} = usersAPI;

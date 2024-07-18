@@ -25,26 +25,29 @@ export interface TBooking {
 // Define the API slice
 export const bookingAPI = createApi({
   reducerPath: 'bookingAPI',
-  baseQuery: fetchBaseQuery({ baseUrl: 'https://car-rental-backend-1.onrender.com/api',
+  baseQuery: fetchBaseQuery({ 
+    baseUrl: 'https://car-rental-backend-1.onrender.com/api',
     prepareHeaders: (headers) => {
-            const token = localStorage.getItem('token');
-            if (token) {
-                headers.set('Authorization', `${token.replace(/"/g, '')}`);
-            }
-            console.log(headers)
-            return headers;
-        },
-   }),
+      const token = localStorage.getItem('token');
+      if (token) {
+        headers.set('Authorization', `${token.replace(/"/g, '')}`);
+      }
+      console.log(headers);
+      return headers;
+    },
+  }),
   tagTypes: ['Bookings'],
   endpoints: (builder) => ({
     getBookings: builder.query<TBooking[], void>({
       query: () => 'bookings',
       providesTags: (result) =>
-        result ? [...result.map(({ bookingId }) => ({ type: 'Bookings', bookingId } as const)), { type: 'Bookings', id: 'LIST' }] : [{ type: 'Bookings', id: 'LIST' }],
+        result 
+          ? [...result.map(({ bookingId }) => ({ type: 'Bookings', bookingId } as const)), { type: 'Bookings', id: 'LIST' }] 
+          : [{ type: 'Bookings', id: 'LIST' }],
     }),
     getBookingById: builder.query<TBooking, number>({
       query: (bookingId) => `bookings/${bookingId}`,
-      providesTags: (result, error, bookingId) => [{ type: 'Bookings', bookingId }],
+      providesTags: (_result, _error, bookingId) => [{ type: 'Bookings', bookingId }],
     }),
     createBooking: builder.mutation<TBooking, Partial<TBooking>>({
       query: (newBooking) => ({
@@ -60,14 +63,14 @@ export const bookingAPI = createApi({
         method: 'PUT',
         body: rest,
       }),
-      invalidatesTags: (result, error, { bookingId }) => [{ type: 'Bookings', bookingId }],
+      invalidatesTags: (_, __, { bookingId }) => [{ type: 'Bookings', bookingId }],
     }),
     deleteBooking: builder.mutation<{ success: boolean; id: number }, number>({
       query: (id) => ({
         url: `bookings/${id}`,
         method: 'DELETE',
       }),
-      invalidatesTags: (result, error, id) => [{ type: 'Bookings', id }],
+      invalidatesTags: (_, __, id) => [{ type: 'Bookings', id }],
     }),
   }),
 });
@@ -79,4 +82,4 @@ export const {
   useCreateBookingMutation,
   useUpdateBookingMutation,
   useDeleteBookingMutation
-}: any = bookingAPI;
+} = bookingAPI;
