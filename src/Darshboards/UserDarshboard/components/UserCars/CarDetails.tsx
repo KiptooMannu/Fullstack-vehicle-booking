@@ -44,7 +44,7 @@ const CarDetails: React.FC<CarDetailsProps> = ({ vehicle, image, onBack }) => {
 
   const handleBooking = async () => {
     if (!selectedBranch) {
-      toast.error('Please select a branch.',{ style: { background: 'yellow', color: 'red' }, position: 'top-right' });
+      toast.error('Please select a branch.', { style: { background: 'yellow', color: 'red' }, position: 'top-right' });
       return;
     }
 
@@ -55,17 +55,17 @@ const CarDetails: React.FC<CarDetailsProps> = ({ vehicle, image, onBack }) => {
       userId,
       vehicleId: vehicle.vehicleId,
       branchId: selectedBranch,
-      bookingDate: startDate?.toISOString() || '',
-      returnDate: endDate?.toISOString() || '',
-      totalAmount: totalAmount,
+      bookingDate: startDate || undefined,
+      returnDate: endDate || undefined,
+      totalAmount: totalAmount,  // Use totalAmount as number
     };
 
     try {
-      await createBooking(bookingData).unwrap();
-      toast.success('Booking successful!',{ style: { background: 'green', color: 'white' }});
+      await createBooking(bookingData as Partial<typeof bookingData>).unwrap();
+      toast.success('Booking successful!', { style: { background: 'green', color: 'white' } });
       navigate('/users/bookings'); // Redirect to My Bookings page
     } catch (error) {
-      toast.error('Booking failed.',{ style: { background: 'red', color: 'white' }});
+      toast.error('Booking failed.', { style: { background: 'red', color: 'white' } });
     }
   };
 
@@ -107,7 +107,7 @@ const CarDetails: React.FC<CarDetailsProps> = ({ vehicle, image, onBack }) => {
                     className={styles.dropdown}
                   >
                     <option value="" disabled>Select a branch</option>
-                    {branchesData.map((branch: TBranch) => (
+                    {branchesData && branchesData.map((branch: TBranch) => (
                       <option key={branch.branchId} value={branch.branchId}>
                         {branch.name} - {branch.city}
                       </option>

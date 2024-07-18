@@ -67,7 +67,7 @@ const BranchesTable: React.FC = () => {
   // Pagination logic
   const indexOfLastBranch = currentPage * branchesPerPage;
   const indexOfFirstBranch = indexOfLastBranch - branchesPerPage;
-  const currentBranches = branches?.slice(indexOfFirstBranch, indexOfLastBranch);
+  const currentBranches = branches?.slice(indexOfFirstBranch, indexOfLastBranch) || [];
 
   const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
 
@@ -112,7 +112,7 @@ const BranchesTable: React.FC = () => {
       {isLoading && <p>Loading...</p>}
       {error && <p>Error loading branches.</p>}
       {!isLoading && !error && branches?.length === 0 && <p>No branches found.</p>}
-      {!isLoading && !error && branches && (
+      {!isLoading && !error && currentBranches.length > 0 && (
         <>
           <table className={styles.branchesTable}>
             <thead>
@@ -144,7 +144,7 @@ const BranchesTable: React.FC = () => {
             </tbody>
           </table>
           <div className={styles.pagination}>
-            {Array.from({ length: Math.ceil(branches.length / branchesPerPage) }, (_, index) => (
+            {Array.from({ length: Math.ceil((branches?.length || 0) / branchesPerPage) }, (_, index) => (
               <button key={index} onClick={() => paginate(index + 1)} className={currentPage === index + 1 ? styles.activePage : ''}>
                 {index + 1}
               </button>

@@ -3,11 +3,15 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 export interface TUser {
     id: number;
     userId: number;
-    fullname: string;
     email: string;
-    phone: string;
     address: string;
     role: string;
+    fullName: string;
+    contactPhone: string;
+    location: string;
+    street: string;
+    dateOfBirth: string;
+    gender: string;
 }
 
 // Define the API slice

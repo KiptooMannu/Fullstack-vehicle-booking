@@ -7,7 +7,7 @@ export interface TBooking {
   branchId: number;
   bookingDate: Date;
   returnDate: Date;
-  totalAmount: string;
+  totalAmount: number;
   bookingStatus: string;
   createdAt: Date;
   updatedAt: Date;
