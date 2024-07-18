@@ -6,18 +6,18 @@ interface BoxProps {
     children?: ReactNode;
 }
 
-const Box: React.FC<BoxProps> = (props) => {
+const Box: React.FC<BoxProps> = ({ purple, fullheight, children }) => {
     const className = {
         box: 'box',
-        purple: props.purple && 'box-purple',
-        fullheight: props.fullheight && 'box-fullheight'
+        purple: purple && 'box-purple',
+        fullheight: fullheight && 'box-fullheight'
     };
 
     return (
         <div className={Object.values(className).filter(Boolean).join(' ')}>
-            {props.children}
+            {children}
         </div>
     );
-}
+};
 
 export default Box;

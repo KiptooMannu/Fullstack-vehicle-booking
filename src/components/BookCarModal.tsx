@@ -1,8 +1,5 @@
 import React, { ChangeEvent, MouseEvent, SyntheticEvent, useState } from 'react';
-
-import { IconInfoCircleFilled, IconX } from '@tabler/icons-react';
-import { IconMapPinFilled } from '@tabler/icons-react';
-
+import { IconInfoCircleFilled, IconX, IconMapPinFilled } from '@tabler/icons-react';
 import ToyotaCamry from '../images/cars/toyota-camry-hybrid.webp';
 import ToyotaHilux from '../images/cars/toyota-hilux.webp';
 import BmwX4 from '../images/cars/bmw-x4.webp';
@@ -148,7 +145,7 @@ const BookCarModal: React.FC<BookCarProps> = ({
   };
 
   return (
-    <div className={'booking-modal active-modal'}>
+    <div className={`booking-modal ${modal ? 'active-modal' : ''}`}>
       {/* title */}
       <div className='booking-modal__title'>
         <h2>Complete Booking</h2>
