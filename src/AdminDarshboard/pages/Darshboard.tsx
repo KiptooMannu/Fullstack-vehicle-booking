@@ -35,7 +35,7 @@ const Dashboard: React.FC = () => {
                 <div className="row">
                     <div className="col-8 col-md-12">
                         <div className="row">
-                            {data.summary.map((item, index) => (
+                            {data.summary.map((item:any, index: number) => (
                                 <div key={`summary-${index}`} className="col-6 col-md-6 col-sm-12 mb">
                                     <SummaryBox item={item} />
                                 </div>

@@ -71,7 +71,7 @@ const SummaryBox: React.FC<{ item: any }> = ({ item }) => {
 
 export default SummaryBox;
 
-export const SummaryBoxSpecial: React.FC<{ item: Item }> = ({ item }) => {
+export const SummaryBoxSpecial: React.FC<{ item: any }> = ({ item }) => {
     const chartOptions = {
         responsive: true,
         scales: {
