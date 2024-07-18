@@ -35,7 +35,7 @@ export const branchesAPI = createApi({
     }),
     getBranchById: builder.query<TBranch, number>({
       query: (branchId) => `branches/${branchId}`,
-      providesTags: (result, error, branchId) => [{ type: 'Branches', branchId }],
+      providesTags: (_result, _error, branchId) => [{ type: 'Branches', branchId }],
     }),
     createBranch: builder.mutation<TBranch, Partial<TBranch>>({
       query: (newBranch) => ({
@@ -51,14 +51,14 @@ export const branchesAPI = createApi({
         method: 'PUT',
         body: rest,
       }),
-      invalidatesTags: (result, error, { branchId }) => [{ type: 'Branches', branchId }],
+      invalidatesTags: (_result, _error, { branchId }) => [{ type: 'Branches', branchId }],
     }),
     deleteBranch: builder.mutation<{ success: boolean; id: number }, number>({
       query: (id) => ({
         url: `branches/${id}`,
         method: 'DELETE',
       }),
-      invalidatesTags: (result, error, id) => [{ type: 'Branches', id }],
+      invalidatesTags: (_result, _error, id) => [{ type: 'Branches', id }],
     }),
   }),
 });
@@ -70,4 +70,4 @@ export const {
   useCreateBranchMutation,
   useUpdateBranchMutation,
   useDeleteBranchMutation
-}: any = branchesAPI;
+} = branchesAPI;

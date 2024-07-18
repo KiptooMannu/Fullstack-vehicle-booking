@@ -58,14 +58,14 @@ export const vehicleAPI = createApi({
         method: 'PUT',
         body: rest,
       }),
-      invalidatesTags: (result, error, { vehicleId }) => [{ type: 'Vehicles', id: vehicleId }],
+      invalidatesTags: (_result, _error, { vehicleId }) => [{ type: 'Vehicles', id: vehicleId }],
     }),
     deleteVehicle: builder.mutation<{ success: boolean; id: number }, number>({
       query: (id) => ({
         url: `vehicles/${id}`,
         method: 'DELETE',
       }),
-      invalidatesTags: (result, error, id) => [{ type: 'Vehicles', id }],
+      invalidatesTags: (_result, _error, id) => [{ type: 'Vehicles', id }],
     }),
   }),
 });
@@ -75,4 +75,4 @@ export const {
   useCreateVehicleMutation,
   useUpdateVehicleMutation,
   useDeleteVehicleMutation,
-}: any = vehicleAPI;
+} = vehicleAPI;

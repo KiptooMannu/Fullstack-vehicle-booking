@@ -25,7 +25,7 @@ ChartJS.register(
     Legend
 );
 
-interface Item {
+export interface Item {
     title: string;
     subtitle: string;
     value: string | number;
@@ -36,7 +36,7 @@ interface Item {
     };
 }
 
-const SummaryBox: React.FC<{ item: Item }> = ({ item }) => {
+const SummaryBox: React.FC<{ item: any }> = ({ item }) => {
     return (
         <Box>
             <div className='summary-box'>
