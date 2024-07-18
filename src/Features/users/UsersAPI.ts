@@ -20,7 +20,7 @@ export const usersAPI = createApi({
             if (token) {
                 headers.set('Authorization', `${token.replace(/"/g, '')}`);
             }
-            console.log(headers)
+            console.log(headers);
             return headers;
         },
     }),
@@ -36,6 +36,10 @@ export const usersAPI = createApi({
                     ]
                     : [{ type: 'Users', id: 'LIST' }],
         }),
+        getUserById: builder.query<TUser, number>({
+            query: (id) => `users/${id}`,
+            providesTags: (result, error, id) => [{ type: 'Users', id }],
+        }),
         createUser: builder.mutation<TUser, Partial<TUser>>({
             query: (newUser) => ({
                 url: 'users',
@@ -50,7 +54,7 @@ export const usersAPI = createApi({
                 method: 'PUT',
                 body: rest,
             }),
-            invalidatesTags: [{ type: 'Users'}],
+            invalidatesTags: [{ type: 'Users', id: 'LIST' }],
         }),
         deleteUser: builder.mutation<{ success: boolean; id: number }, number>({
             query: (id) => ({
@@ -65,6 +69,7 @@ export const usersAPI = createApi({
 // Export the auto-generated hooks
 export const {
     useGetUsersQuery,
+    useGetUserByIdQuery,
     useCreateUserMutation,
     useUpdateUserMutation,
     useDeleteUserMutation,
