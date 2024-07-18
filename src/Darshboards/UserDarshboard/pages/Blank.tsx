@@ -1,7 +1,4 @@
-// import React from 'react'
-import Sidebar from '../components/sidebar/Sidebar'
-import TopNav from '../components/topnav/TopNav'
-import { Outlet } from 'react-router-dom'
+
 
 const Blank = () => {
     return (
