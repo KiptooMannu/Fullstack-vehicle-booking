@@ -1,19 +1,8 @@
 import React, { useState } from 'react';
-import { useGetTransactionsQuery, useUpdateTransactionMutation, useDeleteTransactionMutation } from './transactionsAPI';
+import { useGetTransactionsQuery, useUpdateTransactionMutation, useDeleteTransactionMutation, TTransaction } from './transactionsAPI';
 import { Toaster, toast } from 'sonner';
 import './TransactionsTable.scss';
 
-interface TTransaction {
-    paymentId: number;
-    bookingId: number;
-    amount: number;
-    paymentStatus: string;
-    paymentDate: string;
-    paymentMethod: string | null;
-    transactionId: string;
-    createdAt: string;
-    updatedAt: string;
-}
 
 const TransactionTable: React.FC = () => {
     const { data: transactionsData, isLoading, isError } = useGetTransactionsQuery();

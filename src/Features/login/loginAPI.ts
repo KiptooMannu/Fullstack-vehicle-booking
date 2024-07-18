@@ -6,9 +6,26 @@ export interface logInUser {
   password: string;
 }
 
+export interface User {
+    userId: number;
+    fullName: string;
+    contactPhone: string;
+    email: string;
+    location: string;
+    street: string;
+    dateOfBirth: string;
+    gender: string;
+    role: 'admin' | 'user'; // Add any other roles if necessary
+}
+
+// export interface LoginResponse {
+//     token: string;
+//     user: User;
+// }
+
 export interface LoginResponse {
   id: string;
-  user:{}
+  user: User;
   email: string;
   token: string;
 }

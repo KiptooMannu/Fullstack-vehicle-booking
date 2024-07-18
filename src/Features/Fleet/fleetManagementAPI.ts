@@ -9,6 +9,8 @@ export interface TFleetManagement {
     currentValue: number;
     maintenanceCost: number;
     status: string;
+    updatedAt: string;
+    createdAt: string;
 }
 
 // Define the API slice with token header

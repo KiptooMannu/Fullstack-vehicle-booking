@@ -1,17 +1,8 @@
 import React, { useState } from 'react';
-import { useGetBookingsQuery, useUpdateBookingMutation, useDeleteBookingMutation } from './bookingAPI';
+import { useGetBookingsQuery, useUpdateBookingMutation, useDeleteBookingMutation, TBooking } from './bookingAPI';
 import { Toaster, toast } from 'sonner';
 import './BookingsTable.scss';
 
-export interface TBooking {
-    bookingId: number;
-    bookingDate: string;
-    returnDate: string;
-    bookingStatus: string;
-    totalAmount: string;
-    createdAt: string;
-    updatedAt: string;
-}
 
 const BookingTable: React.FC = () => {
     const { data: bookingsData, isLoading, isError } = useGetBookingsQuery();

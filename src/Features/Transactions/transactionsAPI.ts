@@ -4,7 +4,7 @@ export interface TTransaction {
     id: number;
     paymentId: number;
     bookingId: number;
-    amount: string;
+    amount: number;
     paymentStatus: string;
     paymentDate: string;
     paymentMethod: string;

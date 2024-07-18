@@ -1,19 +1,8 @@
 import React, { useState } from 'react';
-import { useGetFleetManagementQuery, useCreateFleetManagementMutation, useUpdateFleetManagementMutation, useDeleteFleetManagementMutation } from './fleetManagementAPI';
+import { useGetFleetManagementQuery, useCreateFleetManagementMutation, useUpdateFleetManagementMutation, useDeleteFleetManagementMutation, TFleetManagement } from './fleetManagementAPI';
 import { Toaster, toast } from 'sonner';
 import './FleetTable.scss';
 
-interface TFleetManagement {
-    fleetId: number;
-    vehicleId: number;
-    acquisitionDate: string;
-    depreciationRate: number;
-    currentValue: number;
-    maintenanceCost: number;
-    status: string;
-    createdAt: string;
-    updatedAt: string;
-}
 
 const FleetManagementTable: React.FC = () => {
     const { data: fleetManagementData, isLoading, isError } = useGetFleetManagementQuery();

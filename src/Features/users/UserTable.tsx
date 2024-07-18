@@ -10,8 +10,8 @@ interface TUser {
     contactPhone: string;
     address: string;
     role: string;
-    createdAt: string;
-    updatedAt: string;
+    createdAt?: string;
+    updatedAt?: string;
 }
 
 const UserTable: React.FC = () => {
@@ -26,8 +26,12 @@ const UserTable: React.FC = () => {
     const [updatedUser, setUpdatedUser] = useState<TUser | null>(null);
 
     const handleDelete = async (userId: number) => {
-        await deleteUser(userId);
-        toast.success(`User with id ${userId} deleted successfully`);
+        try {
+            await deleteUser(userId);
+            toast.success(`User with id ${userId} deleted successfully`);
+        } catch (error) {
+            toast.error(`Failed to delete user with id ${userId}`);
+        }
     };
 
     const handleEdit = (user: TUser) => {
@@ -42,13 +46,17 @@ const UserTable: React.FC = () => {
 
     const handleUpdate = async () => {
         if (updatedUser) {
-            const { fullName, contactPhone, address , userId, email} = updatedUser;
-            const userUpdateData = { fullName, contactPhone, address ,email, userId };
+            const { fullName, contactPhone, address, userId, email } = updatedUser;
+            const userUpdateData = { fullName, contactPhone, address, email, userId };
 
-            await updateUser(userUpdateData);
-            toast.success(`User with id ${updatedUser.userId} updated successfully`);
-            setEditMode(null);
-            setUpdatedUser(null);
+            try {
+                await updateUser(userUpdateData).unwrap();
+                toast.success(`User with id ${updatedUser.userId} updated successfully`);
+                setEditMode(null);
+                setUpdatedUser(null);
+            } catch (error) {
+                toast.error(`Failed to update user with id ${updatedUser.userId}`);
+            }
         }
     };
 
@@ -75,7 +83,7 @@ const UserTable: React.FC = () => {
                 }}
             />
             <div className="user-table-container">
-                <h1 className='title'>Users Data</h1>
+                <h1 className="title">Users Data</h1>
                 <table className="user-table">
                     <thead>
                         <tr>
@@ -133,16 +141,16 @@ const UserTable: React.FC = () => {
                                             user.address
                                         )}
                                     </td>
-                                    <td className='options'>
+                                    <td className="options">
                                         {editMode === user.userId ? (
                                             <>
-                                                <button className='btn btn-success' onClick={handleUpdate}>Save</button>
-                                                <button className='btn btn-secondary' onClick={handleCancel}>Cancel</button>
+                                                <button className="btn btn-success" onClick={handleUpdate}>Save</button>
+                                                <button className="btn btn-secondary" onClick={handleCancel}>Cancel</button>
                                             </>
                                         ) : (
                                             <>
-                                                <button className='btn btn-info' onClick={() => handleEdit(user)}>Edit</button>
-                                                <button className='btn btn-warning' onClick={() => handleDelete(user.userId)}>Delete</button>
+                                                <button className="btn btn-info" onClick={() => handleEdit(user)}>Edit</button>
+                                                <button className="btn btn-warning" onClick={() => handleDelete(user.userId)}>Delete</button>
                                             </>
                                         )}
                                     </td>
@@ -164,6 +172,6 @@ const UserTable: React.FC = () => {
             </div>
         </>
     );
-}
+};
 
 export default UserTable;
