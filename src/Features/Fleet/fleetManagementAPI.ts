@@ -51,14 +51,14 @@ export const fleetManagementAPI = createApi({
                 method: 'PUT',
                 body: rest,
             }),
-            invalidatesTags: (result, error, { fleetId }) => [{ type: 'FleetManagement', fleetId }],
+            invalidatesTags: (_result, _error, { fleetId }) => [{ type: 'FleetManagement', fleetId }],
         }),
         deleteFleetManagement: builder.mutation<{ success: boolean; fleetId: number }, number>({
             query: (fleetId) => ({
                 url: `fleet-management/${fleetId}`,
                 method: 'DELETE',
             }),
-            invalidatesTags: (result, error, fleetId) => [{ type: 'FleetManagement', fleetId }],
+            invalidatesTags: (_result, _error, fleetId) => [{ type: 'FleetManagement', fleetId }],
         }),
     }),
 });
@@ -69,4 +69,4 @@ export const {
     useCreateFleetManagementMutation, 
     useUpdateFleetManagementMutation, 
     useDeleteFleetManagementMutation 
-}:any = fleetManagementAPI;
+} = fleetManagementAPI;

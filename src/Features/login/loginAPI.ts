@@ -58,4 +58,4 @@ export const loginAPI = createApi({
   }),
 });
 
-export const { useLoginUserMutation, useLogoutMutation, useRegisterUserMutation }: any = loginAPI;
+export const { useLoginUserMutation, useLogoutMutation, useRegisterUserMutation } = loginAPI;

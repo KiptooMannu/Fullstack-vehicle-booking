@@ -36,7 +36,7 @@ export const supportTicketAPI = createApi({
     }),
     getSupportTicketsByUserId: builder.query<TSupportTicket[], number>({
       query: (userId) => `support-tickets/user/${userId}`,
-      providesTags: (result, error, userId) =>
+      providesTags: (result, _error, userId) =>
         result
           ? [...result.map(({ ticketId }) => ({ type: 'SupportTickets', ticketId } as const)), { type: 'SupportTickets', userId }]
           : [{ type: 'SupportTickets', userId }],
@@ -55,14 +55,14 @@ export const supportTicketAPI = createApi({
         method: 'PUT',
         body: rest,
       }),
-      invalidatesTags: (result, error, { ticketId }) => [{ type: 'SupportTickets', ticketId }],
+      invalidatesTags: (_result, _error, { ticketId }) => [{ type: 'SupportTickets', ticketId }],
     }),
     deleteSupportTicket: builder.mutation<{ success: boolean; id: number }, number>({
       query: (id) => ({
         url: `support-tickets/${id}`,
         method: 'DELETE',
       }),
-      invalidatesTags: (result, error, id) => [{ type: 'SupportTickets', id }],
+      invalidatesTags: (_result, _error, id) => [{ type: 'SupportTickets', id }],
     }),
   }),
 });
@@ -74,4 +74,4 @@ export const {
   useCreateSupportTicketMutation,
   useUpdateSupportTicketMutation,
   useDeleteSupportTicketMutation
-} : any = supportTicketAPI;
+}  = supportTicketAPI;
