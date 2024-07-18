@@ -135,3 +135,47 @@
         }
     }
 }
+
+.user-details {
+    .details__grid {
+        display: flex;
+        justify-content: space-between;
+
+        .details__column {
+            flex: 1;
+            padding: 0.5rem;
+
+            .card {
+                background-color: #fff;
+                border: 1px solid #e0e0e0;
+                border-radius: 8px;
+                padding: 1rem;
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+                margin-bottom: 1rem;
+
+                h3 {
+                    margin-top: 0;
+                    font-size: 1.2rem;
+                    color: #333;
+                }
+
+                p {
+                    margin: 0.5rem 0 0;
+                    font-size: 1rem;
+                    color: #666;
+                }
+            }
+
+            .update-profile-btn {
+                padding: 0.8rem 1rem;
+                margin-top: 20px;
+                border-radius: 3px;
+                cursor: pointer;
+                background-color: #007bff;
+                color: #fff;
+                width: 100%;
+                text-align: center;
+            }
+        }
+    }
+}

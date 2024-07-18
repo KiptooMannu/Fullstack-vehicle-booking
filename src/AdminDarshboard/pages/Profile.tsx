@@ -28,8 +28,8 @@ function Profile() {
   const [activeTab, setActiveTab] = useState('profile');
   const user = JSON.parse(localStorage.getItem('user') || '{}');
   const userId = user?.user?.userId;
-  const { data: userDetails, error, isLoading } = useGetUserByIdQuery(userId ? parseInt(userId) : 0, {
-    skip: !userId || activeTab !== 'details'
+  const { data: userDetails, error, isLoading, refetch } = useGetUserByIdQuery(userId ? parseInt(userId) : 0, {
+    skip: activeTab !== 'details'
   });
 
   const [updateUser] = useUpdateUserMutation();
@@ -118,34 +118,41 @@ function Profile() {
         ) : error ? (
           <p>Error loading user details</p>
         ) : (
-          <div className="card-grid">
-            <div className="card">
-              <h3>Full Name</h3>
-              <p>{userDetails?.fullName || 'N/A'}</p>
+          <div className="details__grid">
+            <div className="details__column">
+              <div className="card">
+                <h3>Full Name</h3>
+                <p>{userDetails?.fullName || 'N/A'}</p>
+              </div>
+              <div className="card">
+                <h3>Email</h3>
+                <p>{userDetails?.email || 'N/A'}</p>
+              </div>
+              <div className="card">
+                <h3>Phone Number</h3>
+                <p>{userDetails?.contactPhone || 'N/A'}</p>
+              </div>
+              <div className="card">
+                <h3>Live in</h3>
+                <p>{userDetails?.location || 'N/A'}</p>
+              </div>
             </div>
-            <div className="card">
-              <h3>Email</h3>
-              <p>{userDetails?.email || 'N/A'}</p>
-            </div>
-            <div className="card">
-              <h3>Phone Number</h3>
-              <p>{userDetails?.contactPhone || 'N/A'}</p>
-            </div>
-            <div className="card">
-              <h3>Live in</h3>
-              <p>{userDetails?.location || 'N/A'}</p>
-            </div>
-            <div className="card">
-              <h3>Street</h3>
-              <p>{userDetails?.street || 'N/A'}</p>
-            </div>
-            <div className="card">
-              <h3>Date of Birth</h3>
-              <p>{userDetails?.dateOfBirth || 'N/A'}</p>
-            </div>
-            <div className="card">
-              <h3>Gender</h3>
-              <p>{userDetails?.gender || 'N/A'}</p>
+            <div className="details__column">
+              <div className="card">
+                <h3>Street</h3>
+                <p>{userDetails?.street || 'N/A'}</p>
+              </div>
+              <div className="card">
+                <h3>Date of Birth</h3>
+                <p>{userDetails?.dateOfBirth || 'N/A'}</p>
+              </div>
+              <div className="card">
+                <h3>Gender</h3>
+                <p>{userDetails?.gender || 'N/A'}</p>
+              </div>
+              <button className="update-profile-btn" onClick={() => setActiveTab('profile')}>
+                Update Profile
+              </button>
             </div>
           </div>
         )}
@@ -239,6 +246,12 @@ function Profile() {
     </div>
   );
 
+  useEffect(() => {
+    if (activeTab === 'details') {
+      refetch();
+    }
+  }, [activeTab, refetch]);
+
   return (
     <div className="settings">
       <ToastContainer />
@@ -253,7 +266,10 @@ function Profile() {
           <button className="setting__btn">Notification</button>
         </div>
 
-        {activeTab === 'details' ? renderUserDetails() : renderProfileForm()}
+        <div className="settings__content">
+          {activeTab === 'details' && renderUserDetails()}
+          {activeTab === 'profile' && renderProfileForm()}
+        </div>
       </div>
     </div>
   );
