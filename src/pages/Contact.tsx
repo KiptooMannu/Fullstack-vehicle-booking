@@ -17,14 +17,14 @@ const Contact: React.FC = () => {
               assistance, or any questions you may have. Our dedicated team is ready to help!
             </p>
             <a href='/'>
-              <IconPhone /> &nbsp; (123) 456-7869
+              <IconPhone /> &nbsp; (254) 456-7869
             </a>
             <a href='/'>
               <IconMail /> &nbsp; email@example.com
             </a>
             <a href='/'>
               <IconLocation />
-              &nbsp; São Paulo, SP
+              &nbsp; Nairobi Kenya, KE
             </a>
           </div>
           <div className='contact-div__form'>
