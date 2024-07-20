@@ -11,7 +11,8 @@ import { Toaster, toast } from 'sonner';
 const MyBookings: React.FC = () => {
   const user = JSON.parse(localStorage.getItem('user') || '{}');
   const userId = user.user.userId;
-  const { data: bookings, error, isLoading, refetch } = useGetBookingsQuery(undefined, {
+  console.log(userId);
+  const { data: bookings, error, isLoading } = useGetBookingsQuery(undefined, {
     pollingInterval: 2000 // Poll every 2 seconds
   });
   const [updateBooking] = useUpdateBookingMutation();
@@ -29,8 +30,8 @@ const MyBookings: React.FC = () => {
 
         // Polling to refetch the booking data until the payment status is updated
         const interval = setInterval(async () => {
-          await refetch();
-          const updatedBooking = bookings?.find((b : any )=> b.bookingId === booking.bookingId);
+          const { data: updatedBookings } = await useGetBookingsQuery(undefined, { skip: true });
+          const updatedBooking = updatedBookings?.find((b: any) => b.bookingId === booking.bookingId);
           if (updatedBooking?.bookingStatus === 'confirmed') {
             clearInterval(interval);
           }
@@ -52,8 +53,9 @@ const MyBookings: React.FC = () => {
     try {
       await updateBooking({ ...booking, bookingStatus: 'canceled' }).unwrap();
       toast.success('Booking cancelled successfully', { style: { background: 'green', color: 'white' }, position: 'top-right' });
-      // Optimistically update the booking status in the UI
-      booking.bookingStatus = 'canceled';
+
+      // Fetch updated bookings after canceling
+      await useGetBookingsQuery(undefined, { skip: true });
     } catch (error) {
       console.error('Error cancelling booking:', error);
       // toast.error('Error cancelling booking', { style: { background: 'red', color: 'white' }, position: 'top-right' });
@@ -94,7 +96,17 @@ const MyBookings: React.FC = () => {
                 <td>{new Date(booking.bookingDate).toLocaleString()}</td>
                 <td>{new Date(booking.returnDate).toLocaleString()}</td>
                 <td>${booking.totalAmount}</td>
-                <td className={styles.lowercase}>{booking.bookingStatus}</td>
+                <td 
+                  className={
+                    booking.bookingStatus === 'confirmed' 
+                      ? styles.statusConfirmed 
+                      : booking.bookingStatus === 'canceled' 
+                      ? styles.statusCanceled 
+                      : styles.statusDefault
+                  }
+                >
+                  {booking.bookingStatus}
+                </td>
                 <td>
                   {booking.bookingStatus !== 'canceled' && booking.bookingStatus !== 'confirmed' && (
                     <>
