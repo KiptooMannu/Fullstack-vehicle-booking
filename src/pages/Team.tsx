@@ -15,39 +15,39 @@ const Team: React.FC = () => {
   }
 
   const teamMember: TeamMember[] = [
-    { img: Person1, name: 'Carla Santos', job: 'Gerente Geral' },
-    { img: Person2, name: 'Rafael Costa', job: 'Gerente de Frota' },
-    { img: Person3, name: 'Pedro Almeida', job: 'Gerente de Operações' },
-    { img: Person4, name: 'Lucas Silva', job: 'Agente de Atendimento' },
-    { img: Person5, name: 'Mariana Santos', job: 'Analista Financeiro' },
-    { img: Person6, name: 'Ana Oliveira', job: 'Analista de Dados' },
+    { img: Person1, name: 'Mwende Karanja', job: 'General Manager' },
+    { img: Person2, name: 'Wanyama Kiprop', job: 'Fleet Manager' },
+    { img: Person3, name: 'Mutua Njoroge', job: 'Operations Manager' },
+    { img: Person4, name: 'Koech Kirui', job: 'Customer Service Agent' },
+    { img: Person5, name: 'Naliaka Wanjala', job: 'Financial Analyst' },
+    { img: Person6, name: 'Achieng Omondi', job: 'Data Analyst' },
   ];
 
   return (
     <>
-    <Navbar />
-    <section className='team-page'>
-      <HeroPages name='Nossa Equipe' />
-      <div className='container'>
-        <div className='team-container'>
-          {teamMember.map((member, id) => (
-            <div key={id} className='team-container__box'>
-              <div className='team-container__box__img-div'>
-                <img src={member.img} alt='' width='350' height='431' />
+      <Navbar />
+      <section className='team-page'>
+        <HeroPages name='Our Team' />
+        <div className='container'>
+          <div className='team-container'>
+            {teamMember.map((member, id) => (
+              <div key={id} className='team-container__box'>
+                <div className='team-container__box__img-div'>
+                  <img src={member.img} alt={member.name} width='350' height='431' />
+                </div>
+                <div className='team-container__box__descr'>
+                  <h3>{member.name}</h3>
+                  <p>{member.job}</p>
+                </div>
               </div>
-              <div className='team-container__box__descr'>
-                <h3>{member.name}</h3>
-                <p>{member.job}</p>
-              </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
-      </div>
-      {/* book banner */}
-      <BookBanner />
-      {/* footer */}
-      <Footer />
-    </section>
+        {/* book banner */}
+        <BookBanner />
+        {/* footer */}
+        <Footer />
+      </section>
     </>
   );
 };

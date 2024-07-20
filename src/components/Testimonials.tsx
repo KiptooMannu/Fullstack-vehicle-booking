@@ -29,8 +29,8 @@ const Testimonials: React.FC = () => {
                 <div className='all-testimonials__box__name__profile'>
                   <img src={User1} alt='' />
                   <span>
-                    <h1>João Pedro</h1>
-                    <p>Recife</p>
+                    <h1>Kitonyo Kelvin</h1>
+                    <p>Mombasa</p>
                   </span>
                 </div>
               </div>
@@ -47,8 +47,8 @@ const Testimonials: React.FC = () => {
                 <div className='all-testimonials__box__name__profile'>
                   <img src={User2} alt='' />
                   <span>
-                    <h1>Maria Joana</h1>
-                    <p>São Paulo</p>
+                    <h1>Marianne James</h1>
+                    <p>Kisumu</p>
                   </span>
                 </div>
               </div>
