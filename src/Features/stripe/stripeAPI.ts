@@ -27,4 +27,4 @@ export const stripeAPI = createApi({
 
 export const {
   useCreateCheckoutSessionMutation
-}: any = stripeAPI;
+} = stripeAPI;
