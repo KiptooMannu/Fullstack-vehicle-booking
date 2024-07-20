@@ -31,7 +31,7 @@ const MyBookings: React.FC = () => {
         const interval = setInterval(async () => {
           await refetch();
           const updatedBooking = bookings?.find((b : any )=> b.bookingId === booking.bookingId);
-          if (updatedBooking?.bookingStatus === 'Confirmed') {
+          if (updatedBooking?.bookingStatus === 'confirmed') {
             clearInterval(interval);
           }
         }, 2000);
