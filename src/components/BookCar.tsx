@@ -18,9 +18,6 @@ const BookCar: React.FC = () => {
   const [dropTime, setDropTime] = useState<string>('');
   const [carImg, setCarImg] = useState<string>('');
 
-  // prevents the default action of the event, checks for empty values in specific variables,
-  // displays an error message if any required field is empty, otherwise toggles the modal visibility,
-  // scrolls the booking modal to the top, and hides the error message if present.
   const openModal = (e: SyntheticEvent): void => {
     e.preventDefault();
 
@@ -44,7 +41,6 @@ const BookCar: React.FC = () => {
     }
   };
 
-  // disable page scroll when modal is displayed
   useEffect(() => {
     if (modal === true) {
       document.body.style.overflow = 'hidden';
@@ -53,7 +49,6 @@ const BookCar: React.FC = () => {
     }
   }, [modal]);
 
-  // taking value of booking inputs
   const handleCar = (e: ChangeEvent<HTMLSelectElement>): void => {
     const value = e.target.value;
     setCarType(value);
@@ -76,7 +71,6 @@ const BookCar: React.FC = () => {
     setDropTime(e.target.value);
   };
 
-  // hide message
   const hideMessage = (): void => {
     const doneMsg = document.querySelector('.booking-done') as HTMLElement | null;
     if (doneMsg) {
@@ -84,15 +78,12 @@ const BookCar: React.FC = () => {
     }
   };
 
-  // cities list
-  const citiesArr = ['Maceió', 'Recife', 'Aracaju', 'Salvador', 'João Pessoa'];
+  const citiesArr = ['Nairobi', 'Mombasa', 'Kisumu', 'Nakuru', 'Eldoret'];
 
   return (
     <section id='booking-section' className='book-section'>
-      {/* overlay */}
       <div onClick={openModal} className={`modal-overlay ${modal ? 'active-modal' : ''}`}></div>
 
-      {/* booking form */}
       <div className='container'>
         <div className='book-content'>
           <div className='book-content__box'>
@@ -141,7 +132,7 @@ const BookCar: React.FC = () => {
                   <IconMapPinFilled className='input-icon' /> &nbsp; Delivery location <b>*</b>
                 </label>
                 <select id='drop-car' value={dropOff} onChange={handleDrop}>
-                  <option>Onde vai entregar?</option>
+                  <option>Where are you going to deliver it?</option>
                   {citiesArr.map((city, index) => (
                     <option key={index} value={city}>
                       {city}
@@ -165,14 +156,13 @@ const BookCar: React.FC = () => {
               </div>
 
               <button onClick={openModal} type='submit'>
-                 search 
+                 Search 
               </button>
             </form>
           </div>
         </div>
       </div>
 
-      {/* modal */}
       {modal && (
         <BookCarModal
           modal={modal}

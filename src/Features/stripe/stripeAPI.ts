@@ -7,7 +7,7 @@ export interface CheckoutSessionResponse {
 export const stripeAPI = createApi({
   reducerPath: 'stripeAPI',
   baseQuery: fetchBaseQuery({ 
-    baseUrl: 'http://localhost:8000/api/',
+    baseUrl: 'https://car-rental-backend-1.onrender.com/api/',
   }),
   endpoints: (builder) => ({
     createCheckoutSession: builder.mutation<CheckoutSessionResponse, { bookingId: number; amount: number }>({

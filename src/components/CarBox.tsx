@@ -39,7 +39,7 @@ const CarBox: React.FC<CarBoxProps> = ({ data, carID }) => {
           {/* description */}
           <div className='pick-description'>
             <div className='pick-description__price'>
-              <span>R$ {car.price}</span>/ per day
+              <span>$ {car.price}</span>/ per day
             </div>
             <div className='pick-description__table'>
               <div className='pick-description__table__col'>
