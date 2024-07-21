@@ -44,7 +44,7 @@ const CarList: React.FC = () => {
 
   const filteredVehicles = vehicles?.filter((vehicle: TVehicle) => {
     const matchesPrice = filters.price ? Number(vehicle.rentalRate) <= parseFloat(filters.price) : true;
-    const matchesYear = filters.year ? vehicle.specifications.year === parseInt(filters.year) : true;
+    const matchesYear = filters.year ? vehicle.specifications.year >= parseInt(filters.year) : true;
     const matchesModel = filters.model ? vehicle.specifications.model.toLowerCase().includes(filters.model.toLowerCase()) : true;
     const matchesAvailability = filters.availability === 'all' || (filters.availability === 'available' && vehicle.availability) || (filters.availability === 'not-available' && !vehicle.availability);
 
