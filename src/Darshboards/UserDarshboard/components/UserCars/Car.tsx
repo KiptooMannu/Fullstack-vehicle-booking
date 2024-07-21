@@ -18,6 +18,12 @@ import VolkswagenBeetle from '../../../../images/cars/volkswagen-new-beetle.webp
 const CarList: React.FC = () => {
   const { data: vehicles, error, isLoading } = useGetVehiclesQuery();
   const [selectedVehicle, setSelectedVehicle] = useState<{ vehicle: TVehicle, image: string } | null>(null);
+  const [filters, setFilters] = useState({
+    price: '',
+    year: '',
+    model: '',
+    availability: 'all'
+  });
 
   const images = [
     ToyotaCamry,
@@ -31,6 +37,19 @@ const CarList: React.FC = () => {
     VolkswagenGolf,
     VolkswagenBeetle
   ];
+
+  const handleFilterChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+    setFilters({ ...filters, [e.target.name]: e.target.value });
+  };
+
+  const filteredVehicles = vehicles?.filter((vehicle: TVehicle) => {
+    const matchesPrice = filters.price ? Number(vehicle.rentalRate) <= parseFloat(filters.price) : true;
+    const matchesYear = filters.year ? vehicle.specifications.year === parseInt(filters.year) : true;
+    const matchesModel = filters.model ? vehicle.specifications.model.toLowerCase().includes(filters.model.toLowerCase()) : true;
+    const matchesAvailability = filters.availability === 'all' || (filters.availability === 'available' && vehicle.availability) || (filters.availability === 'not-available' && !vehicle.availability);
+
+    return matchesPrice && matchesYear && matchesModel && matchesAvailability;
+  });
 
   if (isLoading) {
     return (
@@ -52,9 +71,37 @@ const CarList: React.FC = () => {
       ) : (
         <>
           <h2>Available Vehicles</h2>
-          {vehicles && vehicles.length > 0 ? (
+          <div className={styles.filters}>
+            <input
+              type="number"
+              name="price"
+              placeholder="Max Price"
+              value={filters.price}
+              onChange={handleFilterChange}
+            />
+            <input
+              type="number"
+              name="year"
+              placeholder="Year"
+              value={filters.year}
+              onChange={handleFilterChange}
+            />
+            <input
+              type="text"
+              name="model"
+              placeholder="Model"
+              value={filters.model}
+              onChange={handleFilterChange}
+            />
+            <select name="availability" value={filters.availability} onChange={handleFilterChange}>
+              <option value="all">All</option>
+              <option value="available">Available</option>
+              <option value="not-available">Not Available</option>
+            </select>
+          </div>
+          {filteredVehicles && filteredVehicles.length > 0 ? (
             <div className={styles.carList}>
-              {vehicles.map((vehicle: TVehicle) => {
+              {filteredVehicles.map((vehicle: TVehicle) => {
                 const randomImage = images[Math.floor(Math.random() * images.length)];
                 return (
                   <div key={vehicle.vehicleId} className={styles.carCard}>
