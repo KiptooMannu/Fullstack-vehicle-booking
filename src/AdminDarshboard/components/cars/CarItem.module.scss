@@ -201,3 +201,109 @@
         grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
     }
 }
+
+.carListContainer {
+    padding: 20px;
+}
+
+.spinnerContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.error {
+    color: red;
+    text-align: center;
+}
+
+.filters,
+.newCarForm {
+    margin-bottom: 20px;
+}
+
+.filters input,
+.filters select,
+.newCarForm input,
+.newCarForm textarea,
+.newCarForm select {
+    margin: 5px 0;
+    padding: 10px;
+    width: 100%;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.newCarForm {
+    display: flex;
+    flex-direction: column;
+}
+
+.formSection {
+    display: flex;
+    flex-direction: column;
+}
+
+.formGroup {
+    margin-bottom: 15px;
+}
+
+.submitSection {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.addButton,
+.submitButton,
+.detailsButton {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.addButton:hover,
+.submitButton:hover,
+.detailsButton:hover {
+    background-color: #45a049;
+}
+
+.carList {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.carCard {
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    width: 250px;
+}
+
+.carImage {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+}
+
+.carContent {
+    padding: 15px;
+    text-align: center;
+}
+
+.carContent h3 {
+    margin: 10px 0;
+    font-size: 18px;
+}
+
+.carContent p {
+    margin: 5px 0;
+    font-size: 14px;
+}
+
