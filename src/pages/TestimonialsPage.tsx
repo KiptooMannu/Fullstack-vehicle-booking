@@ -5,7 +5,7 @@ const TestimonialsPage: React.FC = () => {
     <>
     <Navbar />
     <section className='testimonial-page'>
-      <HeroPages name='Testemunhas' />
+      <HeroPages name='Testimonials' />
       <Testimonials />
       {/* book banner */}
       <BookBanner />
