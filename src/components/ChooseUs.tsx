@@ -33,7 +33,7 @@ const ChooseUs: React.FC = () => {
                   <img src={Box1} alt='' />
                 </div>
                 <div className='text-container__right__box__text'>
-                  <span>Car Adventure Across Brazil</span>
+                  <span>Car Adventure Across Kenya</span>
                   <p>
                     Elevate your driving journey to a new level with our quality vehicles for your
                     adventures across the country.
