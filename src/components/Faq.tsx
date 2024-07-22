@@ -54,7 +54,7 @@ const Faq: React.FC = () => {
                 onClick={() => openQ('q2')}
                 className={`faq-box__question ${getClassQuestion('q2')}`}>
                 <p>
-                  2. How can I trust the quality of the cars available for rental at Aluga Fácil?
+                  2. How can I trust the quality of the cars available for rental at Rent Easy?
                 </p>
                 <IconChevronDown />
               </div>
