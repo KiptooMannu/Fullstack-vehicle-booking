@@ -2,6 +2,8 @@ import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../scss/payment-success.scss';
 
+
+
 const PaymentSuccess: React.FC = () => {
   const navigate = useNavigate();
 

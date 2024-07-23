@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { 
   useGetBookingsQuery, 
   useUpdateBookingMutation, 
@@ -11,14 +11,14 @@ import { Toaster, toast } from 'sonner';
 const MyBookings: React.FC = () => {
   const user = JSON.parse(localStorage.getItem('user') || '{}');
   const userId = user.user.userId;
+  console.log(userId);
   const { data: bookings, error, isLoading, refetch } = useGetBookingsQuery(undefined, {
-    pollingInterval: 1000 // Poll every second
+    pollingInterval: 2000 // Poll every 2 seconds
   });
   const [updateBooking] = useUpdateBookingMutation();
   const [createCheckoutSession] = useCreateCheckoutSessionMutation();
   const [loadingBookingId, setLoadingBookingId] = useState<number | null>(null);
   const [cancellingBookingId, setCancellingBookingId] = useState<number | null>(null);
-  const [currentBookings, setCurrentBookings] = useState<TBooking[]>([]);
 
   const handleUpdateBooking = async (booking: TBooking) => {
     setLoadingBookingId(booking.bookingId);
@@ -30,8 +30,8 @@ const MyBookings: React.FC = () => {
 
         // Polling to refetch the booking data until the payment status is updated
         const interval = setInterval(async () => {
-          await refetch();
-          const updatedBooking = bookings?.find((b: any) => b.bookingId === booking.bookingId);
+          const { data: updatedBookings } = await refetch();
+          const updatedBooking = updatedBookings?.find((b: any) => b.bookingId === booking.bookingId);
           if (updatedBooking?.bookingStatus === 'confirmed') {
             clearInterval(interval);
           }
@@ -64,12 +64,7 @@ const MyBookings: React.FC = () => {
     }
   };
 
-  useEffect(() => {
-    if (bookings) {
-      const userBookings = bookings.filter((booking: TBooking) => booking.userId === userId);
-      setCurrentBookings(userBookings);
-    }
-  }, [bookings, userId]);
+  const userBookings = bookings?.filter((booking: TBooking) => booking.userId === userId);
 
   return (
     <div className={styles.myBookingsContainer}>
@@ -77,8 +72,8 @@ const MyBookings: React.FC = () => {
       <h2>My Bookings</h2>
       {isLoading && <p>Loading...</p>}
       {error && <p>Error loading bookings.</p>}
-      {!isLoading && !error && currentBookings.length === 0 && <p>No bookings found.</p>}
-      {!isLoading && !error && currentBookings.length > 0 && (
+      {!isLoading && !error && userBookings?.length === 0 && <p>No bookings found.</p>}
+      {!isLoading && !error && userBookings && (
         <table className={styles.bookingTable}>
           <thead>
             <tr>
@@ -93,7 +88,7 @@ const MyBookings: React.FC = () => {
             </tr>
           </thead>
           <tbody>
-            {currentBookings.map((booking: TBooking) => (
+            {userBookings.map((booking: TBooking) => (
               <tr key={booking.bookingId} className={styles.bookingRow}>
                 <td>{booking.bookingId}</td>
                 <td>{booking.vehicle?.specifications?.model || 'Unknown'}</td>
