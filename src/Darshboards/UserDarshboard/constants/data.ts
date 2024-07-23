@@ -62,32 +62,32 @@ const data: Data = {
     summary: [
         {
             title: 'Bookings',
-            subtitle: 'Total Bookings today',
-            value: '$1.000',
+            subtitle: 'Total Bookings',
+            value: '16.00',
             percent: 70
         },
         {
-            title: 'Orders',
-            subtitle: 'Total orders today',
-            value: '3000',
-            percent: 49
+            title: 'Transactions',
+            subtitle: 'Total transactions',
+            value: '30.00',
+            percent: 62
         },
         {
             title: 'Total Spent',
-            subtitle: 'Total revenue today',
-            value: '$678',
+            subtitle: 'Total amount spent',
+            value: '$843',
             percent: 38
         },
         {
             title: 'Visits',
-            subtitle: 'Total visits today',
+            subtitle: 'Total visits ',
             value: '2345',
             percent: 55
         }
     ],
     revenueSummary: {
-        title: 'Revenue',
-        value: '$678',
+        title: 'Expenditure',
+        value: '$2378',
         chartData: {
             labels: ['May', 'Jun', 'July', 'Aug', 'May', 'Jun', 'July', 'Aug'],
             data: [300, 300, 280, 380, 200, 300, 280, 350]
@@ -103,7 +103,7 @@ const data: Data = {
             title: 'Cars Available'
         },
         {
-            value: '1.234K',
+            value: '3',
             title: 'Pending Payments'
         },
         {
@@ -113,20 +113,20 @@ const data: Data = {
     ],
     revenueByChannel: [
         {
-            title: 'Direct',
-            value: 70
+            title: 'Toyota',
+            value: 56
         },
         {
-            title: 'External search',
-            value: 40
+            title: 'Mazda',
+            value: 23
         },
         {
-            title: 'Referal',
-            value: 60
+            title: 'Mercedes',
+            value: 12
         },
         {
-            title: 'Social',
-            value: 30
+            title: 'Honda',
+            value: 9
         }
     ],
     revenueByMonths: {

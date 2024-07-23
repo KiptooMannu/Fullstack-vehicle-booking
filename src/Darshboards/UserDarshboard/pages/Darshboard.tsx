@@ -59,7 +59,7 @@ const Dashboard: React.FC = () => {
                 <div className="mb">
                     <OverallList />
                 </div>
-                <div className="title mb">Revenue by channel</div>
+                <div className="title mb">Your Favourite Cars</div>
                 <div className="mb">
                     <RevenueList />
                 </div>
