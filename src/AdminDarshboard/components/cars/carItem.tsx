@@ -131,74 +131,73 @@ const AdminCarList: React.FC = () => {
   return (
     <div className={styles.carListContainer}>
       <Toaster />
-      {selectedVehicle ? (
+      {isFormOpen ? (
+        <form className={styles.newCarForm} onSubmit={handleSubmit}>
+          <h2>Add New Car</h2>
+          <div className={styles.formSection}>
+            <div className={styles.formGroup}>
+              <label>Manufacturer</label>
+              <input type="text" name="manufacturer" value={newCar.manufacturer} onChange={handleInputChange} required />
+            </div>
+            <div className={styles.formGroup}>
+              <label>Model</label>
+              <input type="text" name="model" value={newCar.model} onChange={handleInputChange} required />
+            </div>
+            <div className={styles.formGroup}>
+              <label>Year</label>
+              <input type="number" name="year" value={newCar.year} onChange={handleInputChange} required />
+            </div>
+            <div className={styles.formGroup}>
+              <label>Fuel Type</label>
+              <input type="text" name="fuelType" value={newCar.fuelType} onChange={handleInputChange} required />
+            </div>
+            <div className={styles.formGroup}>
+              <label>Engine Capacity</label>
+              <input type="text" name="engineCapacity" value={newCar.engineCapacity} onChange={handleInputChange} required />
+            </div>
+            <div className={styles.formGroup}>
+              <label>Transmission</label>
+              <input type="text" name="transmission" value={newCar.transmission} onChange={handleInputChange} required />
+            </div>
+          </div>
+          <div className={styles.formSection}>
+            <div className={styles.formGroup}>
+              <label>Seating Capacity</label>
+              <input type="number" name="seatingCapacity" value={newCar.seatingCapacity} onChange={handleInputChange} required />
+            </div>
+            <div className={styles.formGroup}>
+              <label>Color</label>
+              <input type="text" name="color" value={newCar.color} onChange={handleInputChange} required />
+            </div>
+            <div className={styles.formGroup}>
+              <label>Features</label>
+              <textarea name="features" value={newCar.features} onChange={handleInputChange} required></textarea>
+            </div>
+            <div className={styles.formGroup}>
+              <label>Rental Rate</label>
+              <input type="number" name="rentalRate" value={newCar.rentalRate} onChange={handleInputChange} required />
+            </div>
+            <div className={styles.formGroup}>
+              <label>Availability</label>
+              <input type="checkbox" name="availability" checked={newCar.availability} onChange={handleInputChange} />
+            </div>
+            <div className={styles.submitSection}>
+              <button type="submit" className={styles.submitButton}>Add Car</button>
+              <button type="button" className={styles.cancelButton} onClick={() => setIsFormOpen(false)}>Cancel</button>
+            </div>
+          </div>
+        </form>
+      ) : selectedVehicle ? (
         <CarItemDetails vehicle={selectedVehicle.vehicle} image={selectedVehicle.image} onBack={() => setSelectedVehicle(null)} />
       ) : (
         <>
           <h2>Manage Vehicles</h2>
           <div className={styles.buttonContainer}>
-            <button className={styles.addButton} onClick={() => setIsFormOpen(!isFormOpen)}>
-              {isFormOpen ? 'Close Form' : 'Add New Car'}
-            </button>
+            <button className={styles.addButton} onClick={() => setIsFormOpen(true)}>Add New Car</button>
             <button className={styles.filterButton} onClick={() => setIsFilterOpen(!isFilterOpen)}>
               <FaFilter /> Filter
             </button>
           </div>
-          {isFormOpen && (
-            <form className={styles.newCarForm} onSubmit={handleSubmit}>
-              <div className={styles.formSection}>
-                <div className={styles.formGroup}>
-                  <label>Manufacturer</label>
-                  <input type="text" name="manufacturer" value={newCar.manufacturer} onChange={handleInputChange} required />
-                </div>
-                <div className={styles.formGroup}>
-                  <label>Model</label>
-                  <input type="text" name="model" value={newCar.model} onChange={handleInputChange} required />
-                </div>
-                <div className={styles.formGroup}>
-                  <label>Year</label>
-                  <input type="number" name="year" value={newCar.year} onChange={handleInputChange} required />
-                </div>
-                <div className={styles.formGroup}>
-                  <label>Fuel Type</label>
-                  <input type="text" name="fuelType" value={newCar.fuelType} onChange={handleInputChange} required />
-                </div>
-                <div className={styles.formGroup}>
-                  <label>Engine Capacity</label>
-                  <input type="text" name="engineCapacity" value={newCar.engineCapacity} onChange={handleInputChange} required />
-                </div>
-                <div className={styles.formGroup}>
-                  <label>Transmission</label>
-                  <input type="text" name="transmission" value={newCar.transmission} onChange={handleInputChange} required />
-                </div>
-              </div>
-              <div className={styles.formSection}>
-                <div className={styles.formGroup}>
-                  <label>Seating Capacity</label>
-                  <input type="number" name="seatingCapacity" value={newCar.seatingCapacity} onChange={handleInputChange} required />
-                </div>
-                <div className={styles.formGroup}>
-                  <label>Color</label>
-                  <input type="text" name="color" value={newCar.color} onChange={handleInputChange} required />
-                </div>
-                <div className={styles.formGroup}>
-                  <label>Features</label>
-                  <textarea name="features" value={newCar.features} onChange={handleInputChange} required></textarea>
-                </div>
-                <div className={styles.formGroup}>
-                  <label>Rental Rate</label>
-                  <input type="number" name="rentalRate" value={newCar.rentalRate} onChange={handleInputChange} required />
-                </div>
-                <div className={styles.formGroup}>
-                  <label>Availability</label>
-                  <input type="checkbox" name="availability" checked={newCar.availability} onChange={handleInputChange} />
-                </div>
-                <div className={styles.submitSection}>
-                  <button type="submit" className={styles.submitButton}>Add Car</button>
-                </div>
-              </div>
-            </form>
-          )}
           {isFilterOpen && (
             <div className={styles.filters}>
               <input
