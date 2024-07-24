@@ -1,5 +1,5 @@
 import logo from '../assets/images/logo.svg';
-import avt from '../assets/images/avt.jpg';
+import avt from '../assets/images/OIF.jpeg';
 
 const images = {
     logo: logo,
