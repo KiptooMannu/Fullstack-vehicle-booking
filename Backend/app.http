@@ -1,0 +1,152 @@
+###
+
+POST  https://car-rental-backend-1.onrender.com/api/bookings
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJpYW5AZ21haWwuY29tIiwicm9sZSI6InVzZXIiLCJleHAiOjE3MjA4MDg3ODB9.NrwjtmubUpiR-EZnof5EHIb_WSSch-z2IwDvJajko3M
+Content-Type: application/json
+
+{
+  "userId": 1,
+  "vehicleId": 2,
+  "branchId": 3,
+  "bookingDate": "2024-07-10T10:00:00Z",
+  "returnDate": "2024-07-20T10:00:00Z",
+  "totalAmount": 150.00
+}
+
+###
+POST http://localhost:8000/api/create-checkout-session
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJpYW5AZ21haWwuY29tIiwicm9sZSI6InVzZXIiLCJleHAiOjE3MjA4MDc0MjR9.7tTx82zBGWNlVLP4zSDqUl9uGn2UpO-L42sDYG_VY8o
+Content-Type: application/json
+
+{
+  "bookingId": 24,
+  "amount": 2400.00
+}
+###
+GET  https://car-rental-backend-1.onrender.com/api/test-checkout-session
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJpYW5AZ21haWwuY29tIiwicm9sZSI6InVzZXIiLCJleHAiOjE3MjA4MDc0MjR9.7tTx82zBGWNlVLP4zSDqUl9uGn2UpO-L42sDYG_VY8o
+Content-Type: application/json
+
+{
+  "bookingId": 24,
+  "paymentDate": "2024-07-10T12:00:00Z",
+  "amount": 00.00,
+  "paymentStatus": "pending",
+  "paymentMethod": "credit_card",
+  "transactionId": "txn_1234567890"
+}
+
+###
+
+POST  http://localhost:8000/api/create-checkout-session
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJqYW5lLmRvZUBleGFtcGxlLmNvbSIsInJvbGUiOiJhZG1pbiIsImV4cCI6MTcyMDA4NjA0M30.wLe1m72iS_Ww7rz1AHUSN0a6GmwN-9sQHU949Jj5JzQ
+Content-Type: application/json
+
+{
+  "bookingId" : 36,
+  "amount" : 400
+}
+###
+
+POST https://car-rental-backend-1.onrender.com/api/login
+Content-Type: application/json
+
+{
+    "email": "john1@example.com",
+    "password": "password"
+}
+###
+
+POST   http://localhost:8000/api/users
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJqb2huMUBleGFtcGxlLmNvbSIsInJvbGUiOiJhZG1pbiIsImV4cCI6MTcyMTI2MDU1OH0.sxy3Ht9OvxAOcJx58AZLPA96rM0YjUpwuyFmcNb759k
+Content-Type: application/json
+
+{
+  "fullName": "John Doe",
+  "contactPhone": "+1234567890",
+  "address": "123 Main Street, Springfield",
+  "location": "Nairobi, Kenya",
+  "street": "Nrb 3108",
+  "dateOfBirth": "1990-01-01",
+  "gender": "Male"
+}
+###
+
+
+GET   http://localhost:8000/api/branches
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJqb2huMUBleGFtcGxlLmNvbSIsInJvbGUiOiJhZG1pbiIsImV4cCI6MTcyMTI2MDU1OH0.sxy3Ht9OvxAOcJx58AZLPA96rM0YjUpwuyFmcNb759k
+
+####
+POST http://localhost:8000/api/register
+Content-Type: application/json
+
+{
+    "fullName": "vic",
+    "email": "marvichellen@gmail.com",
+    "contactPhone": "1234567890",
+    "address": "123 Main St, Kutus, KE",
+    "password": "pass"
+}
+
+###
+
+POST http://localhost:8000/api/vehicles
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJqb2huMUBleGFtcGxlLmNvbSIsInJvbGUiOiJhZG1pbiIsImV4cCI6MTcyMTE3Mzk4OH0.vZaEHo8KmKXV8KJBMU2S0ld_avXLvZrFesEa_GV5wWM
+Content-Type: application/json
+
+{
+  "manufacturer": "Toyota",
+  "model": "Corolla",
+  "year": 2022,
+  "fuelType": "Gasoline",
+  "engineCapacity": "1.8L",
+  "transmission": "Automatic",
+  "seatingCapacity": 5,
+  "color": "White",
+  "features": "Air Conditioning, Bluetooth, Backup Camera",
+  "rentalRate": 50.00,
+  "availability": true
+}
+###
+DELETE https://car-rental-backend-1.onrender.com/api/users/1
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJpYW5AZ21haWwuY29tIiwicm9sZSI6InVzZXIiLCJleHAiOjE3MjA4MDg1NTZ9.rLGAl-71zJZvcYa--LmPg0BKUNFuBLin-JOT7AwJoac
+
+###
+
+GET https://car-rental-backend-1.onrender.com/api/fleet-management
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJpYW5AZ21haWwuY29tIiwicm9sZSI6InVzZXIiLCJleHAiOjE3MjA4MDg1NTZ9.rLGAl-71zJZvcYa--LmPg0BKUNFuBLin-JOT7AwJoac
+
+###
+
+POST https://car-rental-backend-1.onrender.com/api/support-tickets
+Content-Type: application/json
+
+{
+    "vehicleId": 10,
+    "acquisitionDate": "2023-06-15T12:00:00Z",
+    "depreciationRate": 0.75,
+    "currentValue": 45000.00,
+    "maintenanceCost": 3500.00,
+    "status": "active"
+ 
+}
+###
+GET  https://car-rental-backend-1.onrender.com/api/users
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJpYW5AZ21haWwuY29tIiwicm9sZSI6InVzZXIiLCJleHAiOjE3MjA4MDg1NTZ9.rLGAl-71zJZvcYa--LmPg0BKUNFuBLin-JOT7AwJoac
+####
+POST  https://car-rental-backend-1.onrender.com/api/support-tickets
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJpYW5AZ21haWwuY29tIiwicm9sZSI6InVzZXIiLCJleHAiOjE3MjA5ODk5MTF9.10PUkXTfVik07D9CL3L7q3tEWZTHgmT3KEGVwdhlk2w
+Content-Type: application/json
+
+{
+  "userId": 2,
+  "subject": "new message",
+  "description": "new message",
+  "status": "pending"
+ 
+}
+###
+GET http://localhost:8000/api/test-checkout-session
+
+
+
