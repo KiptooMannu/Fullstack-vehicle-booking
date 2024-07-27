@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book API Landing Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f0f0f0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        form {
+            margin-bottom: 20px;
+        }
+
+        input,
+        button {
+            padding: 10px;
+            margin: 5px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        table,
+        th,
+        td {
+            border: 1px solid #ddd;
+        }
+
+        th,
+        td {
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f4f4f4;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Book API Landing Page</h1>
+        <form id="addBookForm">
+            <input type="text" id="title" placeholder="Title" required>
+            <input type="text" id="author" placeholder="Author" required>
+            <input type="number" id="year" placeholder="Year" required>
+            <button type="submit">Add Book</button>
+        </form>
+        <table id="booksTable">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Title</th>
+                    <th>Author</th>
+                    <th>Year</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const booksTableBody = document.querySelector('#booksTable tbody');
+            const addBookForm = document.getElementById('addBookForm');
+
+            // Fetch all books
+            const fetchBooks = async () => {
+                const response = await fetch('http://localhost:8000/api/books');
+                const books = await response.json();
+                booksTableBody.innerHTML = books.map(book => `
+          <tr>
+            <td>${book.id}</td>
+            <td>${book.title}</td>
+            <td>${book.author}</td>
+            <td>${book.year}</td>
+            <td>
+              <button onclick="deleteBook(${book.id})">Delete</button>
+              <button onclick="updateBook(${book.id}, '${book.title}', '${book.author}', ${book.year})">Update</button>
+            </td>
+          </tr>
+        `).join('');
+            };
+
+            // Add a new book
+            addBookForm.addEventListener('submit', async (event) => {
+                event.preventDefault();
+                const title = document.getElementById('title').value;
+                const author = document.getElementById('author').value;
+                const year = document.getElementById('year').value;
+
+                const response = await fetch('http://localhost:8000/api/books', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ title, author, year })
+                });
+
+                if (response.ok) {
+                    fetchBooks();
+                    addBookForm.reset();
+                }
+            });
+
+            // Delete a book
+            window.deleteBook = async (id) => {
+                await fetch(`http://localhost:8000/api/books/${id}`, {
+                    method: 'DELETE'
+                });
+                fetchBooks();
+            };
+
+            // Update a book
+            window.updateBook = async (id, title, author, year) => {
+                const newAuthor = prompt('Enter new author:', author);
+                if (newAuthor) {
+                    await fetch(`http://localhost:8000/api/books/${id}`, {
+                        method: 'PUT',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ author: newAuthor })
+                    });
+                    fetchBooks();
+                }
+            };
+
+            // Initial fetch
+            fetchBooks();
+        });
+    </script>
+</body>
+
+</html>
