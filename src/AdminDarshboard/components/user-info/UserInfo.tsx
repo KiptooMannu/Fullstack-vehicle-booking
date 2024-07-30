@@ -24,7 +24,6 @@ const UserInfo: React.FC<UserInfoProps> = ({ user }) => {
         <img src={userImage} alt={user.name} />
         <div className="user-info__img-overlay">
           <Upload onUpload={handleOnUpload} />
-          {/* <button className="user-info__img-button">Add</button> */}
         </div>
       </div>
       <div className="user-info__name">

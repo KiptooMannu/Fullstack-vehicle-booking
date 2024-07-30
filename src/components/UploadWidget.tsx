@@ -29,8 +29,8 @@ const UploadWidget: React.FC<UploadWidgetProps> = ({ onUpload }) => {
   }, []);
 
   function createWidget() {
-    const cloudName = 'dlqbpndde';
-    const uploadPreset = 'daniel';
+    const cloudName = '';
+    const uploadPreset = '';
 
     if (!cloudName || !uploadPreset) {
       console.warn('Kindly ensure you have the cloudName and UploadPreset setup in your .env file at the root of your project.');
