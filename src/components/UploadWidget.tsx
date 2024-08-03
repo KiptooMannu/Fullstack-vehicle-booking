@@ -1,11 +1,14 @@
 import React, { useEffect, useRef } from 'react';
-
+//initialize cloudinary
 let cloudinary: any;
 
+//prop type
 interface UploadWidgetProps {
   onUpload: (error: any, result: any) => void;
 }
 
+
+//func to upload widget
 const UploadWidget: React.FC<UploadWidgetProps> = ({ onUpload }) => {
   const widget = useRef<any>();
 
