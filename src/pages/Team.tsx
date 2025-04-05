@@ -15,12 +15,12 @@ const Team: React.FC = () => {
   }
 
   const teamMember: TeamMember[] = [
-    { img: Person1, name: 'Mwende Karanja', job: 'General Manager' },
-    { img: Person2, name: 'Wanyama Kiprop', job: 'Fleet Manager' },
-    { img: Person3, name: 'Mutua Njoroge', job: 'Operations Manager' },
-    { img: Person4, name: 'Koech Kirui', job: 'Customer Service Agent' },
-    { img: Person5, name: 'Naliaka Wanjala', job: 'Financial Analyst' },
-    { img: Person6, name: 'Achieng Omondi', job: 'Data Analyst' },
+    { img: Person1, name: 'Maxwel', job: 'General Manager' },
+    { img: Person2, name: 'Maxwel', job: 'Fleet Manager' },
+    { img: Person3, name: 'James', job: 'Operations Manager' },
+    { img: Person4, name: 'Kevin', job: 'Customer Service Agent' },
+    { img: Person5, name: 'Phantom', job: 'Financial Analyst' },
+    { img: Person6, name: 'Shalyn', job: 'Data Analyst' },
   ];
 
   return (
